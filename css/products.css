@@ -1,0 +1,190 @@
+/* ============================================================
+   FreshPOS – products.css
+   Product Grid, Cards, and Empty State
+   ============================================================ */
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(172px, 1fr));
+    align-content: start;
+    gap: 14px;
+    padding: 4px 22px 22px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    flex: 1;
+    min-height: 0;
+}
+
+/* --- Kartu Produk --- */
+.product-card {
+    background: var(--bg-card);
+    border-radius: var(--r-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+    cursor: pointer;
+    border: 1.5px solid var(--border);
+    transition:
+        border-color var(--base) var(--ease),
+        transform var(--base) var(--ease),
+        box-shadow var(--base) var(--ease);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+.product-card:hover {
+    border-color: var(--green-400);
+    transform: translateY(-6px);
+    box-shadow:
+        var(--shadow-md),
+        0 0 0 3px rgba(52,211,153,.12),
+        var(--shadow-card);
+}
+.product-card:active { transform: translateY(-2px) scale(.98); }
+
+/* Wrapper gambar */
+.product-img-wrap {
+    position: relative;
+    overflow: hidden;
+    background: var(--grad-card-img);
+}
+.product-img {
+    width: 100%;
+    height: 130px;
+    object-fit: cover;
+    transition: transform var(--slow) var(--ease);
+    display: block;
+}
+.product-card:hover .product-img { transform: scale(1.08); }
+
+/* Overlay "Tambah" saat hover */
+.product-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        160deg,
+        rgba(4,120,87,.78) 0%,
+        rgba(16,185,129,.65) 60%,
+        rgba(52,211,153,.5) 100%
+    );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity var(--base) var(--ease);
+}
+.product-card:hover .product-overlay { opacity: 1; }
+.product-overlay span {
+    color: #fff;
+    font-size: .8rem;
+    font-weight: 700;
+    letter-spacing: .5px;
+    background: rgba(255,255,255,.18);
+    border: 1.5px solid rgba(255,255,255,.45);
+    border-radius: 50px;
+    padding: 8px 20px;
+    backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 4px 16px rgba(0,0,0,.15);
+    transition: transform var(--fast);
+}
+.product-card:hover .product-overlay span { transform: scale(1.05); }
+
+/* Badge kategori di atas gambar */
+.product-cat-chip {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    font-size: .59rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    background: rgba(255,255,255,.9);
+    color: var(--green-800);
+    border-radius: 50px;
+    padding: 3px 9px;
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(52,211,153,.3);
+    box-shadow: 0 2px 8px rgba(0,0,0,.1);
+}
+
+/* Isi kartu */
+.product-details {
+    padding: 11px 13px 13px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    background: linear-gradient(180deg, #fff 0%, #fafffe 100%);
+}
+.product-name {
+    font-size: .82rem;
+    font-weight: 600;
+    color: var(--text-body);
+    line-height: 1.35;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.product-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: auto;
+}
+.product-price {
+    font-size: .9rem;
+    font-weight: 800;
+    background: var(--grad-price);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -.2px;
+}
+.add-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 9px;
+    background: var(--grad-btn);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .75rem;
+    box-shadow: var(--shadow-green);
+    flex-shrink: 0;
+    transition: all var(--fast) var(--ease);
+}
+.product-card:hover .add-icon {
+    transform: rotate(90deg) scale(1.15);
+    box-shadow: 0 6px 20px rgba(16,185,129,.5);
+}
+
+/* Metadata Badge */
+.product-count-badge {
+    font-size: .71rem;
+    background: var(--green-100);
+    color: var(--green-800);
+    border: 1px solid var(--green-200);
+    border-radius: 50px;
+    padding: 3px 12px;
+    font-weight: 700;
+    letter-spacing: .2px;
+}
+
+/* Empty state */
+.empty-state {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    text-align: center;
+    gap: 12px;
+}
+.empty-state i { font-size: 3.5rem; color: var(--green-200); }
+.empty-state h3 { font-size: 1rem; font-weight: 600; color: var(--text-muted); }
+.empty-state p { font-size: .82rem; color: var(--text-light); }

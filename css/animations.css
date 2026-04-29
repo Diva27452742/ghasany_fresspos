@@ -1,0 +1,35 @@
+/* ============================================================
+   FreshPOS – animations.css
+   Keyframes and Entry Animations
+   ============================================================ */
+
+@keyframes floatLeaf {
+    0%, 100% { transform: translateY(0) rotate(-8deg) scale(1); }
+    50%       { transform: translateY(-5px) rotate(8deg) scale(1.05); }
+}
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(28px) scale(.96); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes cardIn {
+    from { opacity: 0; transform: translateY(18px) scale(.95); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Base transitions */
+.transition-base {
+    transition: all var(--base) var(--ease);
+}
+
+.transition-fast {
+    transition: all var(--fast) var(--ease);
+}

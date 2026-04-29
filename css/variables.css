@@ -1,0 +1,96 @@
+/* ============================================================
+   FreshPOS – variables.css
+   Berisi Variables/Tokens dan Base Styles
+   ============================================================ */
+
+:root {
+    /* === Palet Hijau Utama === */
+    --green-950:     #022c22;
+    --green-900:     #064e3b;
+    --green-800:     #065f46;
+    --green-700:     #047857;
+    --green-600:     #059669;
+    --green-500:     #10b981;
+    --green-400:     #34d399;
+    --green-200:     #a7f3d0;
+    --green-100:     #d1fae5;
+    --green-50:      #ecfdf5;
+
+    /* === Gradien Premium === */
+    --grad-sidebar:  linear-gradient(180deg, #022c22 0%, #064e3b 40%, #065f46 100%);
+    --grad-btn:      linear-gradient(135deg, #047857 0%, #10b981 60%, #34d399 100%);
+    --grad-header:   linear-gradient(135deg, #064e3b 0%, #059669 100%);
+    --grad-card-img: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+    --grad-page:     linear-gradient(160deg, #f8fffb 0%, #ecfdf5 40%, #f0fff8 70%, #ffffff 100%);
+    --grad-price:    linear-gradient(135deg, #047857 0%, #059669 100%);
+
+    /* === Layout === */
+    --sidebar-w:     240px;
+    --cart-w:        330px;
+
+    /* === Teks === */
+    --text-primary:  #022c22;
+    --text-secondary:#065f46;
+    --text-body:     #374151;
+    --text-muted:    #6b7280;
+    --text-light:    #9ca3af;
+    --text-on-dark:  #ffffff;
+
+    /* === Background === */
+    --bg-page:       #f8fffb;
+    --bg-card:       #ffffff;
+    --bg-cart:       #ffffff;
+    --bg-input:      #f0fdf4;
+
+    /* === Border === */
+    --border:        #e5f7ef;
+    --border-mid:    #a7f3d0;
+    --border-strong: #6ee7b7;
+
+    /* === Shadows premium === */
+    --shadow-xs:     0 1px 2px rgba(6,78,59,.06);
+    --shadow-sm:     0 2px 8px rgba(6,78,59,.08);
+    --shadow-md:     0 6px 24px rgba(16,185,129,.16);
+    --shadow-lg:     0 20px 60px rgba(6,78,59,.18);
+    --shadow-card:   0 2px 10px rgba(6,78,59,.07), 0 1px 2px rgba(0,0,0,.04);
+    --shadow-green:  0 8px 28px rgba(16,185,129,.35);
+    --shadow-glow:   0 0 0 3px rgba(52,211,153,.2);
+
+    /* === Radius === */
+    --r-xs:  6px;
+    --r-sm:  10px;
+    --r-md:  16px;
+    --r-lg:  22px;
+    --r-xl:  30px;
+
+    /* === Font & Motion === */
+    --font:   'Inter', system-ui, sans-serif;
+    --ease:   cubic-bezier(.4,0,.2,1);
+    --fast:   .15s;
+    --base:   .25s;
+    --slow:   .4s;
+}
+
+/* RESET & BASE */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 14px; -webkit-font-smoothing: antialiased; }
+body {
+    font-family: var(--font);
+    background: var(--grad-page);
+    color: var(--text-body);
+    height: 100vh;
+    overflow: hidden;
+    line-height: 1.5;
+}
+img { display: block; max-width: 100%; }
+button { font-family: var(--font); cursor: pointer; border: none; outline: none; }
+input  { font-family: var(--font); }
+
+/* SCROLLBAR — Hijau Lembut */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, var(--green-400), var(--green-600));
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--green-500); }

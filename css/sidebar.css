@@ -1,0 +1,188 @@
+/* ============================================================
+   FreshPOS – sidebar.css
+   Sidebar styling, Categories, Logo, and Dividers
+   ============================================================ */
+
+.sidebar {
+    background: var(--grad-sidebar);
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+    z-index: 10;
+}
+
+/* Efek cahaya hijau di atas */
+.sidebar::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 220px;
+    background: radial-gradient(ellipse at 50% -10%,
+        rgba(52,211,153,.3) 0%,
+        rgba(16,185,129,.12) 50%,
+        transparent 75%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Garis dekoratif hijau di kanan sidebar */
+.sidebar::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(180deg,
+        transparent 0%,
+        rgba(52,211,153,.3) 20%,
+        rgba(16,185,129,.2) 60%,
+        transparent 100%);
+    pointer-events: none;
+}
+
+/* --- Logo --- */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 28px 20px 24px;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+}
+.logo i {
+    font-size: 1.8rem;
+    color: var(--green-400);
+    filter: drop-shadow(0 0 12px rgba(52,211,153,.6));
+    animation: floatLeaf 4s ease-in-out infinite;
+}
+.logo h2 {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: .5px;
+}
+
+/* Divider */
+.sidebar-divider {
+    height: 1px;
+    background: linear-gradient(90deg,
+        transparent 0%, rgba(52,211,153,.35) 50%, transparent 100%);
+    margin: 0 16px 14px;
+    flex-shrink: 0;
+}
+
+/* Nav label */
+.nav-label {
+    font-size: .62rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.28);
+    padding: 0 20px 8px;
+    position: relative;
+    z-index: 1;
+}
+
+/* --- Daftar Kategori --- */
+.categories {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding: 0 10px 16px;
+    flex: 1;
+    position: relative;
+    z-index: 1;
+}
+
+.category-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 14px;
+    border-radius: var(--r-sm);
+    color: rgba(255,255,255,.58);
+    background: transparent;
+    font-size: .84rem;
+    font-weight: 500;
+    transition: all var(--base) var(--ease);
+    text-align: left;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.category-item::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 15%; bottom: 15%;
+    width: 3px;
+    background: var(--grad-btn);
+    border-radius: 0 3px 3px 0;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--base) var(--ease);
+}
+
+.category-item::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg,
+        rgba(52,211,153,.08) 0%, rgba(16,185,129,.04) 100%);
+    opacity: 0;
+    transition: opacity var(--base);
+    border-radius: var(--r-sm);
+}
+
+.category-item i {
+    width: 20px;
+    font-size: .95rem;
+    flex-shrink: 0;
+    transition: all var(--base);
+}
+
+.category-item:hover {
+    color: rgba(255,255,255,.92);
+    transform: translateX(4px);
+}
+.category-item:hover::after { opacity: 1; }
+.category-item:hover::before { transform: scaleX(1); }
+.category-item:hover i {
+    color: var(--green-400);
+    filter: drop-shadow(0 0 6px rgba(52,211,153,.5));
+}
+
+.category-item.active {
+    background: linear-gradient(135deg,
+        rgba(52,211,153,.18) 0%,
+        rgba(16,185,129,.1) 60%,
+        rgba(6,95,70,.08) 100%);
+    color: #fff;
+    font-weight: 600;
+    border: 1px solid rgba(52,211,153,.22);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.06),
+                0 2px 8px rgba(0,0,0,.12);
+}
+.category-item.active i {
+    color: var(--green-400);
+    filter: drop-shadow(0 0 8px rgba(52,211,153,.5));
+}
+.category-item.active::before { transform: scaleX(1); }
+
+/* Sidebar footer */
+.sidebar-footer {
+    padding: 14px 18px;
+    border-top: 1px solid rgba(255,255,255,.06);
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+}
+.sidebar-footer p {
+    font-size: .68rem;
+    color: rgba(255,255,255,.2);
+    text-align: center;
+    letter-spacing: .3px;
+}
