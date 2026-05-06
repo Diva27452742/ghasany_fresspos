@@ -128,7 +128,8 @@ btnCheckout.addEventListener('click', async () => {
         btnCheckout.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sedang memproses...';
         btnCheckout.disabled = true;
 
-        const order_code = "ORD-" + (Math.floor(Math.random() * 90000) + 10000);
+        const orderIdEl = document.querySelector('.order-id');
+        const order_code = orderIdEl && orderIdEl.tagName === 'INPUT' ? orderIdEl.value : "TRX-" + (Math.floor(Math.random() * 90000) + 10000);
 
         try {
             // Jika ada API_PATH, kirim data ke backend. Jika tidak (statis), lewati.
@@ -233,8 +234,24 @@ btnSelesai.addEventListener('click', () => {
     cartState = [];
     renderCart();
     
-    // Create new order ID
+    // Create new order ID or keep the date
     const orderIdEl = document.querySelector('.order-id');
-    const randomId = Math.floor(Math.random() * 9000) + 1000;
-    orderIdEl.textContent = `#ORD-${randomId}`;
+    if (orderIdEl) {
+        if (orderIdEl.tagName === 'INPUT') {
+            const today = new Date();
+            orderIdEl.value = today.toLocaleDateString('id-ID', {day: '2-digit', month: '2-digit', year: 'numeric'});
+        } else {
+            const randomId = Math.floor(Math.random() * 9000) + 1000;
+            orderIdEl.textContent = `#TRX-${randomId}`;
+        }
+    }
+});
+
+// Inisialisasi tanggal pada input
+document.addEventListener('DOMContentLoaded', () => {
+    const orderIdEl = document.querySelector('.order-id');
+    if (orderIdEl && orderIdEl.tagName === 'INPUT') {
+        const today = new Date();
+        orderIdEl.value = today.toLocaleDateString('id-ID', {day: '2-digit', month: '2-digit', year: 'numeric'});
+    }
 });
