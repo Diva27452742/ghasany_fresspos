@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="./css/products.css">
     <link rel="stylesheet" href="./css/cart.css">
     <link rel="stylesheet" href="./css/modal.css">
+    <link rel="stylesheet" href="./css/history.css">
 </head>
 <body>
     <div class="app-container">
@@ -47,6 +48,9 @@
                     <input type="text" id="searchInput" placeholder="Cari menu / produk...">
                 </div>
                 <div class="user-profile">
+                    <button id="btnOpenHistory" class="history-btn-top" title="Riwayat Pesanan">
+                        <i class="fa-solid fa-clock-rotate-left"></i> Riwayat
+                    </button>
                     <div class="user-info">
                         <span class="name" id="adminName">Admin Utama</span>
                         <span class="role">Kasir <i class="fa-solid fa-pen edit-admin-btn" id="editAdminBtn" title="Ganti Nama"></i></span>
@@ -172,6 +176,31 @@
                 </button>
             </div>
         </div>
+
+        <!-- History Modal -->
+        <div class="modal-overlay" id="historyModal">
+            <div class="modal-content history-modal-content">
+                <div class="history-header">
+                    <h2><i class="fa-solid fa-clock-rotate-left"></i> Riwayat Pesanan</h2>
+                    <button id="btnCloseHistory" class="close-history-btn"><i class="fa-solid fa-times"></i></button>
+                </div>
+                
+                <div class="history-filters">
+                    <button class="history-filter-btn active" data-filter="today">Hari Ini</button>
+                    <button class="history-filter-btn" data-filter="yesterday">Kemarin</button>
+                    <button class="history-filter-btn" data-filter="twodaysago">2 Hari Lalu</button>
+                </div>
+
+                <div class="history-actions">
+                    <button id="btnRefreshHistory" class="btn-secondary"><i class="fa-solid fa-arrows-rotate"></i> Refresh</button>
+                    <button id="btnClearHistory" class="btn-danger"><i class="fa-solid fa-trash-can"></i> Hapus Riwayat</button>
+                </div>
+
+                <div class="history-list" id="historyList">
+                    <!-- History items rendered by JS -->
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Data & Scripts -->
@@ -238,6 +267,7 @@
     <script src="./js/filter.js"></script>
     <script src="./js/admin.js"></script>
     <script src="./js/cart.js"></script>
+    <script src="./js/history.js"></script>
     <script src="./js/init.js"></script>
 </body>
 </html>

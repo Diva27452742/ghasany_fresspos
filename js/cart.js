@@ -204,6 +204,20 @@ btnCheckout.addEventListener('click', async () => {
             }
 
             checkoutModal.classList.add('show');
+            
+            // Save to History (if history.js is loaded)
+            if (typeof saveOrderToHistory === 'function') {
+                saveOrderToHistory({
+                    order_code: order_code,
+                    kasir: adminNameEl ? adminNameEl.textContent : 'Admin',
+                    payment_method: selectedPaymentMethod,
+                    items: [...cartState],
+                    subtotal: subtotal,
+                    tax: tax,
+                    total: total,
+                    timestamp: new Date().toISOString()
+                });
+            }
         } catch (error) {
             alert("Kesalahan proses: " + error.message);
         } finally {
