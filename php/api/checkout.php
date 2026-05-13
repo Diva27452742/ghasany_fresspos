@@ -1,55 +1,24 @@
 <?php
-// ============================================================
-//  FreshPOS – API: Simpan Transaksi (checkout)
-//  Endpoint: POST /api/checkout.php
-// ============================================================
-//  Body JSON yang diharapkan:
-//  {
-//    "order_code"     : "ORD-12345",
-//    "kasir"          : "Admin Utama",
-//    "payment_method" : "Tunai",
-//    "items"          : [
-//       { "id": "p1", "name": "Salad Sayur Organik",
-//         "price": 35000, "qty": 2 }
-//    ],
-//    "subtotal"       : 70000,
-//    "tax"            : 7700,
-//    "total"          : 77700
-//  }
-// ============================================================
-
+session_start();
 require_once __DIR__ . '/../config.php';
 
-// CORS – izinkan request dari halaman yang sama
 header('Content-Type: application/json; charset=utf-8');
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: POST, OPTIONS');
-header('Access-Control-Allow-Headers: Content-Type');
 
-// Tangani preflight OPTIONS
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    http_response_code(204);
-    exit;
-}
-
-// Hanya terima POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
     echo json_encode(['success' => false, 'message' => 'Method not allowed.']);
     exit;
 }
 
-// Baca & validasi body JSON
 $rawBody = file_get_contents('php://input');
 $data    = json_decode($rawBody, true);
 
-if (!$data || json_last_error() !== JSON_ERROR_NONE) {
+if (!$data) {
     http_response_code(400);
     echo json_encode(['success' => false, 'message' => 'Body JSON tidak valid.']);
     exit;
 }
 
-// Validasi field wajib
 $required = ['order_code', 'kasir', 'payment_method', 'items', 'subtotal', 'tax', 'total'];
 foreach ($required as $field) {
     if (!isset($data[$field])) {
@@ -59,26 +28,24 @@ foreach ($required as $field) {
     }
 }
 
-if (!is_array($data['items']) || count($data['items']) === 0) {
-    http_response_code(422);
-    echo json_encode(['success' => false, 'message' => 'Items tidak boleh kosong.']);
-    exit;
-}
-
-// ---- Simpan ke database ----
 try {
     $db = getDB();
     $db->beginTransaction();
 
+    $userId = $_SESSION['user_id'] ?? null;
+    $customerId = isset($data['customer_id']) && $data['customer_id'] !== '' ? $data['customer_id'] : null;
+
     // 1. Simpan header transaksi
     $stmt = $db->prepare("
         INSERT INTO transactions
-            (order_code, kasir, payment_method, subtotal, tax, total, created_at)
+            (order_code, user_id, customer_id, kasir, payment_method, subtotal, tax, total, created_at)
         VALUES
-            (:order_code, :kasir, :payment_method, :subtotal, :tax, :total, NOW())
+            (:order_code, :user_id, :customer_id, :kasir, :payment_method, :subtotal, :tax, :total, NOW())
     ");
     $stmt->execute([
         ':order_code'      => $data['order_code'],
+        ':user_id'         => $userId,
+        ':customer_id'     => $customerId,
         ':kasir'           => $data['kasir'],
         ':payment_method'  => $data['payment_method'],
         ':subtotal'        => (float) $data['subtotal'],
@@ -87,22 +54,42 @@ try {
     ]);
     $transactionId = $db->lastInsertId();
 
-    // 2. Simpan setiap item transaksi
+    // 2. Simpan setiap item transaksi dan kurangi stok
     $itemStmt = $db->prepare("
         INSERT INTO transaction_items
             (transaction_id, product_id, product_name, price, qty, subtotal)
         VALUES
             (:transaction_id, :product_id, :product_name, :price, :qty, :subtotal)
     ");
+    $stockStmt = $db->prepare("UPDATE products SET stock = stock - :qty WHERE id = :id AND stock >= :qty");
+
     foreach ($data['items'] as $item) {
+        $qty = (int)($item['qty'] ?? 1);
+        $productId = $item['id'] ?? '';
+
         $itemStmt->execute([
             ':transaction_id' => $transactionId,
-            ':product_id'     => $item['id']    ?? '',
+            ':product_id'     => $productId,
             ':product_name'   => $item['name']  ?? '',
             ':price'          => (float)($item['price'] ?? 0),
-            ':qty'            => (int)  ($item['qty']   ?? 1),
-            ':subtotal'       => (float)($item['price'] ?? 0) * (int)($item['qty'] ?? 1),
+            ':qty'            => $qty,
+            ':subtotal'       => (float)($item['price'] ?? 0) * $qty,
         ]);
+
+        $stockStmt->execute([
+            ':qty' => $qty,
+            ':id'  => $productId
+        ]);
+        if ($stockStmt->rowCount() === 0) {
+            throw new Exception("Stok tidak mencukupi untuk " . ($item['name'] ?? 'produk'));
+        }
+    }
+
+    // 3. Tambah poin jika ada customer
+    if ($customerId) {
+        $pointsEarned = floor((float)$data['total'] / 10000); // 1 point per 10k
+        $ptsStmt = $db->prepare("UPDATE customers SET points = points + ? WHERE id = ?");
+        $ptsStmt->execute([$pointsEarned, $customerId]);
     }
 
     $db->commit();
@@ -124,3 +111,4 @@ try {
         'message' => 'Gagal menyimpan transaksi: ' . $e->getMessage(),
     ]);
 }
+?>

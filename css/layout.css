@@ -40,3 +40,39 @@
     color: var(--green-600); 
     font-size: .88rem; 
 }
+
+/* RESPONSIVE LAYOUT */
+@media (max-width: 1024px) {
+    .app-container {
+        grid-template-columns: var(--sidebar-w) 1fr;
+    }
+    .cart-sidebar {
+        position: fixed;
+        right: -100%;
+        top: 0;
+        bottom: 0;
+        z-index: 100;
+        transition: right 0.3s ease;
+    }
+    .cart-sidebar.open {
+        right: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .app-container {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr;
+    }
+    .sidebar {
+        position: fixed;
+        left: -100%;
+        top: 0;
+        bottom: 0;
+        z-index: 100;
+        transition: left 0.3s ease;
+    }
+    .sidebar.open {
+        left: 0;
+    }
+}

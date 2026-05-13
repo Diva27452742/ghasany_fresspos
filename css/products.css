@@ -17,12 +17,13 @@
 
 /* --- Kartu Produk --- */
 .product-card {
-    background: var(--bg-card);
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
     border-radius: var(--r-md);
     overflow: hidden;
     box-shadow: var(--shadow-card);
     cursor: pointer;
-    border: 1.5px solid var(--border);
+    border: 1.5px solid var(--glass-border);
     transition:
         border-color var(--base) var(--ease),
         transform var(--base) var(--ease),
