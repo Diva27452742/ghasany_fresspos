@@ -1,0 +1,385 @@
+/* ============================================================
+   FreshPOS – reservation.css
+   Reservation Modal and Button Styles
+   ============================================================ */
+
+.extra-features {
+    padding: 0 16px;
+    margin-top: 10px;
+}
+
+.extra-btn {
+    width: 100%;
+    padding: 10px;
+    background: white;
+    color: var(--text-dark);
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    font-weight: 500;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: all var(--base);
+}
+
+.extra-btn:hover {
+    background: var(--green-50);
+    border-color: var(--green-300);
+    color: var(--green-800);
+    transform: translateX(4px);
+    box-shadow: var(--shadow-sm);
+}
+
+.extra-btn.recap {
+    background: #f0f9ff;
+    border-color: #bae6fd;
+    color: #0369a1;
+}
+
+.extra-btn.recap:hover {
+    background: #e0f2fe;
+    border-color: #7dd3fc;
+}
+
+/* Food Selection in Reservation */
+.res-food-selection {
+    max-height: 250px;
+    overflow-y: auto;
+    border: 1.5px solid var(--border);
+    border-radius: 16px;
+    padding: 12px;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.res-food-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 14px;
+    border: 1px solid #f1f5f9;
+    border-radius: 12px;
+    background: #f8fafc;
+    transition: all 0.2s;
+}
+
+.res-food-item:hover {
+    border-color: var(--green-200);
+    background: #f0fdf4;
+    transform: scale(1.01);
+}
+
+.res-food-item.disabled {
+    opacity: 0.6;
+    background: #f1f5f9;
+    cursor: not-allowed;
+}
+
+/* Modal Specifics */
+.reservation-modal-content {
+    max-width: 500px;
+    background: #fff;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+}
+
+.reservation-body {
+    padding: 24px;
+    background: #fdfdfd;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.form-group {
+    margin-bottom: 16px;
+    background: #ffffff;
+    border: 1.5px solid var(--border);
+    border-radius: 16px;
+    padding: 12px 16px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.form-group:focus-within {
+    border-color: var(--green-400);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.08);
+    background: #f0fdf4;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--green-700);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 4px 0;
+    border: none;
+    background: transparent;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    outline: none;
+}
+
+.form-group input::placeholder {
+    color: var(--text-light);
+    font-weight: 400;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.modal-header {
+    padding: 20px 24px;
+    background: linear-gradient(135deg, var(--green-600) 0%, var(--green-700) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: white;
+}
+
+.modal-header h2 {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.modal-header .close-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.modal-header .close-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: rotate(90deg);
+}
+
+.form-group.food-selection-box {
+    padding: 16px;
+}
+
+.res-food-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.res-food-name {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+.res-food-price {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--green-600);
+}
+
+.res-food-stock {
+    font-size: 0.68rem;
+    color: var(--text-muted);
+}
+
+.res-food-status {
+    font-size: 0.68rem;
+    color: var(--red-600);
+    font-weight: 700;
+}
+
+.res-food-qty {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: white;
+    padding: 4px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+}
+
+.res-qty-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    border: none;
+    background: var(--green-100);
+    color: var(--green-700);
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.res-qty-btn:hover:not(:disabled) {
+    background: var(--green-600);
+    color: white;
+}
+
+.res-qty-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.res-status-badge.done {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.res-action-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.85rem;
+}
+
+.res-action-btn.done {
+    background: var(--green-600);
+    color: white;
+    box-shadow: 0 2px 6px rgba(16, 185, 129, 0.3);
+}
+
+.res-action-btn.done:hover {
+    background: var(--green-700);
+    transform: scale(1.1);
+}
+
+.res-history-item.done {
+    border-color: #bbf7d0;
+    background: #f0fdf4;
+}
+
+.res-history-item.done .res-item-header {
+    background: #ecfdf5;
+}
+
+.res-history-item.done .res-info-main strong {
+    color: #065f46;
+}
+
+.res-qty-val {
+    font-size: 0.9rem;
+    font-weight: 800;
+    min-width: 20px;
+    text-align: center;
+}
+
+.res-total-order {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    font-weight: 800;
+    color: var(--green-700);
+    padding: 12px 15px;
+    background: var(--green-50);
+    border-radius: 12px;
+    border: 1px solid var(--green-100);
+}
+
+/* History Items Polish */
+.res-history-item {
+    background: white;
+    border-radius: 16px;
+    border: 1.5px solid var(--border);
+    margin-bottom: 18px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+    transition: transform 0.2s;
+}
+
+.res-history-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+}
+
+.res-item-header {
+    background: linear-gradient(to right, #f8fafc, #f1f5f9);
+    padding: 12px 18px;
+    border-bottom: 1px solid var(--border);
+}
+
+.res-status-badge {
+    background: #dcfce7;
+    color: #166534;
+    padding: 4px 12px;
+}
+
+.res-item-body {
+    padding: 18px;
+}
+
+.res-info-main strong {
+    font-size: 1.1rem;
+    letter-spacing: -0.01em;
+}
+
+.res-item-foods {
+    border: 1px solid #e2e8f0;
+    margin-top: 12px;
+}
+
+.res-item-foods p {
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.res-item-foods ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.res-item-foods li {
+    font-size: 0.75rem;
+    color: var(--text-dark);
+}
+
+.res-item-total {
+    margin-top: 8px;
+    border-top: 1px dashed #cbd5e1;
+    padding-top: 5px;
+    text-align: right;
+    font-weight: 700;
+    font-size: 0.8rem;
+    color: var(--green-700);
+}
+
+.no-food {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-style: italic;
+}

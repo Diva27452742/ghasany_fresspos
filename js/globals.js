@@ -1,23 +1,16 @@
-const API_PATH = './php/api/';
+/**
+ * FreshPOS – globals.js
+ * Variabel global yang digunakan di seluruh aplikasi
+ */
+
+// 1. State Aplikasi
 let currentCategory = 'all';
-let categoriesData = [];
 
-const formatRupiah = (number) => {
-    return new Intl.NumberFormat('id-ID', {
-        style: 'currency',
-        currency: 'IDR',
-        minimumFractionDigits: 0
-    }).format(number);
-};
-
-const showToast = (msg, icon = 'success') => {
-    Swal.fire({
-        toast: true,
-        position: 'top-end',
-        icon: icon,
-        title: msg,
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true
-    });
+// 2. Mapping Label Kategori (untuk badge produk)
+const catLabels = {
+    makanan: 'Makanan',
+    minuman: 'Minuman',
+    snack:   'Snack',
+    dessert: 'Dessert',
+    paket:   'Paket'
 };

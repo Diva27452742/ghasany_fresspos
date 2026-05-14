@@ -21,9 +21,7 @@
 }
 
 .modal-content {
-    background: var(--glass-bg);
-    backdrop-filter: var(--glass-blur);
-    border: 1px solid var(--glass-border);
+    background: #fff;
     border-radius: var(--r-xl);
     padding: 32px;
     width: 100%;

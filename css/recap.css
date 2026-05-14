@@ -1,0 +1,185 @@
+/* ============================================================
+   FreshPOS – recap.css
+   Recap Modal and Statistics Styles
+   ============================================================ */
+
+.recap-modal-content {
+    max-width: 700px;
+}
+
+.recap-tabs {
+    display: flex;
+    gap: 10px;
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--border);
+    background: #f8fafc;
+}
+
+.recap-tab {
+    padding: 8px 16px;
+    border: 1px solid var(--border);
+    background: white;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all var(--base);
+}
+
+.recap-tab:hover {
+    background: var(--green-50);
+    color: var(--green-600);
+}
+
+.recap-tab.active {
+    background: var(--green-600);
+    color: white;
+    border-color: var(--green-600);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+}
+
+.recap-body {
+    padding: 20px;
+}
+
+.recap-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.recap-card {
+    background: white;
+    padding: 20px;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: var(--shadow-sm);
+}
+
+.recap-card i {
+    width: 45px;
+    height: 45px;
+    background: var(--green-100);
+    color: var(--green-600);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+}
+
+.recap-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.recap-info .label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.recap-info .value {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--text-dark);
+}
+
+.recap-details h3 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 15px;
+    padding-left: 5px;
+    border-left: 4px solid var(--green-500);
+}
+
+.recap-table-container {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.recap-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.recap-table th {
+    background: #f8fafc;
+    padding: 12px;
+    text-align: left;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+
+.recap-table td {
+    padding: 12px;
+    border-top: 1px solid var(--border);
+    font-size: 0.85rem;
+    color: var(--text-body);
+}
+
+.recap-table tr:hover td {
+    background: #f9fafb;
+}
+
+.btn-danger-small {
+    background: #fee2e2;
+    color: #dc2626;
+    border: 1px solid #fecaca;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s;
+}
+
+.btn-danger-small:hover {
+    background: #dc2626;
+    color: white;
+    border-color: #dc2626;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.2);
+}
+
+.btn-info-small {
+    background: #e0f2fe;
+    color: #0369a1;
+    border: 1px solid #bae6fd;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s;
+}
+
+.btn-info-small:hover {
+    background: #0369a1;
+    color: white;
+    border-color: #0369a1;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(3, 105, 161, 0.2);
+}
+
+@media (max-width: 600px) {
+    .recap-stats-grid {
+        grid-template-columns: 1fr;
+    }
+}
