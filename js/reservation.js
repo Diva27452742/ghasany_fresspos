@@ -151,7 +151,7 @@ function updateResTotal() {
 }
 
 if (reservationForm) {
-    reservationForm.addEventListener('submit', (e) => {
+    reservationForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         
         const peopleCount = parseInt(document.getElementById('resPeople').value);
@@ -182,7 +182,7 @@ if (reservationForm) {
             createdAt: new Date().toISOString()
         };
         
-        saveReservation(reservationData);
+        await saveReservation(reservationData);
         
         // Decrease stock if items ordered
         orderedItems.forEach(item => {
@@ -199,7 +199,20 @@ if (reservationForm) {
 }
 
 // Functions
-function saveReservation(data) {
+async function saveReservation(data) {
+    if (typeof IS_DB_ACTIVE !== 'undefined' && IS_DB_ACTIVE) {
+        try {
+            const response = await fetch('php/api/save_reservation.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+            const result = await response.json();
+            if (!result.success) throw new Error(result.message);
+        } catch (e) {
+            console.error("Gagal menyimpan reservasi ke DB:", e);
+        }
+    }
     const reservations = getReservations();
     reservations.push(data);
     localStorage.setItem(RESERVATION_KEY, JSON.stringify(reservations));
@@ -255,7 +268,21 @@ function renderResHistory() {
     }).join('');
 }
 
-window.updateResStatus = (resId, newStatus) => {
+window.updateResStatus = async (resId, newStatus) => {
+    if (typeof IS_DB_ACTIVE !== 'undefined' && IS_DB_ACTIVE) {
+        try {
+            const response = await fetch('php/api/update_reservation_status.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id: resId, status: newStatus })
+            });
+            const result = await response.json();
+            if (!result.success) throw new Error(result.message);
+        } catch (e) {
+            alert("Gagal mengupdate status di database: " + e.message);
+            return;
+        }
+    }
     const reservations = getReservations();
     const res = reservations.find(r => r.id === resId);
     if (res) {

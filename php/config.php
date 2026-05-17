@@ -31,6 +31,21 @@ function getDB(): PDO {
         ];
         try {
             $pdo = new PDO($dsn, DB_USER, DB_PASS, $options);
+            // Self-healing: make sure reservations table exists
+            $pdo->exec("
+                CREATE TABLE IF NOT EXISTS reservations (
+                    id VARCHAR(50) PRIMARY KEY,
+                    name VARCHAR(255) NOT NULL,
+                    res_date DATE NOT NULL,
+                    res_time TIME NOT NULL,
+                    people INT NOT NULL,
+                    table_num VARCHAR(50) DEFAULT NULL,
+                    items JSON DEFAULT NULL,
+                    total_order DECIMAL(15, 2) DEFAULT 0.00,
+                    status VARCHAR(50) DEFAULT 'Menunggu',
+                    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+            ");
         } catch (PDOException $e) {
             http_response_code(500);
             header('Content-Type: application/json');

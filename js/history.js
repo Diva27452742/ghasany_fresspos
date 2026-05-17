@@ -95,9 +95,9 @@ function renderHistory() {
     }).join('');
 }
 
-// Event Listeners
 if (btnOpenHistory) {
-    btnOpenHistory.addEventListener('click', () => {
+    btnOpenHistory.addEventListener('click', async () => {
+        await syncHistoryFromDB();
         renderHistory();
         historyModal.classList.add('show');
     });
@@ -119,19 +119,65 @@ historyFilterBtns.forEach(btn => {
 });
 
 if (btnRefreshHistory) {
-    btnRefreshHistory.addEventListener('click', () => {
+    btnRefreshHistory.addEventListener('click', async () => {
+        const icon = btnRefreshHistory.querySelector('i');
+        if (icon) icon.classList.add('fa-spin');
+        await syncHistoryFromDB();
         renderHistory();
+        setTimeout(() => {
+            if (icon) icon.classList.remove('fa-spin');
+        }, 600);
     });
 }
 
 if (btnClearHistory) {
-    btnClearHistory.addEventListener('click', () => {
+    btnClearHistory.addEventListener('click', async () => {
         if (confirm('Apakah Anda yakin ingin menghapus SEMUA riwayat pesanan?')) {
+            if (typeof IS_DB_ACTIVE !== 'undefined' && IS_DB_ACTIVE) {
+                try {
+                    const response = await fetch('php/api/clear_history.php', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ type: 'transactions' })
+                    });
+                    const res = await response.json();
+                    if (!res.success) throw new Error(res.message);
+                } catch (e) {
+                    alert("Gagal menghapus riwayat dari database: " + e.message);
+                    return;
+                }
+            }
             localStorage.removeItem(HISTORY_KEY);
             renderHistory();
         }
     });
 }
+
+// Sync History from DB
+async function syncHistoryFromDB() {
+    if (typeof IS_DB_ACTIVE !== 'undefined' && IS_DB_ACTIVE) {
+        try {
+            const response = await fetch('php/api/get_history.php');
+            const data = await response.json();
+            if (data.success) {
+                localStorage.setItem(HISTORY_KEY, JSON.stringify(data.transactions));
+                localStorage.setItem('freshpos_reservations', JSON.stringify(data.reservations));
+            }
+        } catch (e) {
+            console.error("Gagal sinkronisasi data dari database:", e);
+        }
+    }
+}
+
+// Automatically sync on load and bind to modals
+document.addEventListener('DOMContentLoaded', () => {
+    syncHistoryFromDB().then(() => {
+        if (typeof renderHistory === 'function') renderHistory();
+        if (typeof renderResHistory === 'function') renderResHistory();
+        if (typeof renderRecap === 'function') renderRecap();
+    });
+});
+
 
 // Close modal when clicking outside
 if (historyModal) {

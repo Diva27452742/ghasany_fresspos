@@ -4,6 +4,16 @@
  * Versi PHP dengan data produk (Statis).
  */
 
+// Cek konektivitas database
+$dbActive = false;
+try {
+    require_once __DIR__ . '/php/config.php';
+    $db = getDB();
+    $dbActive = true;
+} catch (Exception $e) {
+    $dbActive = false;
+}
+
 // Data Kategori
 $categoriesData = [
     ['id' => 'all', 'name' => 'Semua Menu', 'icon' => 'fa-table-cells-large'],
@@ -400,7 +410,9 @@ $productsData = [
         const categories = <?= json_encode($categoriesData) ?>;
         const products   = <?= json_encode($productsData) ?>;
         
-        const API_PATH = ''; // Mode statis agar tidak error database
+        // Deteksi database aktif secara dinamis
+        const IS_DB_ACTIVE = <?= $dbActive ? 'true' : 'false' ?>;
+        const API_PATH = IS_DB_ACTIVE ? 'php/api/checkout.php' : '';
 
         const formatRupiah = (number) => {
             return new Intl.NumberFormat('id-ID', {

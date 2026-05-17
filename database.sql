@@ -97,3 +97,18 @@ INSERT INTO products (id, name, price, category, image) VALUES
 ('p31', 'Paket Keluarga Lengkap', 120000, 'paket', 'assets/Hijau dan Putih Minimal Geometric Warung Menu Landscape.png'),
 ('p32', 'Paket Buka Puasa', 75000, 'paket', 'assets/Hijau dan Putih Minimal Geometric Warung Menu Landscape.png'),
 ('p33', 'Paket Meeting Snack Box', 65000, 'paket', 'assets/Krem Minimalis Menu Restoran.png');
+
+-- 5. Tabel Reservasi
+CREATE TABLE IF NOT EXISTS reservations (
+    id VARCHAR(50) PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    res_date DATE NOT NULL,
+    res_time TIME NOT NULL,
+    people INT NOT NULL,
+    table_num VARCHAR(50) DEFAULT NULL,
+    items JSON DEFAULT NULL,
+    total_order DECIMAL(15, 2) DEFAULT 0.00,
+    status VARCHAR(50) DEFAULT 'Menunggu',
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+

@@ -74,8 +74,22 @@ function downloadCSVFile(content, filename) {
 }
 
 if (btnClearRecap) {
-    btnClearRecap.addEventListener('click', () => {
+    btnClearRecap.addEventListener('click', async () => {
         if (confirm('PERINGATAN: Semua riwayat transaksi dan reservasi akan DIHAPUS PERMANEN. Lanjutkan?')) {
+            if (typeof IS_DB_ACTIVE !== 'undefined' && IS_DB_ACTIVE) {
+                try {
+                    const response = await fetch('php/api/clear_history.php', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ type: 'all' })
+                    });
+                    const res = await response.json();
+                    if (!res.success) throw new Error(res.message);
+                } catch (e) {
+                    alert("Gagal menghapus data dari database: " + e.message);
+                    return;
+                }
+            }
             localStorage.removeItem('freshpos_order_history');
             localStorage.removeItem('freshpos_reservations');
             alert('Semua data berhasil dibersihkan.');
