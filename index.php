@@ -60,6 +60,15 @@ $productsData = [
     ['id' => 'p32', 'name' => 'Paket Buka Puasa', 'price' => 75000, 'category' => 'paket', 'image' => 'assets/Hijau dan Putih Minimal Geometric Warung Menu Landscape.png', 'stock' => 8],
     ['id' => 'p33', 'name' => 'Paket Meeting Snack Box', 'price' => 65000, 'category' => 'paket', 'image' => 'assets/Krem Minimalis Menu Restoran.png', 'stock' => 12]
 ];
+
+// Data Member dari Database
+$membersData = [];
+if ($dbActive) {
+    try {
+        $stmt = $db->query("SELECT * FROM members ORDER BY name ASC");
+        $membersData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (Exception $e) { }
+}
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -85,7 +94,7 @@ $productsData = [
     <link rel="stylesheet" href="./css/modal.css">
     <link rel="stylesheet" href="./css/history.css">
     <link rel="stylesheet" href="./css/reservation.css">
-    <link rel="stylesheet" href="./css/recap.css">
+    <link rel="stylesheet" href="./css/recap.css?v=<?= time() ?>">
     <link rel="stylesheet" href="./css/stock_admin.css">
 </head>
 <body>
@@ -176,11 +185,21 @@ $productsData = [
                     <i class="fa-solid fa-id-card"></i>
                     <span>Kartu Member</span>
                 </div>
-                <input type="text" id="memberSelectCart" class="member-select-dropdown" placeholder="Ketik Nama Pelanggan / Member..." list="memberDatalist" autocomplete="off">
-                <datalist id="memberDatalist"></datalist>
+                <select id="memberSelectCart" class="member-select-dropdown">
+                    <option value="">-- Pilih Member --</option>
+                    <?php foreach ($membersData as $m): ?>
+                        <option value="<?= htmlspecialchars($m['name']) ?>" 
+                                data-id="<?= htmlspecialchars($m['id']) ?>"
+                                data-discount-pct="<?= htmlspecialchars($m['discount_pct']) ?>"
+                                data-discount-status="<?= htmlspecialchars($m['discount_status']) ?>">
+                            <?= htmlspecialchars($m['name']) ?>
+                        </option>
+                    <?php endforeach; ?>
+                    <option value="manual">-- Input Manual --</option>
+                </select>
                 <input type="number" id="manualDiscountInput" class="member-select-dropdown" placeholder="Diskon (%) Opsional" min="0" max="100" style="margin-top: 8px; display: none;">
                 <div class="member-use-row" id="memberUseRow" style="display: none;">
-                    <label class="member-use-label">
+                    <label class="member-use-label" for="useMemberDiscount">
                         <input type="checkbox" id="useMemberDiscount">
                         <span class="member-use-text">
                             <i class="fa-solid fa-tag"></i>
@@ -497,16 +516,16 @@ $productsData = [
             }).format(number);
         };
     </script>
-    <script src="./js/globals.js"></script>
-    <script src="./js/sidebar.js"></script>
-    <script src="./js/maingrid.js"></script>
-    <script src="./js/filter.js"></script>
-    <script src="./js/admin.js"></script>
-    <script src="./js/cart.js"></script>
-    <script src="./js/history.js"></script>
-    <script src="./js/reservation.js"></script>
-    <script src="./js/recap.js"></script>
-    <script src="./js/stock_admin.js"></script>
-    <script src="./js/init.js"></script>
+    <script src="./js/globals.js?v=<?= time() ?>"></script>
+    <script src="./js/sidebar.js?v=<?= time() ?>"></script>
+    <script src="./js/maingrid.js?v=<?= time() ?>"></script>
+    <script src="./js/filter.js?v=<?= time() ?>"></script>
+    <script src="./js/admin.js?v=<?= time() ?>"></script>
+    <script src="./js/cart.js?v=<?= time() ?>"></script>
+    <script src="./js/history.js?v=<?= time() ?>"></script>
+    <script src="./js/reservation.js?v=<?= time() ?>"></script>
+    <script src="./js/recap.js?v=<?= time() ?>"></script>
+    <script src="./js/stock_admin.js?v=<?= time() ?>"></script>
+    <script src="./js/init.js?v=<?= time() ?>"></script>
 </body>
 </html>

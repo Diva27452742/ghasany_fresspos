@@ -4,7 +4,7 @@
    ============================================================ */
 
 .recap-modal-content {
-    max-width: 700px;
+    max-width: 850px;
 }
 
 .recap-tabs {
@@ -103,7 +103,8 @@
     background: white;
     border: 1px solid var(--border);
     border-radius: 12px;
-    overflow: hidden;
+    overflow-y: auto;
+    max-height: 400px;
 }
 
 .recap-table {

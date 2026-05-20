@@ -13,10 +13,31 @@ const btnExportRecap = document.getElementById('btnExportRecap');
 
 let currentRecapTab = 'daily';
 
+async function syncRecapFromDB() {
+    if (typeof IS_DB_ACTIVE !== 'undefined' && IS_DB_ACTIVE) {
+        try {
+            const response = await fetch(`php/api/get_history.php?_=${new Date().getTime()}`);
+            const result = await response.json();
+            if (result.success) {
+                localStorage.setItem('freshpos_order_history', JSON.stringify(result.transactions));
+                localStorage.setItem('freshpos_reservations', JSON.stringify(result.reservations));
+            }
+        } catch (e) {
+            console.error("Gagal sinkronisasi recap dari database:", e);
+        }
+    }
+}
+
 // Event Listeners
 if (btnOpenRecap) {
-    btnOpenRecap.addEventListener('click', () => {
+    btnOpenRecap.addEventListener('click', async () => {
+        const icon = btnOpenRecap.querySelector('i');
+        if (icon) icon.classList.add('fa-spin');
+        
+        await syncRecapFromDB();
         renderRecap();
+        
+        if (icon) icon.classList.remove('fa-spin');
         recapModal.classList.add('show');
     });
 }
@@ -169,6 +190,7 @@ function renderRecap() {
                         <tr>
                             <th>Tipe</th>
                             <th>Kode</th>
+                            <th>Kasir</th>
                             <th>Waktu</th>
                             <th>Total</th>
                         </tr>
@@ -178,10 +200,11 @@ function renderRecap() {
                             <tr>
                                 <td>${item.type}</td>
                                 <td>${item.code}</td>
+                                <td>${item.kasir}</td>
                                 <td>${item.time}</td>
                                 <td>${formatRupiah(item.total)}</td>
                             </tr>
-                        `).join('') : '<tr><td colspan="4" style="text-align:center;">Tidak ada data</td></tr>'}
+                        `).join('') : '<tr><td colspan="5" style="text-align:center;">Tidak ada data</td></tr>'}
                     </tbody>
                 </table>
             </div>
@@ -214,17 +237,19 @@ function calculateStats(history, reservations, tab, now) {
     const totalRevenue = filteredHistory.reduce((acc, curr) => acc + curr.total, 0);
     const totalResRevenue = filteredRes.reduce((acc, curr) => acc + (curr.totalOrder || 0), 0);
     
-    const recentHistory = filteredHistory.slice(-10).map(h => ({
+    const recentHistory = filteredHistory.slice(-100).map(h => ({
         type: 'Transaksi',
         code: h.order_code,
+        kasir: h.kasir || 'Admin',
         time: new Date(h.timestamp).toLocaleString('id-ID', {day: '2-digit', month: '2-digit', hour: '2-digit', minute:'2-digit'}),
         total: h.total,
         rawTimestamp: new Date(h.timestamp).getTime()
     }));
     
-    const recentRes = filteredRes.slice(-10).map(r => ({
+    const recentRes = filteredRes.slice(-100).map(r => ({
         type: 'Reservasi',
         code: r.id,
+        kasir: '-',
         time: new Date(r.createdAt).toLocaleString('id-ID', {day: '2-digit', month: '2-digit', hour: '2-digit', minute:'2-digit'}),
         total: r.totalOrder || 0,
         rawTimestamp: new Date(r.createdAt).getTime()
@@ -232,7 +257,7 @@ function calculateStats(history, reservations, tab, now) {
 
     const combinedItems = [...recentHistory, ...recentRes]
         .sort((a,b) => b.rawTimestamp - a.rawTimestamp)
-        .slice(0, 10);
+        .slice(0, 100);
 
     return {
         totalRevenue,

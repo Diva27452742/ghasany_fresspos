@@ -175,6 +175,7 @@ const memberDiscLbl    = document.getElementById('memberDiscountLabel');
 const memberDiscBadge  = document.getElementById('memberDiscountBadge');
 
 function handleMemberInput() {
+    const isSelect = memberSelectCart && memberSelectCart.tagName === 'SELECT';
     const val = memberSelectCart ? memberSelectCart.value.trim() : '';
     const dl = document.getElementById('memberDatalist');
     
@@ -189,7 +190,11 @@ function handleMemberInput() {
     }
 
     let matchedOption = null;
-    if (dl) {
+    if (isSelect) {
+        if (memberSelectCart.selectedIndex > -1) {
+            matchedOption = memberSelectCart.options[memberSelectCart.selectedIndex];
+        }
+    } else if (dl) {
         for (let opt of dl.options) {
             if (opt.value === val) {
                 matchedOption = opt;
@@ -198,11 +203,11 @@ function handleMemberInput() {
         }
     }
 
-    if (matchedOption) {
+    if (matchedOption && val !== 'manual') {
         // Terdaftar di database member
         selectedMember = {
             id: matchedOption.dataset.id,
-            name: val,
+            name: matchedOption.textContent.trim(),
             discount_pct: parseInt(matchedOption.dataset.discountPct) || 0,
             discount_status: matchedOption.dataset.discountStatus
         };
@@ -229,6 +234,8 @@ function handleMemberInput() {
                 useMemberDiscountActive = false;
             } else {
                 useMemberChk.title = '';
+                useMemberChk.checked = true;
+                useMemberDiscountActive = true;
             }
         }
     } else {
@@ -236,7 +243,7 @@ function handleMemberInput() {
         const manualPct = manualDiscountInput ? (parseInt(manualDiscountInput.value) || 0) : 0;
         selectedMember = {
             id: 'manual',
-            name: val,
+            name: 'Manual',
             discount_pct: manualPct,
             discount_status: 'Aktif'
         };
@@ -251,6 +258,8 @@ function handleMemberInput() {
         if (useMemberChk) {
             useMemberChk.disabled = false;
             useMemberChk.title = '';
+            useMemberChk.checked = true;
+            useMemberDiscountActive = true;
         }
     }
     renderCart();
@@ -258,6 +267,7 @@ function handleMemberInput() {
 
 if (memberSelectCart) {
     memberSelectCart.addEventListener('input', handleMemberInput);
+    memberSelectCart.addEventListener('change', handleMemberInput);
 }
 if (manualDiscountInput) {
     manualDiscountInput.addEventListener('input', handleMemberInput);
@@ -394,19 +404,17 @@ btnCheckout.addEventListener('click', async () => {
 
             checkoutModal.classList.add('show');
             
-            // Save to History (if history.js is loaded)
-            if (typeof saveOrderToHistory === 'function') {
-                saveOrderToHistory({
-                    order_code: order_code,
-                    kasir: adminNameEl ? adminNameEl.textContent : 'Admin',
-                    payment_method: selectedPaymentMethod,
-                    items: [...cartState],
-                    subtotal: subtotal,
-                    tax: tax,
-                    total: total,
-                    timestamp: new Date().toISOString()
-                });
-            }
+            // Save to History locally
+            saveOrderToHistory({
+                order_code: order_code,
+                kasir: adminNameEl ? adminNameEl.textContent : 'Admin',
+                payment_method: selectedPaymentMethod,
+                items: [...cartState],
+                subtotal: subtotal,
+                tax: tax,
+                total: total,
+                timestamp: new Date().toISOString()
+            });
 
             // Decrease Stock
             cartState.forEach(cartItem => {
@@ -478,3 +486,15 @@ document.addEventListener('DOMContentLoaded', () => {
 document.getElementById('btnCloseHistory')?.addEventListener('click', () => {
     populateMemberDropdown();
 });
+
+// Helper untuk simpan history ke localStorage (fallback/offline mode)
+function saveOrderToHistory(orderData) {
+    let history = [];
+    try {
+        history = JSON.parse(localStorage.getItem('freshpos_order_history')) || [];
+    } catch (e) {
+        history = [];
+    }
+    history.push(orderData);
+    localStorage.setItem('freshpos_order_history', JSON.stringify(history));
+}
