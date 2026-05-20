@@ -1,11 +1,18 @@
 let cartState = [];
 const TAX_RATE = 0.11; // PPN 11%
 
+// Member Discount State
+let selectedMember = null;   // { id, name, discount_pct, discount_status }
+let useMemberDiscountActive = false;
+
 const cartItemsEl = document.getElementById('cartItems');
 const emptyCartMsg = document.getElementById('emptyCartMsg');
 const subtotalEl = document.getElementById('subtotalAmount');
 const taxEl = document.getElementById('taxAmount');
 const totalEl = document.getElementById('totalAmount');
+const discountRowEl = document.getElementById('discountRow');
+const discountLabelEl = document.getElementById('discountLabel');
+const discountAmountEl = document.getElementById('discountAmount');
 const btnCheckout = document.getElementById('btnCheckout');
 const adminNameEl = document.getElementById('adminName');
 const modalTotalEl = document.getElementById('modalTotal');
@@ -66,9 +73,18 @@ function calculateTotal() {
     });
     
     const tax = subtotal * TAX_RATE;
-    const total = subtotal + tax;
     
-    return { subtotal, tax, total };
+    // Hitung diskon member jika aktif
+    let discount = 0;
+    if (useMemberDiscountActive && selectedMember && selectedMember.discount_pct > 0) {
+        // Diskon diterapkan pada subtotal + pajak (total sebelum diskon)
+        const preDiscount = subtotal + tax;
+        discount = preDiscount * (selectedMember.discount_pct / 100);
+    }
+    
+    const total = subtotal + tax - discount;
+    
+    return { subtotal, tax, discount, total };
 }
 
 function renderCart() {
@@ -104,9 +120,20 @@ function renderCart() {
         btnCheckout.disabled = false;
     }
 
-    const { subtotal, tax, total } = calculateTotal();
+    const { subtotal, tax, discount, total } = calculateTotal();
     subtotalEl.textContent = formatRupiah(subtotal);
     taxEl.textContent = formatRupiah(tax);
+    
+    // Tampilkan baris diskon jika aktif
+    if (discount > 0 && discountRowEl) {
+        const pct = selectedMember ? selectedMember.discount_pct : 0;
+        discountRowEl.style.display = 'flex';
+        if (discountLabelEl) discountLabelEl.textContent = `Diskon Member (${pct}%)`;
+        if (discountAmountEl) discountAmountEl.textContent = `- ${formatRupiah(discount)}`;
+    } else if (discountRowEl) {
+        discountRowEl.style.display = 'none';
+    }
+    
     totalEl.textContent = formatRupiah(total);
 }
 
@@ -123,6 +150,88 @@ styleSheet.innerText = `
 document.head.appendChild(styleSheet);
 
 
+// ── Member Card Discount Logic ──────────────────────────────
+function populateMemberDropdown() {
+    const sel = document.getElementById('memberSelectCart');
+    if (!sel) return;
+    
+    const members = JSON.parse(localStorage.getItem('freshpos_members') || '[]');
+    // Reset options
+    sel.innerHTML = '<option value="">-- Pilih Member --</option>';
+    members.forEach(m => {
+        const opt = document.createElement('option');
+        opt.value = m.id;
+        // Tampilkan nama + info diskon
+        const statusLabel = m.discount_status === 'Habis' ? ' ⛔' : '';
+        opt.textContent = `${m.name} — ${m.discount_pct}% diskon${statusLabel}`;
+        opt.dataset.discountPct    = m.discount_pct;
+        opt.dataset.discountStatus = m.discount_status;
+        opt.dataset.memberName     = m.name;
+        sel.appendChild(opt);
+    });
+}
+
+const memberSelectCart = document.getElementById('memberSelectCart');
+const memberUseRow     = document.getElementById('memberUseRow');
+const useMemberChk     = document.getElementById('useMemberDiscount');
+const memberDiscLbl    = document.getElementById('memberDiscountLabel');
+const memberDiscBadge  = document.getElementById('memberDiscountBadge');
+
+if (memberSelectCart) {
+    memberSelectCart.addEventListener('change', () => {
+        const opt = memberSelectCart.options[memberSelectCart.selectedIndex];
+        if (opt && opt.value !== '') {
+            selectedMember = {
+                id: opt.value,
+                name: opt.dataset.memberName,
+                discount_pct: parseInt(opt.dataset.discountPct) || 0,
+                discount_status: opt.dataset.discountStatus
+            };
+            
+            // Tampilkan baris checkbox
+            if (memberUseRow) memberUseRow.style.display = 'flex';
+            
+            const isExpired = selectedMember.discount_status === 'Habis';
+            const pct = selectedMember.discount_pct;
+            
+            if (memberDiscLbl) {
+                memberDiscLbl.textContent = `Gunakan Diskon ${pct}%`;
+            }
+            if (memberDiscBadge) {
+                memberDiscBadge.textContent = isExpired ? 'Habis' : 'Aktif';
+                memberDiscBadge.style.cssText = isExpired
+                    ? 'background:rgba(239,68,68,0.12);color:#f87171;border:1px solid rgba(239,68,68,0.25);padding:2px 8px;border-radius:20px;font-size:0.72rem;font-weight:600;'
+                    : 'background:rgba(16,185,129,0.12);color:#34d399;border:1px solid rgba(16,185,129,0.25);padding:2px 8px;border-radius:20px;font-size:0.72rem;font-weight:600;';
+            }
+            
+            // Jika diskon habis, disable checkbox
+            if (useMemberChk) {
+                useMemberChk.disabled = isExpired;
+                useMemberChk.checked  = false;
+                if (isExpired) {
+                    useMemberChk.title = 'Masa berlaku diskon sudah habis';
+                } else {
+                    useMemberChk.title = '';
+                }
+            }
+            useMemberDiscountActive = false;
+        } else {
+            selectedMember = null;
+            useMemberDiscountActive = false;
+            if (memberUseRow) memberUseRow.style.display = 'none';
+            if (useMemberChk) { useMemberChk.checked = false; useMemberChk.disabled = false; }
+        }
+        renderCart();
+    });
+}
+
+if (useMemberChk) {
+    useMemberChk.addEventListener('change', () => {
+        useMemberDiscountActive = useMemberChk.checked;
+        renderCart();
+    });
+}
+
 // Interactivity for Checkout
 let selectedPaymentMethod = "Tunai";
 
@@ -136,7 +245,7 @@ paymentButtons.forEach(btn => {
 
 btnCheckout.addEventListener('click', async () => {
     if (cartState.length > 0) {
-        const { subtotal, tax, total } = calculateTotal();
+        const { subtotal, tax, discount, total } = calculateTotal();
         
         // Atur UI Loading
         const originalText = btnCheckout.innerHTML;
@@ -165,6 +274,7 @@ btnCheckout.addEventListener('click', async () => {
                         items: cartState,
                         subtotal: subtotal,
                         tax: tax,
+                        discount: discount,
                         total: total
                     })
                 });
@@ -214,6 +324,19 @@ btnCheckout.addEventListener('click', async () => {
                 document.getElementById('modalPaymentMethod').textContent = selectedPaymentMethod;
                 document.getElementById('modalSubtotal').textContent = formatRupiah(subtotal);
                 document.getElementById('modalTax').textContent = formatRupiah(tax);
+                
+                // Diskon baris di struk
+                const modalDiscRow = document.getElementById('modalDiscountRow');
+                const modalDiscEl  = document.getElementById('modalDiscount');
+                const modalDiscLbl = document.getElementById('modalDiscountLabel');
+                if (discount > 0 && modalDiscRow) {
+                    modalDiscRow.style.display = 'flex';
+                    if (modalDiscLbl) modalDiscLbl.textContent = `Diskon Member ${selectedMember ? selectedMember.name : ''} (${selectedMember ? selectedMember.discount_pct : 0}%):`;
+                    if (modalDiscEl)  modalDiscEl.textContent = `- ${formatRupiah(discount)}`;
+                } else if (modalDiscRow) {
+                    modalDiscRow.style.display = 'none';
+                }
+                
                 document.getElementById('modalTotal').textContent = formatRupiah(total);
             } else {
                 if(modalTotalEl) modalTotalEl.textContent = formatRupiah(total);
@@ -271,9 +394,17 @@ btnSelesai.addEventListener('click', () => {
     checkoutModal.classList.remove('show');
     // Clear Cart
     cartState = [];
+    
+    // Reset member discount state
+    selectedMember = null;
+    useMemberDiscountActive = false;
+    if (memberSelectCart) memberSelectCart.value = '';
+    if (useMemberChk) { useMemberChk.checked = false; useMemberChk.disabled = false; }
+    if (memberUseRow) memberUseRow.style.display = 'none';
+    
     renderCart();
     
-    // Create new order ID or keep the date
+    // Create new order ID
     const orderIdEl = document.querySelector('.order-id');
     if (orderIdEl) {
         const newCode = `TRX-${Math.floor(100000 + Math.random() * 900000)}`;
@@ -285,7 +416,7 @@ btnSelesai.addEventListener('click', () => {
     }
 });
 
-// Inisialisasi tanggal pada input
+// Inisialisasi tanggal pada input dan member dropdown
 document.addEventListener('DOMContentLoaded', () => {
     const orderIdEl = document.querySelector('.order-id');
     if (orderIdEl) {
@@ -296,4 +427,12 @@ document.addEventListener('DOMContentLoaded', () => {
             orderIdEl.textContent = initCode;
         }
     }
+    
+    // Populate member dropdown dari localStorage
+    populateMemberDropdown();
+});
+
+// Re-populate dropdown setiap kali modal member ditutup (data mungkin berubah)
+document.getElementById('btnCloseHistory')?.addEventListener('click', () => {
+    populateMemberDropdown();
 });

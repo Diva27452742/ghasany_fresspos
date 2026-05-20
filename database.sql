@@ -37,6 +37,17 @@ CREATE TABLE IF NOT EXISTS transactions (
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- 4. Tabel Member & Langganan (CRUD)
+CREATE TABLE IF NOT EXISTS members (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    verified TINYINT(1) DEFAULT 0,
+    discount_pct INT DEFAULT 0,
+    discount_status VARCHAR(50) DEFAULT 'Aktif',
+    notes TEXT DEFAULT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 -- 4. Tabel Item Transaksi (Detail)
 CREATE TABLE IF NOT EXISTS transaction_items (
     id INT AUTO_INCREMENT PRIMARY KEY,

@@ -67,8 +67,8 @@
                     <input type="text" id="searchInput" placeholder="Cari menu / produk...">
                 </div>
                 <div class="user-profile">
-                    <button id="btnOpenHistory" class="history-btn-top" title="Riwayat Pesanan">
-                        <i class="fa-solid fa-clock-rotate-left"></i> Riwayat
+                    <button id="btnOpenHistory" class="history-btn-top" title="Riwayat & Catatan Member">
+                        <i class="fa-solid fa-user-check"></i> Riwayat Member
                     </button>
                     <div class="user-info">
                         <span class="name" id="adminName">Admin Utama</span>
@@ -107,6 +107,27 @@
                 </div>
             </div>
 
+            <!-- Member Card Panel -->
+            <div class="member-card-panel" id="memberCardPanel">
+                <div class="member-card-panel-header">
+                    <i class="fa-solid fa-id-card"></i>
+                    <span>Kartu Member</span>
+                </div>
+                <select id="memberSelectCart" class="member-select-dropdown">
+                    <option value="">-- Pilih Member --</option>
+                </select>
+                <div class="member-use-row" id="memberUseRow" style="display: none;">
+                    <label class="member-use-label">
+                        <input type="checkbox" id="useMemberDiscount">
+                        <span class="member-use-text">
+                            <i class="fa-solid fa-tag"></i>
+                            <span id="memberDiscountLabel">Gunakan Diskon 0%</span>
+                        </span>
+                    </label>
+                    <span id="memberDiscountBadge" class="member-discount-badge"></span>
+                </div>
+            </div>
+
             <div class="cart-footer">
                 <div class="calculation-row">
                     <span>Subtotal</span>
@@ -115,6 +136,10 @@
                 <div class="calculation-row">
                     <span>Pajak (11%)</span>
                     <span id="taxAmount">Rp 0</span>
+                </div>
+                <div class="calculation-row discount-row" id="discountRow" style="display: none;">
+                    <span id="discountLabel">Diskon Member (0%)</span>
+                    <span id="discountAmount" style="color: #34d399;">- Rp 0</span>
                 </div>
                 <div class="calculation-row total">
                     <span>Total Pembayaran</span>
@@ -174,6 +199,10 @@
                         <span>Pajak (11%):</span>
                         <strong id="modalTax">Rp 0</strong>
                     </div>
+                    <div class="detail-row" id="modalDiscountRow" style="display:none;">
+                        <span id="modalDiscountLabel">Diskon Member:</span>
+                        <strong id="modalDiscount" style="color: #059669;">- Rp 0</strong>
+                    </div>
                     <div class="detail-row total">
                         <span>Total Pembayaran:</span>
                         <strong id="modalTotal">Rp 0</strong>
@@ -196,27 +225,73 @@
             </div>
         </div>
 
-        <!-- History Modal -->
+        <!-- History Modal (Member CRUD) -->
         <div class="modal-overlay" id="historyModal">
-            <div class="modal-content history-modal-content">
+            <div class="modal-content history-modal-content" style="max-width: 650px;">
                 <div class="history-header">
-                    <h2><i class="fa-solid fa-clock-rotate-left"></i> Riwayat Pesanan</h2>
+                    <h2><i class="fa-solid fa-user-check"></i> Riwayat & Catatan Member</h2>
                     <button id="btnCloseHistory" class="close-history-btn"><i class="fa-solid fa-times"></i></button>
                 </div>
                 
-                <div class="history-filters">
-                    <button class="history-filter-btn active" data-filter="today">Hari Ini</button>
-                    <button class="history-filter-btn" data-filter="yesterday">Kemarin</button>
-                    <button class="history-filter-btn" data-filter="twodaysago">2 Hari Lalu</button>
+                <!-- Form untuk Tambah / Edit Member -->
+                <div class="member-form-container" style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 12px; margin-bottom: 15px; border: 1px solid rgba(52,211,153,0.15);">
+                    <h3 style="font-size: 0.95rem; margin-bottom: 10px; color: var(--green-400); display: flex; align-items: center; gap: 6px;">
+                        <i class="fa-solid fa-user-plus"></i> <span id="memberFormTitle">Tambah Member Baru</span>
+                    </h3>
+                    <form id="memberForm" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                        <input type="hidden" id="memberId" value="">
+                        
+                        <div class="form-group" style="grid-column: span 2;">
+                            <label style="font-size: 0.75rem; color: rgba(255,255,255,0.7); display: block; margin-bottom: 4px;">Nama Member / Pelanggan *</label>
+                            <input type="text" id="memberName" required placeholder="Contoh: Budi, Pak Adi, Sisca" style="width: 100%; padding: 8px 12px; border-radius: 6px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); color: #fff; outline: none; font-size: 0.85rem;">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label style="font-size: 0.75rem; color: rgba(255,255,255,0.7); display: block; margin-bottom: 4px;">Diskon Member (%)</label>
+                            <input type="number" id="memberDiscountPct" min="0" max="100" value="0" style="width: 100%; padding: 8px 12px; border-radius: 6px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); color: #fff; outline: none; font-size: 0.85rem;">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label style="font-size: 0.75rem; color: rgba(255,255,255,0.7); display: block; margin-bottom: 4px;">Status Masa Berlaku Diskon</label>
+                            <select id="memberDiscountStatus" style="width: 100%; padding: 8px 12px; border-radius: 6px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); color: #fff; outline: none; font-size: 0.85rem;">
+                                <option value="Aktif">Aktif</option>
+                                <option value="Habis">Habis / Expired</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group" style="display: flex; align-items: center; gap: 8px; margin-top: 25px;">
+                            <input type="checkbox" id="memberVerified" style="width: 16px; height: 16px; accent-color: var(--green-400); cursor: pointer;">
+                            <label for="memberVerified" style="font-size: 0.82rem; color: #fff; cursor: pointer; display: flex; align-items: center; gap: 4px;">
+                                <i class="fa-solid fa-circle-check" style="color: #38bdf8;"></i> Telah Verifikasi Member
+                            </label>
+                        </div>
+                        
+                        <div class="form-group" style="grid-column: span 2;">
+                            <label style="font-size: 0.75rem; color: rgba(255,255,255,0.7); display: block; margin-bottom: 4px;">Catatan Tambahan / Keterangan</label>
+                            <textarea id="memberNotes" placeholder="Catatan tambahan seperti no telepon, sisa paket, dll" style="width: 100%; height: 50px; padding: 8px 12px; border-radius: 6px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); color: #fff; outline: none; font-size: 0.85rem; resize: none;"></textarea>
+                        </div>
+                        
+                        <div class="form-actions" style="grid-column: span 2; display: flex; justify-content: flex-end; gap: 8px; margin-top: 5px;">
+                            <button type="button" id="btnCancelEditMember" style="display: none; padding: 6px 12px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.2); background: transparent; color: #fff; font-size: 0.8rem; cursor: pointer;">Batal</button>
+                            <button type="submit" id="btnSaveMember" class="btn-primary" style="padding: 6px 16px; border-radius: 6px; border: none; background: var(--green-500); color: #fff; font-size: 0.8rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px;">
+                                <i class="fa-solid fa-save"></i> Simpan Catatan
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- Pencarian Member -->
+                <div class="history-actions" style="display: flex; gap: 10px; align-items: center; margin-bottom: 15px;">
+                    <div style="position: relative; flex-grow: 1;">
+                        <i class="fa-solid fa-magnifying-glass" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: rgba(255,255,255,0.4); font-size: 0.85rem;"></i>
+                        <input type="text" id="searchMemberInput" placeholder="Cari member berdasarkan nama atau catatan..." style="width: 100%; padding: 8px 12px 8px 32px; border-radius: 20px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #fff; outline: none; font-size: 0.85rem; transition: all 0.3s ease;">
+                    </div>
+                    <button id="btnRefreshMembers" class="btn-secondary" style="padding: 8px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 600;"><i class="fa-solid fa-arrows-rotate"></i> Refresh</button>
                 </div>
 
-                <div class="history-actions">
-                    <button id="btnRefreshHistory" class="btn-secondary"><i class="fa-solid fa-arrows-rotate"></i> Refresh</button>
-                    <button id="btnClearHistory" class="btn-danger"><i class="fa-solid fa-trash-can"></i> Hapus Riwayat</button>
-                </div>
-
-                <div class="history-list" id="historyList">
-                    <!-- History items rendered by JS -->
+                <!-- Daftar Member -->
+                <div class="history-list" id="memberList" style="max-height: 250px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; padding-right: 5px;">
+                    <!-- Items rendered dynamically by JS -->
                 </div>
             </div>
         </div>

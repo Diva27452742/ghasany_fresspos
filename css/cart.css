@@ -241,3 +241,107 @@
     background: #e5e7eb;
     color: #9ca3af;
 }
+
+/* ── Member Card Panel ─────────────────────────────────────── */
+.member-card-panel {
+    margin: 0 12px 4px;
+    padding: 10px 12px;
+    background: rgba(16, 185, 129, 0.04);
+    border: 1px solid rgba(16, 185, 129, 0.15);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.member-card-panel-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--green-700);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+.member-card-panel-header i {
+    color: var(--green-500);
+    font-size: 0.9rem;
+}
+
+.member-select-dropdown {
+    width: 100%;
+    padding: 6px 10px;
+    border-radius: 8px;
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    background: #fff;
+    color: var(--text-dark);
+    font-size: 0.8rem;
+    font-weight: 500;
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+}
+
+.member-select-dropdown:focus {
+    border-color: var(--green-400);
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.08);
+}
+
+.member-use-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 6px 8px;
+    background: rgba(16, 185, 129, 0.06);
+    border-radius: 8px;
+    border: 1px solid rgba(16, 185, 129, 0.12);
+}
+
+.member-use-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    flex: 1;
+}
+
+.member-use-label input[type="checkbox"] {
+    width: 15px;
+    height: 15px;
+    accent-color: var(--green-500);
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.member-use-label input[type="checkbox"]:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.member-use-text {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.member-use-text i {
+    color: var(--green-500);
+    font-size: 0.75rem;
+}
+
+/* Discount row in cart footer */
+.calculation-row.discount-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.82rem;
+    color: var(--green-700);
+    padding: 2px 0;
+    font-weight: 600;
+}
+

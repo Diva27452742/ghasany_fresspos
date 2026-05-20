@@ -12,7 +12,7 @@
     width: 100%;
     padding: 10px;
     background: white;
-    color: var(--text-dark);
+    color: var(--text-primary);
     border: 1px solid var(--border);
     border-radius: var(--r-md);
     font-weight: 500;
@@ -131,7 +131,7 @@
     font-family: inherit;
     font-size: 1rem;
     font-weight: 600;
-    color: var(--text-dark);
+    color: var(--text-primary);
     outline: none;
 }
 
@@ -196,7 +196,7 @@
 .res-food-name {
     font-size: 0.85rem;
     font-weight: 700;
-    color: var(--text-dark);
+    color: var(--text-primary);
 }
 
 .res-food-price {
@@ -318,6 +318,7 @@
     overflow: hidden;
     box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
     transition: transform 0.2s;
+    color: var(--text-body);
 }
 
 .res-history-item:hover {
@@ -329,6 +330,15 @@
     background: linear-gradient(to right, #f8fafc, #f1f5f9);
     padding: 12px 18px;
     border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.res-id {
+    font-weight: 700;
+    color: var(--text-primary);
+    font-size: 0.95rem;
 }
 
 .res-status-badge {
@@ -341,9 +351,21 @@
     padding: 18px;
 }
 
+.res-info-main {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.res-info-main span {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
 .res-info-main strong {
     font-size: 1.1rem;
     letter-spacing: -0.01em;
+    color: var(--text-primary);
 }
 
 .res-item-foods {
@@ -355,6 +377,7 @@
     font-size: 0.75rem;
     font-weight: 700;
     margin-bottom: 5px;
+    color: var(--text-primary);
 }
 
 .res-item-foods ul {
@@ -365,7 +388,7 @@
 
 .res-item-foods li {
     font-size: 0.75rem;
-    color: var(--text-dark);
+    color: var(--text-primary);
 }
 
 .res-item-total {

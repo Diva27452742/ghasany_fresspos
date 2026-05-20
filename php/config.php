@@ -46,6 +46,19 @@ function getDB(): PDO {
                     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
                 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
             ");
+            
+            // Self-healing: make sure members table exists
+            $pdo->exec("
+                CREATE TABLE IF NOT EXISTS members (
+                    id INT AUTO_INCREMENT PRIMARY KEY,
+                    name VARCHAR(255) NOT NULL,
+                    verified TINYINT(1) DEFAULT 0,
+                    discount_pct INT DEFAULT 0,
+                    discount_status VARCHAR(50) DEFAULT 'Aktif',
+                    notes TEXT DEFAULT NULL,
+                    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+            ");
         } catch (PDOException $e) {
             http_response_code(500);
             header('Content-Type: application/json');

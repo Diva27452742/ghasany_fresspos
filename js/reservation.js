@@ -16,6 +16,7 @@ const reservationForm = document.getElementById('reservationForm');
 const resFoodSelection = document.getElementById('resFoodSelection');
 const resTotalOrder = document.getElementById('resTotalOrder');
 const resHistoryList = document.getElementById('resHistoryList');
+const btnExportRes = document.getElementById('btnExportRes');
 
 let selectedResFoods = {}; // { productId: qty }
 

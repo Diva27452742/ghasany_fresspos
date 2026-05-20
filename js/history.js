@@ -1,185 +1,314 @@
-const HISTORY_KEY = 'freshpos_order_history';
+// ============================================================
+//  FreshPOS – Controller: Riwayat & Catatan Member & Langganan
+//  File: js/history.js
+// ============================================================
 
-// Elements
+const MEMBERS_KEY = 'freshpos_members';
+
+// DOM Elements
 const btnOpenHistory = document.getElementById('btnOpenHistory');
 const btnCloseHistory = document.getElementById('btnCloseHistory');
 const historyModal = document.getElementById('historyModal');
-const historyList = document.getElementById('historyList');
-const historyFilterBtns = document.querySelectorAll('.history-filter-btn');
-const btnRefreshHistory = document.getElementById('btnRefreshHistory');
-const btnClearHistory = document.getElementById('btnClearHistory');
+const memberList = document.getElementById('memberList');
 
-let currentHistoryFilter = 'today';
+// Form Elements
+const memberForm = document.getElementById('memberForm');
+const memberIdInput = document.getElementById('memberId');
+const memberFormTitle = document.getElementById('memberFormTitle');
+const memberNameInput = document.getElementById('memberName');
+const memberDiscountPctInput = document.getElementById('memberDiscountPct');
+const memberDiscountStatusInput = document.getElementById('memberDiscountStatus');
+const memberVerifiedCheckbox = document.getElementById('memberVerified');
+const memberNotesInput = document.getElementById('memberNotes');
+const btnCancelEditMember = document.getElementById('btnCancelEditMember');
 
-// Get History
-function getHistory() {
-    const historyStr = localStorage.getItem(HISTORY_KEY);
-    return historyStr ? JSON.parse(historyStr) : [];
+// Search & Refresh Elements
+const searchMemberInput = document.getElementById('searchMemberInput');
+const btnRefreshMembers = document.getElementById('btnRefreshMembers');
+
+let currentSearchQuery = '';
+
+// Get local members
+function getLocalMembers() {
+    const dataStr = localStorage.getItem(MEMBERS_KEY);
+    return dataStr ? JSON.parse(dataStr) : [];
 }
 
-// Save Order to History
-function saveOrderToHistory(orderData) {
-    const history = getHistory();
-    // Add timestamp if not exists
-    if (!orderData.timestamp) {
-        orderData.timestamp = new Date().toISOString();
-    }
-    history.push(orderData);
-    localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+// Save local members
+function saveLocalMembers(members) {
+    localStorage.setItem(MEMBERS_KEY, JSON.stringify(members));
 }
 
-// Filter History
-function filterHistory(history, filterType) {
-    const now = new Date();
-    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    const yesterday = new Date(today);
-    yesterday.setDate(yesterday.getDate() - 1);
-    const twoDaysAgo = new Date(today);
-    twoDaysAgo.setDate(twoDaysAgo.getDate() - 2);
+// Check database status
+function isDatabaseActive() {
+    return typeof IS_DB_ACTIVE !== 'undefined' && IS_DB_ACTIVE;
+}
 
-    return history.filter(order => {
-        const orderDate = new Date(order.timestamp);
-        const orderDay = new Date(orderDate.getFullYear(), orderDate.getMonth(), orderDate.getDate());
-        
-        if (filterType === 'today') {
-            return orderDay.getTime() === today.getTime();
-        } else if (filterType === 'yesterday') {
-            return orderDay.getTime() === yesterday.getTime();
-        } else if (filterType === 'twodaysago') {
-            return orderDay.getTime() === twoDaysAgo.getTime();
+// Sync members from Database
+async function syncMembersFromDB() {
+    if (isDatabaseActive()) {
+        try {
+            const response = await fetch('php/api/get_members.php');
+            const result = await response.json();
+            if (result.success) {
+                saveLocalMembers(result.data);
+            }
+        } catch (e) {
+            console.error("Gagal sinkronisasi data member dari database:", e);
         }
-        return false;
-    }).reverse(); // Latest first
+    }
 }
 
-// Render History
-function renderHistory() {
-    if (!historyList) return;
+// Render member cards
+function renderMembers() {
+    if (!memberList) return;
     
-    const history = getHistory();
-    const filteredHistory = filterHistory(history, currentHistoryFilter);
+    const members = getLocalMembers();
+    
+    // Filter by search query
+    const filteredMembers = members.filter(m => {
+        const query = currentSearchQuery.toLowerCase();
+        const nameMatch = m.name && m.name.toLowerCase().includes(query);
+        const notesMatch = m.notes && m.notes.toLowerCase().includes(query);
+        return nameMatch || notesMatch;
+    });
 
-    if (filteredHistory.length === 0) {
-        historyList.innerHTML = `
+    if (filteredMembers.length === 0) {
+        memberList.innerHTML = `
             <div class="empty-history-msg">
-                <i class="fa-solid fa-clock"></i>
-                <p>Tidak ada riwayat pesanan untuk filter ini.</p>
+                <i class="fa-solid fa-address-book"></i>
+                <p>${currentSearchQuery ? 'Tidak ada member yang cocok dengan pencarian.' : 'Belum ada catatan member. Silakan tambahkan member baru!'}</p>
             </div>
         `;
         return;
     }
 
-    historyList.innerHTML = filteredHistory.map(order => {
-        const orderDate = new Date(order.timestamp);
-        // Format: DD/MM/YYYY HH:mm
-        const dateStr = orderDate.toLocaleDateString('id-ID', { day: '2-digit', month: '2-digit', year: 'numeric' });
-        const timeStr = orderDate.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+    memberList.innerHTML = filteredMembers.map(m => {
+        const createdDate = m.created_at ? new Date(m.created_at) : new Date();
+        const dateStr = createdDate.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
         
+        // Badges
+        const verifiedBadge = m.verified 
+            ? `<span class="member-badge badge-verified"><i class="fa-solid fa-circle-check"></i> Terverifikasi</span>` 
+            : `<span class="member-badge badge-unverified"><i class="fa-solid fa-circle-xmark"></i> Belum Verifikasi</span>`;
+            
+        const discountBadge = m.discount_pct > 0 
+            ? `<span class="member-badge badge-discount"><i class="fa-solid fa-percent"></i> Diskon: ${m.discount_pct}%</span>` 
+            : `<span class="member-badge badge-discount-zero"><i class="fa-solid fa-percent"></i> Tanpa Diskon</span>`;
+            
+        const statusBadge = m.discount_status === 'Aktif' 
+            ? `<span class="member-badge badge-status-aktif"><i class="fa-solid fa-clock"></i> Diskon Aktif</span>` 
+            : `<span class="member-badge badge-status-habis"><i class="fa-solid fa-ban"></i> Diskon Habis</span>`;
+            
+        const notesHTML = m.notes && m.notes.trim() !== '' 
+            ? `<p class="member-notes-text">${m.notes.replace(/\n/g, '<br>')}</p>` 
+            : '';
+
         return `
-            <div class="history-item">
-                <div class="history-item-header">
-                    <span class="history-order-id">${order.order_code}</span>
-                    <span class="history-date">${dateStr} - ${timeStr}</span>
+            <div class="member-card" id="member-card-${m.id}">
+                <div class="member-card-header">
+                    <h4 class="member-name-title">
+                        <i class="fa-solid fa-user"></i> ${m.name}
+                    </h4>
+                    <span class="member-date">${dateStr}</span>
                 </div>
-                <div class="history-item-body">
-                    <div class="history-details">
-                        <span style="font-size: 0.9rem; color: var(--text-dark);">Kasir: ${order.kasir}</span>
-                        <span class="history-method"><i class="fa-solid fa-wallet"></i> ${order.payment_method}</span>
-                    </div>
-                    <div class="history-total">
-                        ${formatRupiah(order.total)}
-                    </div>
+                <div class="member-badges-row">
+                    ${verifiedBadge}
+                    ${discountBadge}
+                    ${statusBadge}
+                </div>
+                ${notesHTML}
+                <div class="member-actions">
+                    <button onclick="editMember(${m.id})" class="btn-member-action edit">
+                        <i class="fa-solid fa-pen-to-square"></i> Edit
+                    </button>
+                    <button onclick="deleteMember(${m.id})" class="btn-member-action delete">
+                        <i class="fa-solid fa-trash"></i> Hapus
+                    </button>
                 </div>
             </div>
         `;
     }).join('');
 }
 
-if (btnOpenHistory) {
-    btnOpenHistory.addEventListener('click', async () => {
-        await syncHistoryFromDB();
-        renderHistory();
-        historyModal.classList.add('show');
+// Reset member form to default
+function resetMemberForm() {
+    if (memberForm) memberForm.reset();
+    if (memberIdInput) memberIdInput.value = '';
+    if (memberFormTitle) memberFormTitle.textContent = 'Tambah Member Baru';
+    if (btnCancelEditMember) btnCancelEditMember.style.display = 'none';
+}
+
+// Save Member (Add/Edit)
+if (memberForm) {
+    memberForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const id = memberIdInput.value;
+        const name = memberNameInput.value.trim();
+        const discount_pct = parseInt(memberDiscountPctInput.value) || 0;
+        const discount_status = memberDiscountStatusInput.value;
+        const verified = memberVerifiedCheckbox.checked ? 1 : 0;
+        const notes = memberNotesInput.value.trim();
+        
+        const memberData = {
+            id: id || undefined,
+            name: name,
+            discount_pct: discount_pct,
+            discount_status: discount_status,
+            verified: verified,
+            notes: notes
+        };
+        
+        // Simpan ke database jika aktif
+        if (isDatabaseActive()) {
+            try {
+                const response = await fetch('php/api/save_member.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(memberData)
+                });
+                const result = await response.json();
+                if (!result.success) throw new Error(result.message);
+            } catch (error) {
+                alert("Gagal menyimpan ke database: " + error.message);
+                return;
+            }
+        } else {
+            // Static offline fallback
+            const localMembers = getLocalMembers();
+            if (id) {
+                // Update
+                const idx = localMembers.findIndex(m => m.id == id);
+                if (idx !== -1) {
+                    localMembers[idx] = { 
+                        ...localMembers[idx], 
+                        name, 
+                        discount_pct, 
+                        discount_status, 
+                        verified, 
+                        notes 
+                    };
+                }
+            } else {
+                // Insert
+                const newId = Date.now();
+                localMembers.unshift({
+                    id: newId,
+                    name,
+                    discount_pct,
+                    discount_status,
+                    verified,
+                    notes,
+                    created_at: new Date().toISOString()
+                });
+            }
+            saveLocalMembers(localMembers);
+        }
+        
+        resetMemberForm();
+        await syncMembersFromDB();
+        renderMembers();
     });
 }
 
-if (btnCloseHistory) {
-    btnCloseHistory.addEventListener('click', () => {
-        historyModal.classList.remove('show');
+// Edit Member trigger
+window.editMember = function(id) {
+    const members = getLocalMembers();
+    const member = members.find(m => m.id == id);
+    if (!member) return;
+    
+    // Fill Form inputs
+    memberIdInput.value = member.id;
+    memberNameInput.value = member.name;
+    memberDiscountPctInput.value = member.discount_pct;
+    memberDiscountStatusInput.value = member.discount_status || 'Aktif';
+    memberVerifiedCheckbox.checked = !!member.verified;
+    memberNotesInput.value = member.notes || '';
+    
+    // Toggle UI
+    if (memberFormTitle) memberFormTitle.textContent = 'Edit Data Member';
+    if (btnCancelEditMember) btnCancelEditMember.style.display = 'inline-block';
+    
+    // Smooth scroll to form inside the modal
+    const formContainer = document.querySelector('.member-form-container');
+    if (formContainer) {
+        formContainer.scrollIntoView({ behavior: 'smooth' });
+    }
+};
+
+// Cancel Edit Mode
+if (btnCancelEditMember) {
+    btnCancelEditMember.addEventListener('click', resetMemberForm);
+}
+
+// Delete Member trigger
+window.deleteMember = async function(id) {
+    if (!confirm('Apakah Anda yakin ingin menghapus catatan member ini?')) return;
+    
+    if (isDatabaseActive()) {
+        try {
+            const response = await fetch('php/api/delete_member.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id: id })
+            });
+            const result = await response.json();
+            if (!result.success) throw new Error(result.message);
+        } catch (error) {
+            alert("Gagal menghapus member dari database: " + error.message);
+            return;
+        }
+    } else {
+        // Static offline fallback
+        const localMembers = getLocalMembers();
+        const updated = localMembers.filter(m => m.id != id);
+        saveLocalMembers(updated);
+    }
+    
+    await syncMembersFromDB();
+    renderMembers();
+};
+
+// Search Live Input
+if (searchMemberInput) {
+    searchMemberInput.addEventListener('input', (e) => {
+        currentSearchQuery = e.target.value;
+        renderMembers();
     });
 }
 
-historyFilterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-        historyFilterBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        currentHistoryFilter = btn.getAttribute('data-filter');
-        renderHistory();
-    });
-});
-
-if (btnRefreshHistory) {
-    btnRefreshHistory.addEventListener('click', async () => {
-        const icon = btnRefreshHistory.querySelector('i');
+// Refresh Button trigger
+if (btnRefreshMembers) {
+    btnRefreshMembers.addEventListener('click', async () => {
+        const icon = btnRefreshMembers.querySelector('i');
         if (icon) icon.classList.add('fa-spin');
-        await syncHistoryFromDB();
-        renderHistory();
+        await syncMembersFromDB();
+        renderMembers();
         setTimeout(() => {
             if (icon) icon.classList.remove('fa-spin');
         }, 600);
     });
 }
 
-if (btnClearHistory) {
-    btnClearHistory.addEventListener('click', async () => {
-        if (confirm('Apakah Anda yakin ingin menghapus SEMUA riwayat pesanan?')) {
-            if (typeof IS_DB_ACTIVE !== 'undefined' && IS_DB_ACTIVE) {
-                try {
-                    const response = await fetch('php/api/clear_history.php', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ type: 'transactions' })
-                    });
-                    const res = await response.json();
-                    if (!res.success) throw new Error(res.message);
-                } catch (e) {
-                    alert("Gagal menghapus riwayat dari database: " + e.message);
-                    return;
-                }
-            }
-            localStorage.removeItem(HISTORY_KEY);
-            renderHistory();
-        }
+// Opening Modal
+if (btnOpenHistory) {
+    btnOpenHistory.addEventListener('click', async () => {
+        resetMemberForm();
+        await syncMembersFromDB();
+        renderMembers();
+        if (historyModal) historyModal.classList.add('show');
     });
 }
 
-// Sync History from DB
-async function syncHistoryFromDB() {
-    if (typeof IS_DB_ACTIVE !== 'undefined' && IS_DB_ACTIVE) {
-        try {
-            const response = await fetch('php/api/get_history.php');
-            const data = await response.json();
-            if (data.success) {
-                localStorage.setItem(HISTORY_KEY, JSON.stringify(data.transactions));
-                localStorage.setItem('freshpos_reservations', JSON.stringify(data.reservations));
-            }
-        } catch (e) {
-            console.error("Gagal sinkronisasi data dari database:", e);
-        }
-    }
+// Closing Modal
+if (btnCloseHistory) {
+    btnCloseHistory.addEventListener('click', () => {
+        if (historyModal) historyModal.classList.remove('show');
+    });
 }
 
-// Automatically sync on load and bind to modals
-document.addEventListener('DOMContentLoaded', () => {
-    syncHistoryFromDB().then(() => {
-        if (typeof renderHistory === 'function') renderHistory();
-        if (typeof renderResHistory === 'function') renderResHistory();
-        if (typeof renderRecap === 'function') renderRecap();
-    });
-});
-
-
-// Close modal when clicking outside
+// Outside Click closing
 if (historyModal) {
     historyModal.addEventListener('click', (e) => {
         if (e.target === historyModal) {
@@ -187,3 +316,10 @@ if (historyModal) {
         }
     });
 }
+
+// Document Load - Initial Sync
+document.addEventListener('DOMContentLoaded', () => {
+    syncMembersFromDB().then(() => {
+        // We only render in background if needed
+    });
+});
