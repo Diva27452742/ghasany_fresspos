@@ -176,9 +176,9 @@ $productsData = [
                     <i class="fa-solid fa-id-card"></i>
                     <span>Kartu Member</span>
                 </div>
-                <select id="memberSelectCart" class="member-select-dropdown">
-                    <option value="">-- Pilih Member --</option>
-                </select>
+                <input type="text" id="memberSelectCart" class="member-select-dropdown" placeholder="Ketik Nama Pelanggan / Member..." list="memberDatalist" autocomplete="off">
+                <datalist id="memberDatalist"></datalist>
+                <input type="number" id="manualDiscountInput" class="member-select-dropdown" placeholder="Diskon (%) Opsional" min="0" max="100" style="margin-top: 8px; display: none;">
                 <div class="member-use-row" id="memberUseRow" style="display: none;">
                     <label class="member-use-label">
                         <input type="checkbox" id="useMemberDiscount">

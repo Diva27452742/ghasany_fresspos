@@ -152,77 +152,115 @@ document.head.appendChild(styleSheet);
 
 // ── Member Card Discount Logic ──────────────────────────────
 function populateMemberDropdown() {
-    const sel = document.getElementById('memberSelectCart');
-    if (!sel) return;
+    const dl = document.getElementById('memberDatalist');
+    if (!dl) return;
     
     const members = JSON.parse(localStorage.getItem('freshpos_members') || '[]');
-    // Reset options
-    sel.innerHTML = '<option value="">-- Pilih Member --</option>';
+    dl.innerHTML = '';
     members.forEach(m => {
         const opt = document.createElement('option');
-        opt.value = m.id;
-        // Tampilkan nama + info diskon
-        const statusLabel = m.discount_status === 'Habis' ? ' ⛔' : '';
-        opt.textContent = `${m.name} — ${m.discount_pct}% diskon${statusLabel}`;
+        opt.value = m.name;
+        opt.dataset.id = m.id;
         opt.dataset.discountPct    = m.discount_pct;
         opt.dataset.discountStatus = m.discount_status;
-        opt.dataset.memberName     = m.name;
-        sel.appendChild(opt);
+        dl.appendChild(opt);
     });
 }
 
 const memberSelectCart = document.getElementById('memberSelectCart');
+const manualDiscountInput = document.getElementById('manualDiscountInput');
 const memberUseRow     = document.getElementById('memberUseRow');
 const useMemberChk     = document.getElementById('useMemberDiscount');
 const memberDiscLbl    = document.getElementById('memberDiscountLabel');
 const memberDiscBadge  = document.getElementById('memberDiscountBadge');
 
-if (memberSelectCart) {
-    memberSelectCart.addEventListener('change', () => {
-        const opt = memberSelectCart.options[memberSelectCart.selectedIndex];
-        if (opt && opt.value !== '') {
-            selectedMember = {
-                id: opt.value,
-                name: opt.dataset.memberName,
-                discount_pct: parseInt(opt.dataset.discountPct) || 0,
-                discount_status: opt.dataset.discountStatus
-            };
-            
-            // Tampilkan baris checkbox
-            if (memberUseRow) memberUseRow.style.display = 'flex';
-            
-            const isExpired = selectedMember.discount_status === 'Habis';
-            const pct = selectedMember.discount_pct;
-            
-            if (memberDiscLbl) {
-                memberDiscLbl.textContent = `Gunakan Diskon ${pct}%`;
-            }
-            if (memberDiscBadge) {
-                memberDiscBadge.textContent = isExpired ? 'Habis' : 'Aktif';
-                memberDiscBadge.style.cssText = isExpired
-                    ? 'background:rgba(239,68,68,0.12);color:#f87171;border:1px solid rgba(239,68,68,0.25);padding:2px 8px;border-radius:20px;font-size:0.72rem;font-weight:600;'
-                    : 'background:rgba(16,185,129,0.12);color:#34d399;border:1px solid rgba(16,185,129,0.25);padding:2px 8px;border-radius:20px;font-size:0.72rem;font-weight:600;';
-            }
-            
-            // Jika diskon habis, disable checkbox
-            if (useMemberChk) {
-                useMemberChk.disabled = isExpired;
-                useMemberChk.checked  = false;
-                if (isExpired) {
-                    useMemberChk.title = 'Masa berlaku diskon sudah habis';
-                } else {
-                    useMemberChk.title = '';
-                }
-            }
-            useMemberDiscountActive = false;
-        } else {
-            selectedMember = null;
-            useMemberDiscountActive = false;
-            if (memberUseRow) memberUseRow.style.display = 'none';
-            if (useMemberChk) { useMemberChk.checked = false; useMemberChk.disabled = false; }
-        }
+function handleMemberInput() {
+    const val = memberSelectCart ? memberSelectCart.value.trim() : '';
+    const dl = document.getElementById('memberDatalist');
+    
+    if (val === '') {
+        selectedMember = null;
+        useMemberDiscountActive = false;
+        if (memberUseRow) memberUseRow.style.display = 'none';
+        if (manualDiscountInput) manualDiscountInput.style.display = 'none';
+        if (useMemberChk) { useMemberChk.checked = false; useMemberChk.disabled = false; }
         renderCart();
-    });
+        return;
+    }
+
+    let matchedOption = null;
+    if (dl) {
+        for (let opt of dl.options) {
+            if (opt.value === val) {
+                matchedOption = opt;
+                break;
+            }
+        }
+    }
+
+    if (matchedOption) {
+        // Terdaftar di database member
+        selectedMember = {
+            id: matchedOption.dataset.id,
+            name: val,
+            discount_pct: parseInt(matchedOption.dataset.discountPct) || 0,
+            discount_status: matchedOption.dataset.discountStatus
+        };
+        
+        if (manualDiscountInput) manualDiscountInput.style.display = 'none';
+        if (memberUseRow) memberUseRow.style.display = 'flex';
+        
+        const isExpired = selectedMember.discount_status === 'Habis';
+        const pct = selectedMember.discount_pct;
+        
+        if (memberDiscLbl) memberDiscLbl.textContent = `Gunakan Diskon ${pct}%`;
+        if (memberDiscBadge) {
+            memberDiscBadge.textContent = isExpired ? 'Habis' : 'Aktif';
+            memberDiscBadge.style.cssText = isExpired
+                ? 'background:rgba(239,68,68,0.12);color:#f87171;border:1px solid rgba(239,68,68,0.25);padding:2px 8px;border-radius:20px;font-size:0.72rem;font-weight:600;'
+                : 'background:rgba(16,185,129,0.12);color:#34d399;border:1px solid rgba(16,185,129,0.25);padding:2px 8px;border-radius:20px;font-size:0.72rem;font-weight:600;';
+        }
+        
+        if (useMemberChk) {
+            useMemberChk.disabled = isExpired;
+            if (isExpired) {
+                useMemberChk.checked  = false;
+                useMemberChk.title = 'Masa berlaku diskon sudah habis';
+                useMemberDiscountActive = false;
+            } else {
+                useMemberChk.title = '';
+            }
+        }
+    } else {
+        // Manual Entry
+        const manualPct = manualDiscountInput ? (parseInt(manualDiscountInput.value) || 0) : 0;
+        selectedMember = {
+            id: 'manual',
+            name: val,
+            discount_pct: manualPct,
+            discount_status: 'Aktif'
+        };
+        if (manualDiscountInput) manualDiscountInput.style.display = 'block';
+        if (memberUseRow) memberUseRow.style.display = 'flex';
+        
+        if (memberDiscLbl) memberDiscLbl.textContent = `Gunakan Diskon Manual ${manualPct}%`;
+        if (memberDiscBadge) {
+            memberDiscBadge.textContent = 'Manual';
+            memberDiscBadge.style.cssText = 'background:rgba(56,189,248,0.12);color:#38bdf8;border:1px solid rgba(56,189,248,0.25);padding:2px 8px;border-radius:20px;font-size:0.72rem;font-weight:600;';
+        }
+        if (useMemberChk) {
+            useMemberChk.disabled = false;
+            useMemberChk.title = '';
+        }
+    }
+    renderCart();
+}
+
+if (memberSelectCart) {
+    memberSelectCart.addEventListener('input', handleMemberInput);
+}
+if (manualDiscountInput) {
+    manualDiscountInput.addEventListener('input', handleMemberInput);
 }
 
 if (useMemberChk) {
@@ -399,6 +437,10 @@ btnSelesai.addEventListener('click', () => {
     selectedMember = null;
     useMemberDiscountActive = false;
     if (memberSelectCart) memberSelectCart.value = '';
+    if (manualDiscountInput) { 
+        manualDiscountInput.value = ''; 
+        manualDiscountInput.style.display = 'none'; 
+    }
     if (useMemberChk) { useMemberChk.checked = false; useMemberChk.disabled = false; }
     if (memberUseRow) memberUseRow.style.display = 'none';
     
