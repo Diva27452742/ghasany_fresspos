@@ -27,7 +27,7 @@
    Gaya CSS untuk kontainer utama kartu produk (misal: Es Krim Vanilla) */
 .product-card {
 
-    background: rgb(255, 0, 0); 
+    background: rgb(255, 255, 255); 
     
     border-radius: var(--r-md);
     overflow: hidden;
