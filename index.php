@@ -68,6 +68,7 @@ $productsData = [
     ['id' => 'p22', 'name' => 'Dimsum Mentai',         'price' => 10000, 'category' => 'snack',   'image' => 'assets/image copy 21.png',      'stock' => 10],
 
     // --- Dessert ---
+    // [DATA PRODUK PHP] - Data menu Es Krim Vanilla yang tampil di grid produk kasir.
     ['id' => 'p23', 'name' => 'Es Krim Vanilla',       'price' => 18000, 'category' => 'dessert', 'image' => 'assets/image copy 22.png',      'stock' => 12],
     ['id' => 'p24', 'name' => 'Puding Caramel',        'price' => 12000, 'category' => 'dessert', 'image' => 'assets/image copy 23.png',      'stock' => 15],
     ['id' => 'p25', 'name' => 'Brownies Panggang',     'price' => 22000, 'category' => 'dessert', 'image' => 'assets/image copy 24.png',      'stock' => 8],
@@ -231,7 +232,8 @@ if ($dbActive) {
             </div>
 
             <!-- KOLOM BAGIAN: GRID / KOLOM SEMUA MENU PRODUK -->
-            <!-- Kartu produk dirender secara dinamis oleh maingrid.js -->
+            <!-- [KONTAINER UTAMA KOLOM/GRID] - Wadah HTML untuk menampung semua kartu produk dalam kolom dan baris.
+                 Grep / Cari "KONTAINER UTAMA KOLOM" untuk menemukannya. -->
             <div class="products-grid" id="productsGrid">
                 <!-- Produk dirender oleh JS -->
             </div>

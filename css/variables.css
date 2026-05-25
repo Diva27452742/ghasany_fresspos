@@ -10,17 +10,17 @@
     --green-800:     #065f46;
     --green-700:     #047857;
     --green-600:     #059669;
-    --green-500:     #10b981;
+    --green-500:     #6696a5;
     --green-400:     #34d399;
     --green-200:     #a7f3d0;
     --green-100:     #d1fae5;
-    --green-50:      #ecfdf5;
+    --green-50:      #fdecf9;
 
     /* === Gradien Premium === */
     --grad-sidebar:  linear-gradient(180deg, #022c22 0%, #064e3b 40%, #065f46 100%);
     --grad-btn:      linear-gradient(135deg, #047857 0%, #10b981 60%, #34d399 100%);
     --grad-header:   linear-gradient(135deg, #064e3b 0%, #059669 100%);
-    --grad-card-img: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+    --grad-card-img: linear-gradient(135deg, #00e77b 0%, #d1fae5 100%);
     --grad-page:     linear-gradient(160deg, #f8fffb 0%, #ecfdf5 40%, #f0fff8 70%, #ffffff 100%);
     --grad-price:    linear-gradient(135deg, #047857 0%, #059669 100%);
 

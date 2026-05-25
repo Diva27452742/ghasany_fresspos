@@ -3,11 +3,19 @@
    Product Grid, Cards, and Empty State
    ============================================================ */
 
+/* --- [STYLE GRID KOLOM UTAMA] ---
+   Gaya CSS untuk mengatur baris dan kolom penataan kartu-kartu produk di layar.
+   Grep / Cari "STYLE GRID KOLOM UTAMA" untuk menemukan kode ini. */
 .products-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(172px, 1fr));
+    display: grid; /* Mengaktifkan mode Grid (Kolom & Baris otomatis) */
+    
+    /* 👇 Mengatur jumlah kolom otomatis sesuai lebar layar. 
+       - minmax(172px, 1fr) artinya lebar minimum kartu adalah 172px, 
+       dan akan bertambah lebar mengisi sisa layar (1fr) jika layar cukup besar. */
+    grid-template-columns: repeat(auto-fill, minmax(172px, 1fr)); 
+    
     align-content: start;
-    gap: 14px;
+    gap: 14px; /* Jarak antar kolom dan baris kartu (14 pixel) */
     padding: 4px 22px 22px;
     overflow-y: auto;
     overflow-x: hidden;
@@ -15,9 +23,12 @@
     min-height: 0;
 }
 
-/* --- Kartu Produk --- */
+/* --- [STYLE KARTU PRODUK] ---
+   Gaya CSS untuk kontainer utama kartu produk (misal: Es Krim Vanilla) */
 .product-card {
-    background: var(--bg-card);
+
+    background: rgb(255, 0, 0); 
+    
     border-radius: var(--r-md);
     overflow: hidden;
     box-shadow: var(--shadow-card);
@@ -36,7 +47,7 @@
     transform: translateY(-6px);
     box-shadow:
         var(--shadow-md),
-        0 0 0 3px rgba(52,211,153,.12),
+        0 0 0 3px rgba(8, 224, 145, 0.12),
         var(--shadow-card);
 }
 .product-card:active { transform: translateY(-2px) scale(.98); }
@@ -91,7 +102,8 @@
 }
 .product-card:hover .product-overlay span { transform: scale(1.05); }
 
-/* Badge kategori di atas gambar */
+/* --- [STYLE BADGE KATEGORI] ---
+   Gaya CSS untuk badge kategori produk di kiri atas gambar (Contoh: DESSERT) */
 .product-cat-chip {
     position: absolute;
     top: 8px;
@@ -109,15 +121,20 @@
     box-shadow: 0 2px 8px rgba(0,0,0,.1);
 }
 
-/* Isi kartu */
+/* --- [STYLE DETAIL KARTU] ---
+   Gaya CSS untuk kontainer teks detail produk di bawah gambar */
 .product-details {
     padding: 11px 13px 13px;
     flex: 1;
     display: flex;
     flex-direction: column;
     gap: 6px;
-    background: linear-gradient(180deg, #fff 0%, #fafffe 100%);
+    /* Dibuat transparent agar warna dari .product-card langsung memenuhi seluruh kartu */
+    background: transparent;
 }
+
+/* --- [STYLE NAMA PRODUK] ---
+   Gaya CSS untuk nama menu/produk (Contoh: Es Krim Vanilla) */
 .product-name {
     font-size: .82rem;
     font-weight: 600;
@@ -128,12 +145,16 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
+
 .product-footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-top: auto;
 }
+
+/* --- [STYLE HARGA PRODUK] ---
+   Gaya CSS untuk harga menu/produk (Contoh: Rp 18.000) */
 .product-price {
     font-size: .9rem;
     font-weight: 800;
@@ -143,6 +164,9 @@
     background-clip: text;
     letter-spacing: -.2px;
 }
+
+/* --- [STYLE TOMBOL PLUS (+)] ---
+   Gaya CSS untuk tombol bulat hijau tambah (+) di pojok kanan bawah */
 .add-icon {
     width: 30px;
     height: 30px;
@@ -174,7 +198,8 @@
     letter-spacing: .2px;
 }
 
-/* Stock Badge */
+/* --- [STYLE BADGE STOK] ---
+   Gaya CSS untuk badge jumlah stok produk di kanan bawah gambar (Contoh: Stok: 12) */
 .stock-badge {
     position: absolute;
     bottom: 8px;

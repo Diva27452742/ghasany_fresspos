@@ -97,6 +97,7 @@ INSERT INTO products (id, name, price, category, image) VALUES
 ('p20', 'Pisang Goreng Crispy', 10000, 'snack', 'assets/image copy 19.png'),
 ('p21', 'Roti Bakar Selai', 14000, 'snack', 'assets/image copy 20.png'),
 ('p22', 'Dimsum Mentai', 10000, 'snack', 'assets/image copy 21.png'),
+-- [DATA PRODUK DATABASE] - Data menu Es Krim Vanilla yang disimpan di database MySQL
 ('p23', 'Es Krim Vanilla', 18000, 'dessert', 'assets/image copy 22.png'),
 ('p24', 'Puding Caramel', 12000, 'dessert', 'assets/image copy 23.png'),
 ('p25', 'Brownies Panggang', 22000, 'dessert', 'assets/image copy 24.png'),
