@@ -1,42 +1,56 @@
-/* ============================================================
-   FreshPOS – layout.css
-   App Shell & Grid Containers
-   ============================================================ */
+/* ==========================================================================
+   FreshPOS – layout.css (Struktur Grid Utama & Tata Letak Halaman)
+   ==========================================================================
+   PENTING UNTUK OPERATOR:
+   File ini mengatur pembagian layar utama aplikasi FreshPOS ke dalam tiga kolom:
+   1. Sidebar Kategori (Kiri)
+   2. Katalog Produk Utama (Tengah)
+   3. Keranjang Belanja Kasir (Kanan)
+   ========================================================================== */
 
+/* --- Kontainer Utama Aplikasi (App Shell Grid) ---
+   Mengatur grid tiga kolom dengan tinggi penuh 100vh agar aplikasi pas dengan ukuran layar. */
 .app-container {
     display: grid;
+    /* Kolom kiri memiliki lebar tetap, kolom tengah fleksibel, kolom kanan memiliki lebar tetap */
     grid-template-columns: var(--sidebar-w) 1fr var(--cart-w);
     height: 100vh;
     overflow: hidden;
 }
 
+/* --- Panel Area Konten Utama (Main Catalog Content) ---
+   Terletak di bagian tengah grid, menampung bilah pencarian atas dan daftar produk. */
 .main-content {
     display: flex;
     flex-direction: column;
     height: 100%;
     min-height: 0;
     overflow: hidden;
-    background: var(--grad-page);
+    background: var(--grad-page); /* Menggunakan warna gradasi halaman premium dari variables.css */
 }
 
+/* --- Bilah Judul Bagian (Section Bar) ---
+   Baris informasi di bawah header yang menampilkan nama kategori aktif (misal: "Semua Menu"). */
 .section-bar {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 14px 22px 8px;
-    flex-shrink: 0;
+    flex-shrink: 0; /* Mencegah baris ini menciut saat catalog digulung */
 }
 
+/* --- Teks Judul Kategori (Section Title) --- */
 .section-bar .section-title {
     font-size: .92rem;
     font-weight: 700;
-    color: var(--text-primary);
+    color: var(--text-primary); /* Merujuk ke warna teks utama terpusat */
     display: flex;
     align-items: center;
     gap: 8px;
 }
 
+/* --- Ikon Dekoratif Kiri Judul --- */
 .section-bar .section-title i { 
-    color: var(--green-600); 
+    color: var(--green-600); /* Warna ikon hijau tema kasir */
     font-size: .88rem; 
 }

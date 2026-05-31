@@ -1,35 +1,87 @@
-/* ============================================================
-   FreshPOS – animations.css
-   Keyframes and Entry Animations
-   ============================================================ */
+/* ==========================================================================
+   FreshPOS – animations.css (Keyframes & Efek Transisi Animasi)
+   ==========================================================================
+   PENTING UNTUK OPERATOR:
+   File ini mengatur efek gerakan, transisi, dan animasi masuk untuk kartu produk,
+   modal, dan logo daun melayang agar tampilan aplikasi terasa hidup dan dinamis.
+   ========================================================================== */
 
+/* --- 1. Animasi Daun Melayang (Floating Leaf) ---
+   Membuat ikon logo daun bergerak naik-turun dan berputar lembut secara kontinu. */
 @keyframes floatLeaf {
-    0%, 100% { transform: translateY(0) rotate(-8deg) scale(1); }
-    50%       { transform: translateY(-5px) rotate(8deg) scale(1.05); }
+    0%, 100% { 
+        transform: translateY(0) rotate(-8deg) scale(1); 
+    }
+    50% { 
+        transform: translateY(-5px) rotate(8deg) scale(1.05); 
+    }
 }
 
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+/* --- 2. Animasi Memudar Masuk (Fade In) ---
+   Mengubah transparansi elemen dari tidak terlihat menjadi terlihat penuh. */
+@keyframes fadeIn { 
+    from { 
+        opacity: 0; 
+    } 
+    to { 
+        opacity: 1; 
+    } 
+}
 
+/* --- 3. Animasi Bergeser Naik (Slide Up) ---
+   Membuat elemen bergeser ke atas dari posisi bawah sambil membesar secara halus.
+   Sangat cocok digunakan untuk animasi kemunculan kotak modal utama. */
 @keyframes slideUp {
-    from { opacity: 0; transform: translateY(28px) scale(.96); }
-    to   { opacity: 1; transform: translateY(0) scale(1); }
+    from { 
+        opacity: 0; 
+        transform: translateY(28px) scale(.96); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0) scale(1); 
+    }
 }
 
+/* --- 4. Animasi Masuk Kartu (Card Entry Animation) ---
+   Mirip slideUp tetapi dengan jangkauan gerakan yang lebih pendek dan halus, 
+   khusus dirancang untuk efek masuk grid kartu produk makanan/minuman. */
 @keyframes cardIn {
-    from { opacity: 0; transform: translateY(18px) scale(.95); }
-    to   { opacity: 1; transform: translateY(0) scale(1); }
+    from { 
+        opacity: 0; 
+        transform: translateY(18px) scale(.95); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0) scale(1); 
+    }
 }
 
+/* --- 5. Animasi Bergeser Masuk Lembut (Slide In) ---
+   Animasi geser vertikal pendek tanpa pembesaran skala, digunakan untuk 
+   elemen kecil seperti popover, tooltip, atau menu dropdown kasir. */
 @keyframes slideIn {
-    from { opacity: 0; transform: translateY(8px); }
-    to   { opacity: 1; transform: translateY(0); }
+    from { 
+        opacity: 0; 
+        transform: translateY(8px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
 }
 
-/* Base transitions */
+/* ==========================================================================
+   KELAS UTILITAS ANIMASI (TRANSITION UTILITIES)
+   ========================================================================== */
+
+/* --- Transisi Normal (Base Transition) ---
+   Diterapkan pada tombol atau kartu untuk memuluskan efek perubahan warna / hover. */
 .transition-base {
     transition: all var(--base) var(--ease);
 }
 
+/* --- Transisi Cepat (Fast Transition) ---
+   Cocok untuk efek hover tombol kecil, penggantian qty, atau ikon tempat sampah. */
 .transition-fast {
     transition: all var(--fast) var(--ease);
 }

@@ -1,8 +1,18 @@
-/* History & Member Management CSS */
+/* ==========================================================================
+   FreshPOS – history.css (Styling Riwayat Transaksi & Manajemen Member CRUD)
+   ==========================================================================
+   PENTING UNTUK OPERATOR:
+   File ini mengatur pop-up kaca gelap transparan (Glassmorphism Dark Mode)
+   untuk riwayat pembelian dan pendaftaran member baru. Semua tingkat kegelapan,
+   garis kaca transparan, dan badge level member (Verified, Discount, Expired)
+   dapat disunting dengan sangat aman di variables.css.
+   ========================================================================== */
+
+/* --- 1. Tombol Buka Riwayat Atas (Top Header History Button) --- */
 .history-btn-top {
-    background: rgba(52, 211, 153, 0.1);
-    color: var(--green-300);
-    border: 1px solid rgba(52, 211, 153, 0.2);
+    background: var(--hist-top-btn-bg); /* Latar hijau kaca super tipis */
+    color: var(--hist-top-btn-text); /* Teks hijau mint muda */
+    border: 1px solid var(--hist-top-btn-border);
     padding: 0.5rem 1rem;
     border-radius: 8px;
     font-weight: 600;
@@ -14,81 +24,96 @@
     margin-right: 1rem;
 }
 
+/* --- Efek Sorot Tombol Buka Riwayat --- */
 .history-btn-top:hover {
-    background: var(--green-500);
-    color: #fff;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(52, 211, 153, 0.25);
+    background: var(--hist-top-btn-hover-bg); /* Berubah menjadi hijau penuh */
+    color: var(--hist-top-btn-hover-text); /* Teks putih bersih */
+    transform: translateY(-2px); /* Melayang 2 pixel ke atas */
+    box-shadow: var(--hist-top-btn-hover-shadow); /* Bayangan menyala hijau */
 }
 
+/* ==========================================================================
+   GAYA ELEMEN KACA GELAP MODAL (GLASSMORPHIC MODAL CORE)
+   ========================================================================== */
 .history-modal-content {
-    background: rgba(30, 41, 59, 0.75) !important;
-    backdrop-filter: blur(20px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    background: var(--glass-modal-bg) !important; /* Kaca transparan gelap */
+    backdrop-filter: blur(20px) saturate(180%); /* Efek keburaman kaca dibelakang modal */
+    border: 1px solid var(--glass-modal-border) !important; /* Garis tepi kaca super tipis putih */
     border-radius: 20px !important;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.5) !important;
-    color: #fff;
+    box-shadow: var(--glass-modal-shadow) !important; /* Bayangan hitam tebal di belakang */
+    color: var(--glass-modal-text);
 }
 
+/* --- Judul Modal Riwayat --- */
 .history-header h2 {
-    color: #fff !important;
+    color: var(--glass-modal-text) !important;
 }
 
+/* --- Tombol Silang (X Close Button) Pojok Atas --- */
 .close-history-btn {
     background: transparent;
     border: none;
     font-size: 1.25rem;
-    color: rgba(255,255,255,0.6);
+    color: var(--glass-close-btn-text);
     cursor: pointer;
     transition: all 0.2s ease;
 }
 
+/* --- Efek Sorot Tombol X --- */
 .close-history-btn:hover {
-    color: #f87171;
+    color: var(--glass-close-btn-hover-text); /* Berubah menjadi merah muda pastel */
     transform: scale(1.1);
 }
 
-/* Member Form Elements styling */
+/* ==========================================================================
+   INPUT FORM MEMBER DI MODAL GELAP (DARK FORM ELEMENTS)
+   ========================================================================== */
 .member-form-container input,
 .member-form-container select,
 .member-form-container textarea {
     transition: all 0.25s ease;
 }
 
+/* --- Efek Fokus Input CRUD Member --- */
 .member-form-container input:focus,
 .member-form-container select:focus,
 .member-form-container textarea:focus {
-    border-color: rgba(52, 211, 153, 0.8) !important;
-    background: rgba(0, 0, 0, 0.35) !important;
-    box-shadow: 0 0 10px rgba(52, 211, 153, 0.2) !important;
+    border-color: var(--glass-input-focus-border) !important;
+    background: var(--glass-input-focus-bg) !important;
+    box-shadow: var(--glass-input-focus-shadow) !important;
 }
 
+/* --- Efek Fokus Kolom Pencarian Member --- */
 #searchMemberInput:focus {
-    border-color: rgba(52, 211, 153, 0.8) !important;
-    background: rgba(255, 255, 255, 0.14) !important;
-    box-shadow: 0 0 10px rgba(52, 211, 153, 0.2) !important;
+    border-color: var(--glass-input-focus-border) !important;
+    background: rgba(255, 255, 255, 0.14) !important; /* Kaca putih tipis menyala */
+    box-shadow: var(--glass-input-focus-shadow) !important;
 }
 
-/* Custom Scrollbar for Member List */
+/* ==========================================================================
+   DESAIN SCROLLBAR DAFTAR MEMBER (CUSTOM GLASS SCROLLBAR)
+   ========================================================================== */
 #memberList::-webkit-scrollbar {
     width: 6px;
 }
 #memberList::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.02);
+    background: var(--glass-scrollbar-track);
     border-radius: 4px;
 }
 #memberList::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.15);
+    background: var(--glass-scrollbar-thumb);
     border-radius: 4px;
 }
 #memberList::-webkit-scrollbar-thumb:hover {
-    background: rgba(52, 211, 153, 0.4);
+    background: var(--glass-scrollbar-thumb-hover);
 }
 
-/* Member Card */
+/* ==========================================================================
+   KARTU IDENTITAS ANGGOTA (MEMBER CARD GRID STYLING)
+   ========================================================================== */
 .member-card {
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: var(--glass-card-bg);
+    border: 1px solid var(--glass-card-border);
     border-radius: 12px;
     padding: 12px 16px;
     display: flex;
@@ -98,11 +123,12 @@
     position: relative;
 }
 
+/* --- Sorot Kartu Member --- */
 .member-card:hover {
-    background: rgba(255, 255, 255, 0.07);
-    border-color: rgba(52, 211, 153, 0.3);
+    background: var(--glass-card-hover-bg);
+    border-color: var(--glass-card-hover-border);
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    box-shadow: var(--glass-card-hover-shadow);
 }
 
 .member-card-header {
@@ -111,21 +137,24 @@
     align-items: flex-start;
 }
 
+/* --- Teks Nama Member --- */
 .member-name-title {
     font-weight: 700;
     font-size: 1rem;
-    color: #fff;
+    color: var(--glass-card-title);
     margin: 0;
     display: flex;
     align-items: center;
     gap: 6px;
 }
 
+/* --- Keterangan Tanggal Bergabung --- */
 .member-date {
     font-size: 0.72rem;
-    color: rgba(255, 255, 255, 0.45);
+    color: var(--glass-card-date);
 }
 
+/* --- Baris Lencana Status Member (Member Badges Row) --- */
 .member-badges-row {
     display: flex;
     flex-wrap: wrap;
@@ -134,7 +163,7 @@
     margin: 2px 0;
 }
 
-/* Badges */
+/* --- Lencana Member Umum (Base Badge Rules) --- */
 .member-badge {
     font-size: 0.72rem;
     font-weight: 600;
@@ -145,56 +174,66 @@
     gap: 4px;
 }
 
+/* --- Lencana Member Terverifikasi (Verified) --- */
 .badge-verified {
-    background: rgba(14, 165, 233, 0.12);
-    color: #38bdf8;
-    border: 1px solid rgba(14, 165, 233, 0.25);
+    background: var(--glass-badge-verified-bg);
+    color: var(--glass-badge-verified-text);
+    border: 1px solid var(--glass-badge-verified-border);
 }
 
+/* --- Lencana Member Belum Terverifikasi (Unverified) --- */
 .badge-unverified {
-    background: rgba(255, 255, 255, 0.06);
-    color: rgba(255, 255, 255, 0.5);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--glass-badge-unverified-bg);
+    color: var(--glass-badge-unverified-text);
+    border: 1px solid var(--glass-badge-unverified-border);
 }
 
+/* --- Lencana Kuota Diskon Aktif (Discount Active) --- */
 .badge-discount {
-    background: rgba(168, 85, 247, 0.12);
-    color: #c084fc;
-    border: 1px solid rgba(168, 85, 247, 0.25);
+    background: var(--glass-badge-discount-bg);
+    color: var(--glass-badge-discount-text);
+    border: 1px solid var(--glass-badge-discount-border);
 }
 
+/* --- Lencana Kuota Diskon Habis / 0% --- */
 .badge-discount-zero {
-    background: rgba(255, 255, 255, 0.04);
-    color: rgba(255, 255, 255, 0.35);
-    border: 1px dashed rgba(255, 255, 255, 0.1);
+    background: var(--glass-badge-discount-zero-bg);
+    color: var(--glass-badge-discount-zero-text);
+    border: 1px dashed var(--glass-badge-discount-zero-border);
 }
 
+/* --- Lencana Keanggotaan Aktif (Status Active) --- */
 .badge-status-aktif {
-    background: rgba(16, 185, 129, 0.12);
-    color: #34d399;
-    border: 1px solid rgba(16, 185, 129, 0.25);
+    background: var(--glass-badge-active-bg);
+    color: var(--glass-badge-active-text);
+    border: 1px solid var(--glass-badge-active-border);
 }
 
+/* --- Lencana Keanggotaan Habis Masa Berlaku (Expired) --- */
 .badge-status-habis {
-    background: rgba(239, 68, 68, 0.12);
-    color: #f87171;
-    border: 1px solid rgba(239, 68, 68, 0.25);
+    background: var(--glass-badge-expired-bg);
+    color: var(--glass-badge-expired-text);
+    border: 1px solid var(--glass-badge-expired-border);
 }
 
-/* Notes area */
+/* ==========================================================================
+   KOTAK CATATAN KHUSUS MEMBER (MEMBER NOTES TEXT)
+   ========================================================================== */
 .member-notes-text {
     font-size: 0.82rem;
-    color: rgba(255, 255, 255, 0.75);
-    background: rgba(0, 0, 0, 0.15);
+    color: var(--glass-notes-text);
+    background: var(--glass-notes-bg);
     padding: 8px 12px;
     border-radius: 8px;
     line-height: 1.4;
     margin: 2px 0 0 0;
-    border-left: 3px solid rgba(52, 211, 153, 0.5);
+    border-left: 3px solid var(--glass-notes-border); /* Garis kiri dekoratif hijau mint */
     word-break: break-word;
 }
 
-/* Actions */
+/* ==========================================================================
+   TOMBOL SUNTING & HAPUS MEMBER (CRUD MEMBER ACTIONS)
+   ========================================================================== */
 .member-actions {
     display: flex;
     justify-content: flex-end;
@@ -203,9 +242,9 @@
 }
 
 .btn-member-action {
-    background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: rgba(255, 255, 255, 0.7);
+    background: var(--glass-btn-action-bg);
+    border: 1px solid var(--glass-btn-action-border);
+    color: var(--glass-btn-action-text);
     padding: 4px 10px;
     border-radius: 6px;
     font-size: 0.75rem;
@@ -217,72 +256,77 @@
     transition: all 0.2s ease;
 }
 
+/* --- Sorot Tombol Sunting (Edit Hover) --- */
 .btn-member-action.edit:hover {
-    background: rgba(52, 211, 153, 0.12);
-    color: #34d399;
-    border-color: rgba(52, 211, 153, 0.3);
+    background: var(--glass-btn-action-edit-hover-bg);
+    color: var(--glass-btn-action-edit-hover-text);
+    border-color: var(--glass-btn-action-edit-hover-border);
 }
 
+/* --- Sorot Tombol Hapus (Delete Hover) --- */
 .btn-member-action.delete:hover {
-    background: rgba(239, 68, 68, 0.12);
-    color: #f87171;
-    border-color: rgba(239, 68, 68, 0.3);
+    background: var(--glass-btn-action-del-hover-bg);
+    color: var(--glass-btn-action-del-hover-text);
+    border-color: var(--glass-btn-action-del-hover-border);
 }
 
+/* --- Tampilan Riwayat/Member Kosong --- */
 .empty-history-msg {
     text-align: center;
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--glass-empty-text);
     padding: 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 1rem;
 }
-
 .empty-history-msg i {
     font-size: 3rem;
-    color: rgba(255, 255, 255, 0.15);
+    color: var(--glass-empty-icon);
 }
 
-/* 
-   Soft Dark Glassmorphic Overrides for Member CRUD Form
-   Decoupling form-group rules from global reservation.css
-*/
+/* ==========================================================================
+   DESAIN GLASSMORPHIC UNTUK FORM INPUT MEMBER CRUD
+   ========================================================================== */
 .history-modal-content .member-form-container {
-    background: rgba(15, 23, 42, 0.5) !important;
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    background: var(--glass-form-container-bg) !important;
+    border: 1px solid var(--glass-form-container-border) !important;
     border-radius: 12px;
     padding: 15px;
     margin-bottom: 15px;
-    box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.05);
+    box-shadow: var(--glass-form-container-shadow);
 }
 
+/* --- Bidang Kelompok Form (Form Group Fields) --- */
 .history-modal-content .form-group {
     margin-bottom: 12px !important;
-    background: rgba(0, 0, 0, 0.25) !important;
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    background: var(--glass-form-group-bg) !important;
+    border: 1px solid var(--glass-form-group-border) !important;
     border-radius: 10px !important;
     padding: 8px 14px !important;
     box-shadow: none !important;
     transition: all 0.25s ease !important;
 }
 
+/* --- Kelompok Form Saat Aktif Mengetik (Focus States) --- */
 .history-modal-content .form-group:focus-within {
-    background: rgba(0, 0, 0, 0.35) !important;
-    border-color: rgba(52, 211, 153, 0.45) !important;
-    box-shadow: 0 0 10px rgba(52, 211, 153, 0.15) !important;
+    background: var(--glass-form-group-focus-bg) !important;
+    border-color: var(--glass-form-group-focus-border) !important;
+    box-shadow: var(--glass-form-group-focus-shadow) !important;
 }
 
+/* --- Label Form CRUD (KECIL) --- */
 .history-modal-content .form-group label {
     display: block !important;
     font-size: 0.72rem !important;
     font-weight: 600 !important;
-    color: rgba(255, 255, 255, 0.45) !important;
+    color: var(--glass-form-label) !important;
     text-transform: none !important;
     letter-spacing: normal !important;
     margin-bottom: 4px !important;
 }
 
+/* --- Seluruh Elemen Input, Select, Textarea Kasir --- */
 .history-modal-content .form-group input,
 .history-modal-content .form-group select,
 .history-modal-content .form-group textarea {
@@ -293,33 +337,39 @@
     font-family: inherit !important;
     font-size: 0.88rem !important;
     font-weight: 500 !important;
-    color: #fff !important;
+    color: var(--glass-form-input-text) !important;
     outline: none !important;
     box-shadow: none !important;
 }
 
 .history-modal-content .form-group input::placeholder,
 .history-modal-content .form-group textarea::placeholder {
-    color: rgba(255, 255, 255, 0.35) !important;
+    color: var(--glass-form-placeholder) !important;
 }
 
+/* --- Kotak Centang Checkbox CRUD --- */
 .history-modal-content .form-group input[type="checkbox"] {
     width: 16px !important;
     height: 16px !important;
     cursor: pointer;
-    accent-color: var(--green-400) !important;
+    accent-color: var(--glass-badge-active-text) !important; /* Centang hijau mint */
 }
 
+/* --- Pilihan Dropdown Select Gelap --- */
 .history-modal-content select option {
-    background: #1e293b !important;
-    color: #fff !important;
+    background: var(--glass-form-select-option-bg) !important;
+    color: var(--glass-form-select-option-text) !important;
 }
 
-/* Soft Minty Green for Save Button */
+/* ==========================================================================
+   TOMBOL AKSI SIMPAN DAN BATAL FORM CRUD (FORM ACTION BUTTONS)
+   ========================================================================== */
+
+/* --- Tombol Utama Simpan (Hijau Kaca) --- */
 .history-modal-content button.btn-primary {
-    background: rgba(16, 185, 129, 0.2) !important;
-    color: #34d399 !important;
-    border: 1px solid rgba(16, 185, 129, 0.4) !important;
+    background: var(--glass-form-primary-btn-bg) !important;
+    color: var(--glass-form-primary-btn-text) !important;
+    border: 1px solid var(--glass-form-primary-btn-border) !important;
     padding: 8px 16px !important;
     border-radius: 6px !important;
     font-size: 0.82rem !important;
@@ -331,17 +381,19 @@
     gap: 6px !important;
 }
 
+/* --- Sorot Tombol Simpan --- */
 .history-modal-content button.btn-primary:hover {
-    background: rgba(16, 185, 129, 0.32) !important;
-    border-color: rgba(16, 185, 129, 0.55) !important;
-    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15) !important;
+    background: var(--glass-form-primary-btn-hover-bg) !important;
+    border-color: var(--glass-form-primary-btn-hover-border) !important;
+    box-shadow: var(--glass-form-primary-btn-hover-shadow) !important;
     transform: translateY(-1px);
 }
 
+/* --- Tombol Batal CRUD (Abu Kaca) --- */
 .history-modal-content #btnCancelEditMember {
-    background: rgba(255, 255, 255, 0.05) !important;
-    border: 1px solid rgba(255, 255, 255, 0.15) !important;
-    color: rgba(255, 255, 255, 0.7) !important;
+    background: var(--glass-form-cancel-btn-bg) !important;
+    border: 1px solid var(--glass-form-cancel-btn-border) !important;
+    color: var(--glass-form-cancel-btn-text) !important;
     padding: 8px 14px !important;
     border-radius: 6px !important;
     font-size: 0.82rem !important;
@@ -349,7 +401,8 @@
     transition: all 0.2s ease !important;
 }
 
+/* --- Sorot Tombol Batal --- */
 .history-modal-content #btnCancelEditMember:hover {
-    background: rgba(255, 255, 255, 0.1) !important;
-    color: #fff !important;
+    background: var(--glass-form-cancel-btn-hover-bg) !important;
+    color: var(--glass-form-cancel-btn-hover-text) !important;
 }

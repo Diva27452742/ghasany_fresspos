@@ -1,48 +1,64 @@
-/* ============================================================
-   FreshPOS – recap.css
-   Recap Modal and Statistics Styles
-   ============================================================ */
+/* ==========================================================================
+   FreshPOS – recap.css (Styling Tab Laporan Penjualan & Statistik Kasir)
+   ==========================================================================
+   PENTING UNTUK OPERATOR:
+   File ini mengatur pop-up laporan rekapitulasi penjualan harian kasir,
+   termasuk warna tab laporan, kartu metrik omset & transaksi, tabel data,
+   serta tombol-tombol aksi bahaya/info berukuran kecil.
+   Seluruh warna dikontrol terpusat melalui variables.css.
+   ========================================================================== */
 
 .recap-modal-content {
-    max-width: 850px;
+    max-width: 850px; /* Lebar lebih luas khusus untuk tampilan tabel */
 }
 
+/* ==========================================================================
+   DESAIN BARIS TAB REKAP (RECAP TABS NAVIGATION)
+   ========================================================================== */
 .recap-tabs {
     display: flex;
     gap: 10px;
     padding: 15px 20px;
     border-bottom: 1px solid var(--border);
-    background: #f8fafc;
+    background: var(--recap-tab-container-bg); /* Latar abu-abu super halus */
 }
 
+/* --- Tombol Tab Laporan Biasa (Inactive State) --- */
 .recap-tab {
     padding: 8px 16px;
-    border: 1px solid var(--border);
-    background: white;
+    border: 1px solid var(--recap-tab-border);
+    background: var(--recap-tab-bg);
     border-radius: 50px;
     font-size: 0.85rem;
     font-weight: 600;
-    color: var(--text-muted);
+    color: var(--recap-tab-text);
     cursor: pointer;
     transition: all var(--base);
 }
 
+/* --- Sorot Tombol Tab --- */
 .recap-tab:hover {
-    background: var(--green-50);
-    color: var(--green-600);
+    background: var(--recap-tab-hover-bg);
+    color: var(--recap-tab-hover-text);
 }
 
+/* --- Tombol Tab Aktif Terpilih (Active State) --- */
 .recap-tab.active {
-    background: var(--green-600);
-    color: white;
-    border-color: var(--green-600);
-    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+    background: var(--recap-tab-active-bg); /* Hijau tema kasir */
+    color: var(--recap-tab-active-text);
+    border-color: var(--recap-tab-active-border);
+    box-shadow: var(--recap-tab-active-shadow);
 }
 
+/* --- Badan Laporan Rekap --- */
 .recap-body {
     padding: 20px;
+    background: var(--recap-body-bg);
 }
 
+/* ==========================================================================
+   DESAIN KARTU METRIK STATISTIK (METRIC STATS CARDS)
+   ========================================================================== */
 .recap-stats-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -50,22 +66,24 @@
     margin-bottom: 25px;
 }
 
+/* --- Kotak Kartu Metrik --- */
 .recap-card {
-    background: white;
+    background: var(--recap-card-bg);
     padding: 20px;
     border-radius: 16px;
-    border: 1px solid var(--border);
+    border: 1px solid var(--recap-card-border);
     display: flex;
     align-items: center;
     gap: 15px;
-    box-shadow: var(--shadow-sm);
+    box-shadow: var(--recap-card-shadow);
 }
 
+/* --- Bulatan Ikon Metrik --- */
 .recap-card i {
     width: 45px;
     height: 45px;
-    background: var(--green-100);
-    color: var(--green-600);
+    background: var(--recap-card-icon-bg);
+    color: var(--recap-card-icon-text);
     border-radius: 12px;
     display: flex;
     align-items: center;
@@ -78,30 +96,35 @@
     flex-direction: column;
 }
 
+/* --- Label Metrik (Omset Penjualan) --- */
 .recap-info .label {
     font-size: 0.75rem;
-    color: var(--text-muted);
+    color: var(--recap-card-label);
     font-weight: 500;
 }
 
+/* --- Nilai Angka Rupiah Metrik --- */
 .recap-info .value {
     font-size: 1.15rem;
     font-weight: 800;
-    color: var(--text-dark);
+    color: var(--recap-card-value);
 }
 
+/* ==========================================================================
+   KOTAK DAFTAR TABEL LAPORAN (REPORT TABLES STYLING)
+   ========================================================================== */
 .recap-details h3 {
     font-size: 0.95rem;
     font-weight: 700;
     color: var(--text-dark);
     margin-bottom: 15px;
     padding-left: 5px;
-    border-left: 4px solid var(--green-500);
+    border-left: 4px solid var(--recap-title-border); /* Garis penanda vertikal kiri */
 }
 
 .recap-table-container {
-    background: white;
-    border: 1px solid var(--border);
+    background: var(--recap-table-container-bg);
+    border: 1px solid var(--recap-table-container-border);
     border-radius: 12px;
     overflow-y: auto;
     max-height: 400px;
@@ -112,31 +135,39 @@
     border-collapse: collapse;
 }
 
+/* --- Header Kolom Tabel Laporan --- */
 .recap-table th {
-    background: #f8fafc;
+    background: var(--recap-th-bg);
     padding: 12px;
     text-align: left;
     font-size: 0.75rem;
     font-weight: 700;
-    color: var(--text-muted);
+    color: var(--recap-th-text);
     text-transform: uppercase;
 }
 
+/* --- Isi Baris Tabel --- */
 .recap-table td {
     padding: 12px;
-    border-top: 1px solid var(--border);
+    border-top: 1px solid var(--recap-td-border);
     font-size: 0.85rem;
-    color: var(--text-body);
+    color: var(--recap-td-text);
 }
 
+/* --- Efek Sorot Baris Data --- */
 .recap-table tr:hover td {
-    background: #f9fafb;
+    background: var(--recap-row-hover-bg);
 }
 
+/* ==========================================================================
+   TOMBOL SUNTING / HAPUS LAPORAN (SMALL ACTION BUTTONS)
+   ========================================================================== */
+
+/* --- 1. Tombol Hapus Laporan (Danger Small Red) --- */
 .btn-danger-small {
-    background: #fee2e2;
-    color: #dc2626;
-    border: 1px solid #fecaca;
+    background: var(--btn-danger-small-bg);
+    color: var(--btn-danger-small-text);
+    border: 1px solid var(--btn-danger-small-border);
     padding: 6px 12px;
     border-radius: 8px;
     font-size: 0.75rem;
@@ -148,18 +179,20 @@
     transition: all 0.2s;
 }
 
+/* --- Sorot Tombol Hapus Laporan --- */
 .btn-danger-small:hover {
-    background: #dc2626;
-    color: white;
-    border-color: #dc2626;
+    background: var(--btn-danger-small-hover-bg);
+    color: var(--btn-danger-small-hover-text);
+    border-color: var(--btn-danger-small-hover-border);
     transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.2);
+    box-shadow: var(--btn-danger-small-hover-shadow);
 }
 
+/* --- 2. Tombol Detail Laporan (Info Small Blue) --- */
 .btn-info-small {
-    background: #e0f2fe;
-    color: #0369a1;
-    border: 1px solid #bae6fd;
+    background: var(--btn-info-small-bg);
+    color: var(--btn-info-small-text);
+    border: 1px solid var(--btn-info-small-border);
     padding: 6px 12px;
     border-radius: 8px;
     font-size: 0.75rem;
@@ -171,12 +204,13 @@
     transition: all 0.2s;
 }
 
+/* --- Sorot Tombol Detail Laporan --- */
 .btn-info-small:hover {
-    background: #0369a1;
-    color: white;
-    border-color: #0369a1;
+    background: var(--btn-info-small-hover-bg);
+    color: var(--btn-info-small-hover-text);
+    border-color: var(--btn-info-small-hover-border);
     transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(3, 105, 161, 0.2);
+    box-shadow: var(--btn-info-small-hover-shadow);
 }
 
 @media (max-width: 600px) {

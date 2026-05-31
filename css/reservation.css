@@ -1,19 +1,26 @@
-/* ============================================================
-   FreshPOS – reservation.css
-   Reservation Modal and Button Styles
-   ============================================================ */
+/* ==========================================================================
+   FreshPOS – reservation.css (Styling Reservasi Meja & Fitur Tombol Ekstra)
+   ==========================================================================
+   PENTING UNTUK OPERATOR:
+   File ini mengatur modul Reservasi Meja/Tempat dan tombol fitur ekstra 
+   (kelola stok kasir, rekap laporan, reservasi). Seluruh skema warna tombol, 
+   border input field, lencana Selesai, dan list pesanan meja terhubung 
+   terpusat di variables.css.
+   ========================================================================== */
 
+/* --- Area Pembungkus Fitur Ekstra (Sidebar Bawah) --- */
 .extra-features {
     padding: 0 16px;
     margin-top: 10px;
 }
 
+/* --- Tombol Ekstra Standar (Reservasi Meja) --- */
 .extra-btn {
     width: 100%;
     padding: 10px;
-    background: white;
-    color: var(--text-primary);
-    border: 1px solid var(--border);
+    background: var(--res-extra-btn-bg);
+    color: var(--res-extra-btn-text);
+    border: 1px solid var(--res-extra-btn-border);
     border-radius: var(--r-md);
     font-weight: 500;
     font-size: 0.8rem;
@@ -25,104 +32,119 @@
     transition: all var(--base);
 }
 
+/* --- Sorot Tombol Ekstra Standar --- */
 .extra-btn:hover {
-    background: var(--green-50);
-    border-color: var(--green-300);
-    color: var(--green-800);
-    transform: translateX(4px);
-    box-shadow: var(--shadow-sm);
+    background: var(--res-extra-btn-hover-bg);
+    border-color: var(--res-extra-btn-hover-border);
+    color: var(--res-extra-btn-hover-text);
+    transform: translateX(4px); /* Bergeser halus ke kanan */
+    box-shadow: var(--res-extra-btn-hover-shadow);
 }
 
+/* --- Tombol Ekstra Laporan Rekap Penjualan (Biru Lembut) --- */
 .extra-btn.recap {
-    background: #f0f9ff;
-    border-color: #bae6fd;
-    color: #03a1a1;
+    background: var(--res-extra-recap-btn-bg);
+    border-color: var(--res-extra-recap-btn-border);
+    color: var(--res-extra-recap-btn-text);
 }
 
+/* --- Sorot Tombol Laporan Rekap --- */
 .extra-btn.recap:hover {
-    background: #e0f2fe;
-    border-color: #7dd3fc;
+    background: var(--res-extra-recap-btn-hover-bg);
+    border-color: var(--res-extra-recap-btn-hover-border);
 }
 
-/* Food Selection in Reservation */
+/* ==========================================================================
+   DAFTAR PILIHAN MAKANAN RESERVASI (FOOD SELECTION LIST)
+   ========================================================================== */
 .res-food-selection {
     max-height: 250px;
-    overflow-y: auto;
-    border: 1.5px solid var(--border);
+    overflow-y: auto; /* Mengaktifkan scroll vertikal jika daftar menu banyak */
+    border: 1.5px solid var(--res-food-select-border);
     border-radius: 16px;
     padding: 12px;
-    background: #fff;
+    background: var(--res-food-select-bg);
     display: flex;
     flex-direction: column;
     gap: 10px;
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+    box-shadow: var(--res-food-select-shadow);
 }
 
+/* --- Item Pilihan Makanan Normal --- */
 .res-food-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px 14px;
-    border: 1px solid #f1f5f9;
+    border: 1px solid var(--res-food-item-border);
     border-radius: 12px;
-    background: #f8fafc;
+    background: var(--res-food-item-bg);
     transition: all 0.2s;
 }
 
+/* --- Sorot Item Makanan --- */
 .res-food-item:hover {
-    border-color: var(--green-200);
-    background: #f0fdf4;
-    transform: scale(1.01);
+    border-color: var(--res-food-item-hover-border);
+    background: var(--res-food-item-hover-bg); /* Latar hijau super lembut */
+    transform: scale(1.01); /* Sedikit membesar halus */
 }
 
+/* --- Kondisi Item Makanan Habis / Non-aktif --- */
 .res-food-item.disabled {
     opacity: 0.6;
-    background: #f1f5f9;
+    background: var(--res-food-item-disabled-bg);
     cursor: not-allowed;
 }
 
-/* Modal Specifics */
+/* ==========================================================================
+   DESAIN KOTAK MODAL INPUT RESERVASI MEJA
+   ========================================================================== */
 .reservation-modal-content {
     max-width: 500px;
-    background: #fff;
+    background: var(--res-modal-bg);
     border-radius: 24px;
     overflow: hidden;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+    box-shadow: var(--res-modal-shadow);
 }
 
+/* --- Latar Belakang Tubuh Form Reservasi --- */
 .reservation-body {
     padding: 24px;
-    background: #fdfdfd;
+    background: var(--res-modal-body-bg);
     max-height: 80vh;
     overflow-y: auto;
 }
 
+/* --- Bidang Kelompok Kolom Input (Form Groups) --- */
 .form-group {
     margin-bottom: 16px;
-    background: #ffffff;
-    border: 1.5px solid var(--border);
+    background: var(--res-form-group-bg);
+    border: 1.5px solid var(--res-form-group-border);
     border-radius: 16px;
     padding: 12px 16px;
     transition: all 0.3s ease;
     box-shadow: 0 2px 4px rgba(0,0,0,0.02);
 }
 
+/* --- Efek Fokus Saat Kursor Diklik di Input --- */
 .form-group:focus-within {
-    border-color: var(--green-400);
-    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.08);
-    background: #f0fdf4;
+    border-color: var(--res-form-group-focus-border);
+    box-shadow: var(--res-form-group-focus-shadow);
+    background: var(--res-form-group-focus-bg);
 }
 
+/* --- Label Field Reservasi (NAMA PELANGGAN, MEJA) --- */
 .form-group label {
     display: block;
     font-size: 0.75rem;
     font-weight: 700;
-    color: var(--green-700);
+    color: var(--res-form-label);
     text-transform: uppercase;
     letter-spacing: 0.5px;
     margin-bottom: 4px;
 }
 
+/* --- Seluruh Input Teks Reservasi --- */
 .form-group input {
     width: 100%;
     padding: 4px 0;
@@ -131,43 +153,47 @@
     font-family: inherit;
     font-size: 1rem;
     font-weight: 600;
-    color: var(--text-primary);
+    color: var(--res-form-input-text);
     outline: none;
 }
-
 .form-group input::placeholder {
-    color: var(--text-light);
+    color: var(--res-form-placeholder);
     font-weight: 400;
 }
 
+/* --- Baris Form Bersebelahan --- */
 .form-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 16px;
 }
 
+/* ==========================================================================
+   KEPALA MODAL RESERVASI (MODAL HEADER)
+   ========================================================================== */
 .modal-header {
     padding: 20px 24px;
-    background: linear-gradient(135deg, var(--green-600) 0%, var(--green-700) 100%);
+    background: var(--res-header-grad); /* Gradasi hijau tua */
     display: flex;
     align-items: center;
     justify-content: space-between;
-    color: white;
+    color: var(--res-header-text);
 }
 
 .modal-header h2 {
     font-size: 1.25rem;
     font-weight: 800;
-    color: white;
+    color: var(--res-header-text);
     display: flex;
     align-items: center;
     gap: 12px;
 }
 
+/* --- Tombol Silang Bulat Tutup Modal (Close X) --- */
 .modal-header .close-btn {
-    background: rgba(255, 255, 255, 0.2);
+    background: var(--res-close-btn-bg);
     border: none;
-    color: white;
+    color: var(--res-close-btn-text);
     width: 32px;
     height: 32px;
     border-radius: 50%;
@@ -177,82 +203,200 @@
     cursor: pointer;
     transition: all 0.2s;
 }
-
 .modal-header .close-btn:hover {
-    background: rgba(255, 255, 255, 0.3);
-    transform: rotate(90deg);
+    background: var(--res-close-btn-hover-bg);
+    transform: rotate(90deg); /* Berputar 90 derajat dinamis */
 }
 
 .form-group.food-selection-box {
     padding: 16px;
 }
 
+/* --- Info Pesanan Makanan --- */
 .res-food-info {
     display: flex;
     flex-direction: column;
     gap: 2px;
 }
-
 .res-food-name {
     font-size: 0.85rem;
     font-weight: 700;
-    color: var(--text-primary);
+    color: var(--res-food-name);
 }
-
 .res-food-price {
     font-size: 0.75rem;
     font-weight: 600;
-    color: var(--green-600);
+    color: var(--res-food-price);
 }
-
 .res-food-stock {
     font-size: 0.68rem;
-    color: var(--text-muted);
+    color: var(--res-food-stock);
 }
-
 .res-food-status {
     font-size: 0.68rem;
     color: var(--red-600);
     font-weight: 700;
 }
 
+/* --- Kotak Pengubah Jumlah Qty Makanan --- */
 .res-food-qty {
     display: flex;
     align-items: center;
     gap: 8px;
-    background: white;
+    background: var(--white);
     padding: 4px;
     border-radius: 10px;
-    border: 1px solid var(--border);
+    border: 1px solid var(--res-food-qty-border);
 }
 
+/* --- Tombol Tambah/Kurang Qty --- */
 .res-qty-btn {
     width: 28px;
     height: 28px;
     border-radius: 8px;
     border: none;
-    background: var(--green-100);
-    color: var(--green-700);
+    background: var(--res-qty-btn-bg);
+    color: var(--res-qty-btn-text);
     font-weight: 700;
     cursor: pointer;
     transition: all 0.2s;
 }
-
 .res-qty-btn:hover:not(:disabled) {
-    background: var(--green-600);
-    color: white;
+    background: var(--res-qty-btn-hover-bg);
+    color: var(--res-qty-btn-hover-text);
 }
-
 .res-qty-btn:disabled {
     opacity: 0.3;
     cursor: not-allowed;
 }
 
-.res-status-badge.done {
-    background: #dcfce7;
-    color: #166534;
+.res-qty-val {
+    font-size: 0.9rem;
+    font-weight: 800;
+    min-width: 20px;
+    text-align: center;
 }
 
+/* --- Kotak Total Estimasi Biaya Reservasi --- */
+.res-total-order {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    font-weight: 800;
+    color: var(--res-total-text);
+    padding: 12px 15px;
+    background: var(--res-total-bg);
+    border-radius: 12px;
+    border: 1px solid var(--res-total-border);
+}
+
+/* ==========================================================================
+   DESAIN KARTU RIWAYAT DAFTAR RESERVASI MEJA (HISTORY ITEMS STYLING)
+   ========================================================================== */
+.res-history-item {
+    background: var(--res-history-item-bg);
+    border-radius: 16px;
+    border: 1.5px solid var(--res-history-item-border);
+    margin-bottom: 18px;
+    overflow: hidden;
+    box-shadow: var(--res-history-item-shadow);
+    transition: transform 0.2s;
+    color: var(--text-body);
+}
+
+.res-history-item:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--res-history-item-hover-shadow);
+}
+
+/* --- Kepala Kartu Riwayat --- */
+.res-item-header {
+    background: var(--res-item-header-grad);
+    padding: 12px 18px;
+    border-bottom: 1px solid var(--res-item-header-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* --- Teks ID Reservasi --- */
+.res-id {
+    font-weight: 700;
+    color: var(--res-item-id-text);
+    font-size: 0.95rem;
+}
+
+/* --- Badge Status Selesai --- */
+.res-status-badge {
+    background: var(--res-status-badge-done-bg);
+    color: var(--res-status-badge-done-text);
+    padding: 4px 12px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 0.72rem;
+}
+
+/* --- Badan Detail Kartu Riwayat --- */
+.res-item-body {
+    padding: 18px;
+}
+
+.res-info-main {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.res-info-main span {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+.res-info-main strong {
+    font-size: 1.1rem;
+    letter-spacing: -0.01em;
+    color: var(--text-primary);
+}
+
+/* --- Kotak Pembungkus Pesanan Makanan Meja --- */
+.res-item-foods {
+    border: 1px solid var(--res-item-foods-border);
+    margin-top: 12px;
+    border-radius: 8px;
+    padding: 10px;
+}
+.res-item-foods p {
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+    color: var(--res-item-foods-title);
+}
+.res-item-foods ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.res-item-foods li {
+    font-size: 0.75rem;
+    color: var(--res-item-foods-item);
+}
+
+/* --- Teks Total Biaya Riwayat --- */
+.res-item-total {
+    margin-top: 8px;
+    border-top: 1px dashed #cbd5e1;
+    padding-top: 5px;
+    text-align: right;
+    font-weight: 700;
+    font-size: 0.8rem;
+    color: var(--res-item-total-text);
+}
+
+.no-food {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+/* --- Tombol Aksi Kasir Centang Sukses Selesai --- */
 .res-action-btn {
     width: 28px;
     height: 28px;
@@ -267,142 +411,32 @@
 }
 
 .res-action-btn.done {
-    background: var(--green-600);
-    color: white;
-    box-shadow: 0 2px 6px rgba(16, 185, 129, 0.3);
+    background: var(--res-action-btn-done-bg);
+    color: var(--res-action-btn-done-text);
+    box-shadow: var(--res-action-btn-done-shadow);
 }
-
 .res-action-btn.done:hover {
-    background: var(--green-700);
+    background: var(--res-action-btn-done-hover-bg);
     transform: scale(1.1);
 }
 
+/* ==========================================================================
+   KONDISI RESERVASI SELESAI (DONE RESERVATION OVERRIDES)
+   ========================================================================== */
+.res-status-badge.done {
+    background: var(--res-status-badge-done-bg);
+    color: var(--res-status-badge-done-text);
+}
+
 .res-history-item.done {
-    border-color: #bbf7d0;
-    background: #f0fdf4;
+    border-color: var(--res-history-item-done-border);
+    background: var(--res-history-item-done-bg);
 }
 
 .res-history-item.done .res-item-header {
-    background: #ecfdf5;
+    background: var(--res-item-header-done-bg);
 }
 
 .res-history-item.done .res-info-main strong {
-    color: #065f46;
-}
-
-.res-qty-val {
-    font-size: 0.9rem;
-    font-weight: 800;
-    min-width: 20px;
-    text-align: center;
-}
-
-.res-total-order {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 15px;
-    font-weight: 800;
-    color: var(--green-700);
-    padding: 12px 15px;
-    background: var(--green-50);
-    border-radius: 12px;
-    border: 1px solid var(--green-100);
-}
-
-/* History Items Polish */
-.res-history-item {
-    background: white;
-    border-radius: 16px;
-    border: 1.5px solid var(--border);
-    margin-bottom: 18px;
-    overflow: hidden;
-    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
-    transition: transform 0.2s;
-    color: var(--text-body);
-}
-
-.res-history-item:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
-}
-
-.res-item-header {
-    background: linear-gradient(to right, #f8fafc, #f1f5f9);
-    padding: 12px 18px;
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.res-id {
-    font-weight: 700;
-    color: var(--text-primary);
-    font-size: 0.95rem;
-}
-
-.res-status-badge {
-    background: #dcfce7;
-    color: #166534;
-    padding: 4px 12px;
-}
-
-.res-item-body {
-    padding: 18px;
-}
-
-.res-info-main {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.res-info-main span {
-    font-size: 0.8rem;
-    color: var(--text-muted);
-}
-
-.res-info-main strong {
-    font-size: 1.1rem;
-    letter-spacing: -0.01em;
-    color: var(--text-primary);
-}
-
-.res-item-foods {
-    border: 1px solid #e2e8f0;
-    margin-top: 12px;
-}
-
-.res-item-foods p {
-    font-size: 0.75rem;
-    font-weight: 700;
-    margin-bottom: 5px;
-    color: var(--text-primary);
-}
-
-.res-item-foods ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.res-item-foods li {
-    font-size: 0.75rem;
-    color: var(--text-primary);
-}
-
-.res-item-total {
-    margin-top: 8px;
-    border-top: 1px dashed #cbd5e1;
-    padding-top: 5px;
-    text-align: right;
-    font-weight: 700;
-    font-size: 0.8rem;
-    color: var(--green-700);
-}
-
-.no-food {
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    font-style: italic;
+    color: var(--res-info-main-done-text);
 }

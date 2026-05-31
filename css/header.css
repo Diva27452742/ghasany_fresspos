@@ -1,88 +1,135 @@
-/* ============================================================
-   FreshPOS – header.css
-   Top Header, Search Bar, and User Profile
-   ============================================================ */
+/* ==========================================================================
+   FreshPOS – header.css (Styling Bilah Atas, Kolom Pencarian, & Profil Admin)
+   ==========================================================================
+   PENTING UNTUK OPERATOR:
+   Bilah atas (top header) berisi kolom pencarian barang dan informasi kasir
+   yang sedang bertugas. Semua warna latar belakang (glass effect), kolom input, 
+   lingkaran foto avatar, dan warna tombol edit admin dirujuk dari variables.css.
+   ========================================================================== */
 
+/* --- 1. Kontainer Utama Header Atas (Top Header) ---
+   Menggunakan efek blur semi-transparan (backdrop-filter) premium. */
 .top-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 13px 22px;
-    background: rgba(255,255,255,.88);
+    background: var(--header-bg); /* Menggunakan kaca transparan putih */
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid var(--header-border); /* Garis batas bawah halus */
     flex-shrink: 0;
-    box-shadow: 0 2px 12px rgba(6,78,59,.06);
+    box-shadow: var(--header-shadow); /* Bayangan halus di bawah header */
     gap: 16px;
     z-index: 10;
 }
 
-/* Search bar */
+/* ==========================================================================
+   BAGIAN KOLOM PENCARIAN (SEARCH BAR SECTION)
+   ========================================================================== */
 .search-bar {
     display: flex;
     align-items: center;
     gap: 10px;
-    background: var(--bg-input);
-    border: 1.5px solid var(--border-mid);
-    border-radius: 50px;
+    background: var(--search-bg); /* Latar belakang input hijau super lembut */
+    border: 1.5px solid var(--search-border); /* Garis tepi normal */
+    border-radius: 50px; /* Membuat bentuk kapsul bulat lonjong */
     padding: 9px 18px;
     flex: 1;
     max-width: 420px;
     transition: all var(--base) var(--ease);
 }
+
+/* --- Efek Saat Kolom Pencarian Diklik Aktif (Focus State) ---
+   Mengubah warna garis tepi dan memberikan cahaya glow lembut di sekelilingnya. */
 .search-bar:focus-within {
-    border-color: var(--green-500);
-    background: #fff;
-    box-shadow: 0 0 0 3px rgba(211, 52, 150, 0.18),
-                var(--shadow-sm);
+    border-color: var(--search-focus-border);
+    background: var(--search-focus-bg); /* Berubah menjadi putih bersih */
+    box-shadow: var(--search-focus-shadow), var(--shadow-sm); /* Cahaya glow disorot */
 }
-.search-bar i { color: var(--green-500); font-size: .9rem; flex-shrink: 0; }
+
+/* --- Ikon Kaca Pembesar Pencarian --- */
+.search-bar i { 
+    color: var(--search-icon); 
+    font-size: .9rem; 
+    flex-shrink: 0; 
+}
+
+/* --- Input Teks Pencarian --- */
 .search-bar input {
     border: none;
     background: transparent;
     width: 100%;
     font-size: .88rem;
-    color: var(--text-primary);
+    color: var(--search-text);
 }
-.search-bar input:focus { outline: none; }
-.search-bar input::placeholder { color: var(--text-light); }
+.search-bar input:focus { 
+    outline: none; /* Menghilangkan garis luar bawaan browser */
+}
+.search-bar input::placeholder { 
+    color: var(--search-placeholder); /* Warna teks instruksi "Cari produk..." */
+}
 
-/* User profile */
-.user-profile { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
-.user-info { text-align: right; }
+/* ==========================================================================
+   BAGIAN PROFIL PENGGUNA (USER PROFILE SECTION)
+   ========================================================================== */
+.user-profile { 
+    display: flex; 
+    align-items: center; 
+    gap: 12px; 
+    flex-shrink: 0; 
+}
+
+/* --- Keterangan Teks Kasir --- */
+.user-info { 
+    text-align: right; 
+}
+
+/* --- Nama Lengkap Kasir --- */
 .user-info .name {
     display: block;
     font-weight: 700;
     font-size: .88rem;
-    color: var(--text-primary);
+    color: var(--profile-name);
     line-height: 1.2;
 }
+
+/* --- Peran / Role Jabatan (Admin/Kasir) --- */
 .user-info .role {
     font-size: .73rem;
-    color: var(--text-muted);
+    color: var(--profile-role);
     margin-top: 2px;
     display: flex;
     align-items: center;
     justify-content: flex-end;
     gap: 5px;
 }
+
+/* --- Tombol Edit Profil Admin (Ikon Pensil) --- */
 .user-info .role .edit-admin-btn {
-    color: var(--green-600);
+    color: var(--profile-edit-btn);
     cursor: pointer;
     transition: all var(--fast);
 }
+
+/* --- Efek Tombol Edit Admin Saat Disorot --- */
 .user-info .role .edit-admin-btn:hover {
-    color: var(--green-500);
-    transform: scale(1.15);
+    color: var(--profile-edit-btn-hover);
+    transform: scale(1.15); /* Sedikit membesar saat disentuh mouse */
 }
+
+/* --- Foto Profil Kasir (Avatar) --- */
 .avatar {
     width: 42px;
     height: 42px;
-    border-radius: 50%;
-    border: 2.5px solid var(--green-400);
+    border-radius: 50%; /* Membuat lingkaran sempurna */
+    border: 2.5px solid var(--profile-avatar-border); /* Lingkar garis hijau mint */
     object-fit: cover;
     box-shadow: var(--shadow-glow), var(--shadow-sm);
     transition: transform var(--fast);
 }
-.avatar:hover { transform: scale(1.06); }
+
+/* --- Efek Foto Profil Saat Disorot --- */
+.avatar:hover { 
+    transform: scale(1.06); 
+}

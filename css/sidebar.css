@@ -1,48 +1,50 @@
-/* ============================================================
-   FreshPOS – sidebar.css
-   Sidebar styling, Categories, Logo, and Dividers
-   ============================================================ */
+/* ==========================================================================
+   FreshPOS – sidebar.css (Styling Menu Kategori & Sidebar Kiri)
+   =========================================================================
+   PENTING UNTUK OPERATOR:
+   Sidebar adalah area navigasi utama di sebelah kiri. Semua warna teks menu,
+   warna hover (sorotan mouse), warna aktif, serta logo hijau FreshPOS 
+   dikontrol melalui variabel di variables.css.
+   ========================================================================== */
 
+/* --- 1. Kontainer Utama Sidebar --- */
 .sidebar {
-    background: var(--grad-sidebar);
+    background: var(--sidebar-bg); /* Gradasi gelap hijau dari variables.css */
     display: flex;
     flex-direction: column;
     height: 100vh;
-    overflow-y: auto;
+    overflow-y: auto; /* Memungkinkan gulir vertikal jika kategori sangat banyak */
     overflow-x: hidden;
     position: relative;
     z-index: 10;
 }
 
-/* Efek cahaya hijau di atas */
+/* --- Efek Radial Glow Hijau di Bagian Atas ---
+   Menambahkan pencahayaan hijau lembut yang memancar di bawah logo kasir. */
 .sidebar::before {
     content: '';
     position: absolute;
     top: 0; left: 0; right: 0;
     height: 220px;
-    background: radial-gradient(ellipse at 50% -10%,
-        rgba(52,211,153,.3) 0%,
-        rgba(16,185,129,.12) 50%,
-        transparent 75%);
-    pointer-events: none;
+    background: var(--sidebar-light-effect);
+    pointer-events: none; /* Efek cahaya tidak menghalangi klik mouse */
     z-index: 0;
 }
 
-/* Garis dekoratif hijau di kanan sidebar */
+/* --- Garis Batas Kanan Dekoratif ---
+   Garis vertikal setebal 1px dengan gradasi transparan di sisi kanan sidebar. */
 .sidebar::after {
     content: '';
     position: absolute;
     top: 0; right: 0; bottom: 0;
     width: 1px;
-    background: linear-gradient(180deg,
-        transparent 0%,
-        rgba(52,211,153,.3) 20%,
-        rgba(16,185,129,.2) 60%,
-        transparent 100%);
+    background: var(--sidebar-border);
     pointer-events: none;
 }
 
-/* --- Logo --- */
+/* ==========================================================================
+   BAGIAN LOGO FRESHPOS (LOGO SECTION)
+   ========================================================================== */
 .logo {
     display: flex;
     align-items: center;
@@ -52,41 +54,47 @@
     position: relative;
     z-index: 1;
 }
+
+/* --- Ikon Logo Daun Hijau ---
+   Mendapatkan efek bayangan glow hijau dan berputar-layang secara otomatis. */
 .logo i {
     font-size: 1.8rem;
-    color: var(--green-400);
-    filter: drop-shadow(0 0 12px rgba(52,211,153,.6));
-    animation: floatLeaf 4s ease-in-out infinite;
+    color: var(--sidebar-logo-icon);
+    filter: drop-shadow(0 0 12px rgba(52, 211, 153, 0.6));
+    animation: floatLeaf 4s ease-in-out infinite; /* Memakai animasi dari animations.css */
 }
+
+/* --- Teks Judul Logo "FreshPOS" --- */
 .logo h2 {
     font-size: 1.4rem;
     font-weight: 800;
-    color: #fff;
+    color: var(--sidebar-logo-text);
     letter-spacing: .5px;
 }
 
-/* Divider */
+/* --- Garis Pembatas Horisontal Logo --- */
 .sidebar-divider {
     height: 1px;
-    background: linear-gradient(90deg,
-        transparent 0%, rgba(52,211,153,.35) 50%, transparent 100%);
+    background: var(--sidebar-divider);
     margin: 0 16px 14px;
     flex-shrink: 0;
 }
 
-/* Nav label */
+/* --- Label Kategori "KATEGORI MENU" --- */
 .nav-label {
     font-size: .62rem;
     font-weight: 700;
     letter-spacing: 1.5px;
     text-transform: uppercase;
-    color: rgba(255,255,255,.28);
+    color: var(--sidebar-nav-label);
     padding: 0 20px 8px;
     position: relative;
     z-index: 1;
 }
 
-/* --- Daftar Kategori --- */
+/* ==========================================================================
+   BAGIAN TOMBOL KATEGORI (CATEGORY ITEMS LIST)
+   ========================================================================== */
 .categories {
     display: flex;
     flex-direction: column;
@@ -97,13 +105,14 @@
     z-index: 1;
 }
 
+/* --- Tombol Kategori Biasa (Default State) --- */
 .category-item {
     display: flex;
     align-items: center;
     gap: 12px;
     padding: 11px 14px;
     border-radius: var(--r-sm);
-    color: rgba(255,255,255,.58);
+    color: var(--sidebar-item-text);
     background: transparent;
     font-size: .84rem;
     font-weight: 500;
@@ -114,6 +123,8 @@
     overflow: hidden;
 }
 
+/* --- Indikator Garis Kiri Kategori ---
+   Garis kecil setebal 3px di sebelah kiri tombol yang akan muncul saat disorot/aktif. */
 .category-item::before {
     content: '';
     position: absolute;
@@ -126,17 +137,19 @@
     transition: transform var(--base) var(--ease);
 }
 
+/* --- Efek Latar Transparan (Glow Latar) ---
+   Muncul secara halus saat tombol kategori disorot mouse. */
 .category-item::after {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg,
-        rgba(52,211,153,.08) 0%, rgba(16,185,129,.04) 100%);
+    background: var(--sidebar-item-hover-bg);
     opacity: 0;
     transition: opacity var(--base);
     border-radius: var(--r-sm);
 }
 
+/* --- Ikon Di Dalam Kategori (Ikon Sendok, Es Krim, dll.) --- */
 .category-item i {
     width: 20px;
     font-size: .95rem;
@@ -144,45 +157,54 @@
     transition: all var(--base);
 }
 
+/* --- Efek Sorot Tombol Kategori (Hover State) --- */
 .category-item:hover {
-    color: rgba(255,255,255,.92);
-    transform: translateX(4px);
+    color: var(--sidebar-item-hover-text);
+    transform: translateX(4px); /* Bergeser sedikit ke kanan agar terasa responsif */
 }
-.category-item:hover::after { opacity: 1; }
-.category-item:hover::before { transform: scaleX(1); }
+.category-item:hover::after { 
+    opacity: 1; 
+}
+.category-item:hover::before { 
+    transform: scaleX(1); /* Garis indikator kiri membesar */
+}
 .category-item:hover i {
-    color: var(--green-400);
-    filter: drop-shadow(0 0 6px rgba(52,211,153,.5));
+    color: var(--sidebar-logo-icon);
+    filter: drop-shadow(0 0 6px rgba(52, 211, 153, 0.5));
 }
 
+/* --- Tombol Kategori Sedang Aktif (Active State) ---
+   Diterapkan pada kategori yang sedang aktif ditampilkan di layar kasir. */
 .category-item.active {
-    background: linear-gradient(135deg,
-        rgba(18, 197, 131, 0.18) 0%,
-        rgba(16,185,129,.1) 60%,
-        rgba(6,95,70,.08) 100%);
-    color: #fff;
+    background: var(--sidebar-item-active-bg);
+    color: var(--sidebar-item-active-text);
     font-weight: 600;
-    border: 1px solid rgba(52,211,153,.22);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,.06),
-                0 2px 8px rgba(0,0,0,.12);
+    border: 1px solid var(--sidebar-item-active-border);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.06), 0 2px 8px rgba(0,0,0,.12);
 }
 .category-item.active i {
-    color: var(--green-400);
-    filter: drop-shadow(0 0 8px rgba(52,211,153,.5));
+    color: var(--sidebar-logo-icon);
+    filter: drop-shadow(0 0 8px rgba(52, 211, 153, 0.5));
 }
-.category-item.active::before { transform: scaleX(1); }
+.category-item.active::before { 
+    transform: scaleX(1); 
+}
 
-/* Sidebar footer */
+/* ==========================================================================
+   BAGIAN KAKI SIDEBAR (SIDEBAR FOOTER)
+   ========================================================================== */
 .sidebar-footer {
     padding: 14px 18px;
-    border-top: 1px solid rgba(255,255,255,.06);
+    border-top: 1px solid var(--sidebar-footer-border);
     flex-shrink: 0;
     position: relative;
     z-index: 1;
 }
+
+/* --- Teks Hak Cipta Kasir --- */
 .sidebar-footer p {
     font-size: .68rem;
-    color: rgba(255,255,255,.2);
+    color: var(--sidebar-footer-text);
     text-align: center;
     letter-spacing: .3px;
 }

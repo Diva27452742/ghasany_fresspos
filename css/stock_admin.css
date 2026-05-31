@@ -1,50 +1,66 @@
-/* ============================================================
-   FreshPOS – stock_admin.css
-   Admin Stock Management Modal Styles
-   ============================================================ */
+/* ==========================================================================
+   FreshPOS – stock_admin.css (Styling Pengelolaan Stok Barang Harian Kasir)
+   ==========================================================================
+   PENTING UNTUK OPERATOR:
+   File ini mengatur pop-up penyesuaian/pengelolaan stok makanan di kasir,
+   termasuk warna pencarian barang stok, item baris daftar stok, tombol plus/minus 
+   (+/-) penambah stok barang, dan input angka stok.
+   Seluruh warna dikontrol terpusat melalui variables.css.
+   ========================================================================== */
 
 .stock-modal-content {
-    max-width: 600px;
+    max-width: 600px; /* Lebar optimal kotak kelola stok */
 }
 
+/* ==========================================================================
+   BAGIAN KOLOM PENCARIAN STOK (STOCK SEARCH BAR)
+   ========================================================================== */
 .stock-search {
     padding: 15px 20px;
-    background: #f8fafc;
-    border-bottom: 1px solid var(--border);
+    background: var(--stock-search-bg); /* Latar belakang abu-abu super halus */
+    border-bottom: 1px solid var(--stock-search-border);
     display: flex;
     align-items: center;
     gap: 12px;
 }
 
+/* --- Ikon Kaca Pembesar Pencarian --- */
 .stock-search i {
-    color: var(--text-muted);
+    color: var(--stock-search-icon);
 }
 
+/* --- Input Teks Pencarian Stok --- */
 .stock-search input {
     flex: 1;
     border: none;
     background: transparent;
     font-size: 0.9rem;
     outline: none;
+    color: var(--stock-search-text);
 }
 
+/* ==========================================================================
+   DAFTAR BARANG KELOLA STOK (STOCK LIST ITEMS STYLING)
+   ========================================================================== */
 .stock-list {
     max-height: 400px;
-    overflow-y: auto;
+    overflow-y: auto; /* Mengaktifkan gulir vertikal jika barang sangat banyak */
     padding: 10px 0;
 }
 
+/* --- Baris Item Barang Stok --- */
 .stock-admin-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 12px 20px;
-    border-bottom: 1px solid #f1f5f9;
+    border-bottom: 1px solid var(--stock-admin-item-border);
     transition: background 0.2s;
 }
 
+/* --- Sorot Baris Barang Stok --- */
 .stock-admin-item:hover {
-    background: #f8fafc;
+    background: var(--stock-admin-item-hover-bg);
 }
 
 .stock-item-info {
@@ -53,6 +69,7 @@
     gap: 12px;
 }
 
+/* --- Foto Mini Thumbnail Barang --- */
 .stock-item-thumb {
     width: 40px;
     height: 40px;
@@ -65,64 +82,79 @@
     flex-direction: column;
 }
 
+/* --- Nama Menu Barang --- */
 .stock-item-name {
     font-size: 0.9rem;
     font-weight: 600;
-    color: var(--text-dark);
+    color: var(--stock-item-name);
 }
 
+/* --- Kategori Menu Barang --- */
 .stock-item-cat {
     font-size: 0.7rem;
-    color: var(--text-muted);
+    color: var(--stock-item-cat);
     text-transform: uppercase;
 }
 
+/* ==========================================================================
+   TOMBOL PENAMBAH/PENGURANG & KOTAK INPUT STOK (CONTROLS & INPUTS)
+   ========================================================================== */
 .stock-item-control {
     display: flex;
     align-items: center;
     gap: 8px;
 }
 
+/* --- Tombol Bulat Tambah/Kurang Stok (+/-) --- */
 .stock-control-btn {
     width: 32px;
     height: 32px;
     border-radius: 8px;
-    border: 1px solid var(--border);
-    background: white;
-    color: var(--text-dark);
+    border: 1px solid var(--stock-control-btn-border);
+    background: var(--stock-control-btn-bg);
+    color: var(--stock-control-btn-text);
     font-weight: 700;
     cursor: pointer;
     transition: all 0.2s;
 }
 
+/* --- Sorot Tombol Kontrol (+/-) --- */
 .stock-control-btn:hover {
-    background: var(--green-50);
-    border-color: var(--green-200);
-    color: var(--green-600);
+    background: var(--stock-control-btn-hover-bg);
+    border-color: var(--stock-control-btn-hover-border);
+    color: var(--stock-control-btn-hover-text);
 }
 
+/* --- Kotak Input Angka Jumlah Stok --- */
 .stock-input {
     width: 60px;
     height: 32px;
     text-align: center;
-    border: 1.5px solid var(--border);
+    border: 1.5px solid var(--stock-input-border);
     border-radius: 8px;
     font-weight: 700;
     font-size: 0.9rem;
+    background: var(--white);
+    color: var(--text-dark);
 }
 
+/* --- Efek Fokus Input Angka Stok --- */
 .stock-input:focus {
     outline: none;
-    border-color: var(--green-500);
+    border-color: var(--stock-input-focus-border);
 }
 
+/* ==========================================================================
+   TOMBOL EKSTRA KELOLA STOK KASIR (STOCK EXTRA ACTION BUTTON)
+   ========================================================================== */
 .extra-btn.stock {
-    background: #f0fdf4;
-    border-color: #bbf7d0;
-    color: #15803d;
+    background: var(--stock-extra-btn-bg);
+    border-color: var(--stock-extra-btn-border);
+    color: var(--stock-extra-btn-text);
 }
 
+/* --- Sorot Tombol Ekstra Kelola Stok --- */
 .extra-btn.stock:hover {
-    background: #dcfce7;
-    border-color: #86efac;
+    background: var(--stock-extra-btn-hover-bg);
+    border-color: var(--stock-extra-btn-hover-border);
 }

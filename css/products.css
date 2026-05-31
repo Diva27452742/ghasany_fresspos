@@ -1,39 +1,42 @@
-/* ============================================================
-   FreshPOS – products.css
-   Product Grid, Cards, and Empty State
-   ============================================================ */
+/* ==========================================================================
+   FreshPOS – products.css (Styling Grid Katalog, Kartu Produk, & Stok Habis)
+   ==========================================================================
+   PENTING UNTUK OPERATOR:
+   Katalog produk menampilkan makanan/minuman yang siap ditambahkan ke keranjang.
+   Warna background kartu (sebelumnya hijau neon keras '#01f049') sekarang 
+   bisa disunting dengan sangat mudah melalui variabel '--prod-card-bg' 
+   di variables.css!
+   ========================================================================== */
 
-/* --- [STYLE GRID KOLOM UTAMA] ---
-   Gaya CSS untuk mengatur baris dan kolom penataan kartu-kartu produk di layar.
-   Grep / Cari "STYLE GRID KOLOM UTAMA" untuk menemukan kode ini. */
+/* --- 1. [STYLE GRID KOLOM UTAMA] ---
+   Mengatur susunan kolom kartu-kartu produk agar rapi dan otomatis menyesuaikan lebar layar. */
 .products-grid {
-    display: grid; /* Mengaktifkan mode Grid (Kolom & Baris otomatis) */
+    display: grid; /* Mengaktifkan mode Grid otomatis */
     
-    /* 👇 Mengatur jumlah kolom otomatis sesuai lebar layar. 
-       - minmax(172px, 1fr) artinya lebar minimum kartu adalah 172px, 
-       dan akan bertambah lebar mengisi sisa layar (1fr) jika layar cukup besar. */
+    /* Lebar minimum kartu produk adalah 172px. Jika layar bertambah lebar, 
+       kartu akan bertambah besar secara proporsional mengisi sisa layar (1fr). */
     grid-template-columns: repeat(auto-fill, minmax(172px, 1fr)); 
     
     align-content: start;
-    gap: 14px; /* Jarak antar kolom dan baris kartu (14 pixel) */
+    gap: 14px; /* Jarak antar kartu produk (14 pixel) */
     padding: 4px 22px 22px;
-    overflow-y: auto;
+    overflow-y: auto; /* Mengaktifkan scroll vertikal jika produk melebihi layar */
     overflow-x: hidden;
     flex: 1;
     min-height: 0;
+    background: var(--prod-grid-bg);
 }
 
-/* --- [STYLE KARTU PRODUK] ---
-   Gaya CSS untuk kontainer utama kartu produk (misal: Es Krim Vanilla) */
+/* --- 2. [STYLE KARTU PRODUK] ---
+   Membentuk kotak utama kartu menu (misal: Es Krim Vanilla). 
+   Operator bisa menyunting background di variables.css lewat '--prod-card-bg'. */
 .product-card {
-
-    background: rgb(255, 255, 255); 
-    
+    background: var(--prod-card-bg); /* Mengambil warna background kartu dari pusat */
     border-radius: var(--r-md);
     overflow: hidden;
     box-shadow: var(--shadow-card);
     cursor: pointer;
-    border: 1.5px solid var(--border);
+    border: 1.5px solid var(--prod-card-border);
     transition:
         border-color var(--base) var(--ease),
         transform var(--base) var(--ease),
@@ -42,68 +45,81 @@
     display: flex;
     flex-direction: column;
 }
+
+/* --- Efek Saat Kartu Produk Disorot (Hover State) ---
+   Mengangkat kartu sedikit ke atas dan memberikan cahaya hijau mint premium. */
 .product-card:hover {
-    border-color: var(--green-400);
-    transform: translateY(-6px);
+    border-color: var(--prod-card-hover-border);
+    transform: translateY(-6px); /* Mengambang setinggi 6 pixel */
     box-shadow:
         var(--shadow-md),
-        0 0 0 3px rgba(8, 224, 145, 0.12),
+        var(--prod-card-hover-shadow-glow),
         var(--shadow-card);
 }
-.product-card:active { transform: translateY(-2px) scale(.98); }
+.product-card:active { 
+    transform: translateY(-2px) scale(.98); /* Sedikit membal saat diklik */
+}
 
-/* Wrapper gambar */
+/* --- Pembungkus Gambar Produk (Image Wrapper) --- */
 .product-img-wrap {
     position: relative;
     overflow: hidden;
-    background: var(--grad-card-img);
+    background: var(--prod-img-wrap-bg);
 }
+
+/* --- Gambar Produk Makanan/Minuman --- */
 .product-img {
     width: 100%;
     height: 130px;
-    object-fit: cover;
+    object-fit: cover; /* Mencegah gambar gepeng/distorsi */
     transition: transform var(--slow) var(--ease);
     display: block;
 }
-.product-card:hover .product-img { transform: scale(1.08); }
 
-/* Overlay "Tambah" saat hover */
+/* --- Efek Zoom Gambar saat Kartu Disorot --- */
+.product-card:hover .product-img { 
+    transform: scale(1.08); /* Gambar membesar 8% secara dinamis */
+}
+
+/* --- 3. [STYLE OVERLAY TAMBAH DIATAS GAMBAR] ---
+   Layar hijau transparan bertuliskan "+ Tambah" yang muncul saat kartu disorot. */
 .product-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(
-        160deg,
-        rgba(4,120,87,.78) 0%,
-        rgba(16,185,129,.65) 60%,
-        rgba(52,211,153,.5) 100%
-    );
+    background: var(--prod-overlay-grad);
     display: flex;
     align-items: center;
     justify-content: center;
     opacity: 0;
     transition: opacity var(--base) var(--ease);
 }
-.product-card:hover .product-overlay { opacity: 1; }
+.product-card:hover .product-overlay { 
+    opacity: 1; 
+}
+
+/* --- Tombol "+ Tambah" Overlay --- */
 .product-overlay span {
-    color: #fff;
+    color: var(--prod-overlay-btn-text);
     font-size: .8rem;
     font-weight: 700;
     letter-spacing: .5px;
-    background: rgba(255,255,255,.18);
-    border: 1.5px solid rgba(255,255,255,.45);
+    background: var(--prod-overlay-btn-bg);
+    border: 1.5px solid var(--prod-overlay-btn-border);
     border-radius: 50px;
     padding: 8px 20px;
     backdrop-filter: blur(6px);
     display: flex;
     align-items: center;
     gap: 6px;
-    box-shadow: 0 4px 16px rgba(0,0,0,.15);
+    box-shadow: var(--prod-overlay-btn-shadow);
     transition: transform var(--fast);
 }
-.product-card:hover .product-overlay span { transform: scale(1.05); }
+.product-card:hover .product-overlay span { 
+    transform: scale(1.05); 
+}
 
-/* --- [STYLE BADGE KATEGORI] ---
-   Gaya CSS untuk badge kategori produk di kiri atas gambar (Contoh: DESSERT) */
+/* --- 4. [STYLE BADGE KATEGORI] ---
+   Badge kecil penanda kategori produk (Contoh: DESSERT) di kiri atas gambar. */
 .product-cat-chip {
     position: absolute;
     top: 8px;
@@ -112,146 +128,156 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: .5px;
-    background: rgba(255,255,255,.9);
-    color: var(--green-800);
+    background: var(--prod-cat-chip-bg);
+    color: var(--prod-cat-chip-text);
     border-radius: 50px;
     padding: 3px 9px;
     backdrop-filter: blur(8px);
-    border: 1px solid rgba(52,211,153,.3);
-    box-shadow: 0 2px 8px rgba(0,0,0,.1);
+    border: 1px solid var(--prod-cat-chip-border);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* --- [STYLE DETAIL KARTU] ---
-   Gaya CSS untuk kontainer teks detail produk di bawah gambar */
+/* --- 5. [STYLE PANEL DETAIL KARTU] ---
+   Kontainer teks informasi nama dan harga di bawah gambar. */
 .product-details {
     padding: 11px 13px 13px;
     flex: 1;
     display: flex;
     flex-direction: column;
     gap: 6px;
-    /* Dibuat transparent agar warna dari .product-card langsung memenuhi seluruh kartu */
-    background: transparent;
+    background: var(--prod-details-bg); /* Dibuat transparent agar warna dasar kartu menyatu */
 }
 
-/* --- [STYLE NAMA PRODUK] ---
-   Gaya CSS untuk nama menu/produk (Contoh: Es Krim Vanilla) */
+/* --- Nama Produk Menu --- */
 .product-name {
     font-size: .82rem;
     font-weight: 600;
-    color: var(--text-body);
+    color: var(--prod-name-text);
     line-height: 1.35;
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 2; /* Membatasi nama produk maksimal 2 baris */
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
 
+/* --- Kaki Kartu Detail --- */
 .product-footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: auto;
+    margin-top: auto; /* Memaksa harga dan tombol selalu rata bawah */
 }
 
-/* --- [STYLE HARGA PRODUK] ---
-   Gaya CSS untuk harga menu/produk (Contoh: Rp 18.000) */
+/* --- Harga Produk Menu --- */
 .product-price {
     font-size: .9rem;
     font-weight: 800;
-    background: var(--grad-price);
+    background: var(--prod-price-text-grad);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     letter-spacing: -.2px;
 }
 
-/* --- [STYLE TOMBOL PLUS (+)] ---
-   Gaya CSS untuk tombol bulat hijau tambah (+) di pojok kanan bawah */
+/* --- 6. [STYLE TOMBOL PLUS KANAN BAWAH (+)] ---
+   Tombol bulat hijau dengan ikon plus di pojok kanan bawah kartu. */
 .add-icon {
     width: 30px;
     height: 30px;
     border-radius: 9px;
-    background: var(--grad-btn);
-    color: #fff;
+    background: var(--prod-add-btn-grad);
+    color: var(--white);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: .75rem;
-    box-shadow: var(--shadow-green);
+    box-shadow: var(--prod-add-btn-shadow);
     flex-shrink: 0;
     transition: all var(--fast) var(--ease);
 }
 .product-card:hover .add-icon {
-    transform: rotate(90deg) scale(1.15);
-    box-shadow: 0 6px 20px rgba(16,185,129,.5);
+    transform: rotate(90deg) scale(1.15); /* Berputar 90 derajat sambil membesar */
+    box-shadow: var(--prod-add-btn-hover-shadow);
 }
 
-/* Metadata Badge */
+/* --- Badge Terpilih Kasir ---
+   Menampilkan angka berapa kali produk ini dimasukkan keranjang. */
 .product-count-badge {
     font-size: .71rem;
-    background: var(--green-100);
-    color: var(--green-800);
-    border: 1px solid var(--green-200);
+    background: var(--prod-count-badge-bg);
+    color: var(--prod-count-badge-text);
+    border: 1px solid var(--prod-count-badge-border);
     border-radius: 50px;
     padding: 3px 12px;
     font-weight: 700;
     letter-spacing: .2px;
 }
 
-/* --- [STYLE BADGE STOK] ---
-   Gaya CSS untuk badge jumlah stok produk di kanan bawah gambar (Contoh: Stok: 12) */
+/* --- 7. [STYLE BADGE INFORMASI STOK] ---
+   Badge kecil penunjuk sisa stok di kanan bawah gambar (Contoh: Stok: 12). */
 .stock-badge {
     position: absolute;
     bottom: 8px;
     right: 8px;
     font-size: 0.65rem;
     font-weight: 700;
-    background: rgba(255, 255, 255, 0.9);
-    color: var(--green-700);
+    background: var(--prod-stock-badge-bg);
+    color: var(--prod-stock-badge-text);
     padding: 2px 8px;
     border-radius: 4px;
-    border: 1px solid var(--green-200);
+    border: 1px solid var(--prod-stock-badge-border);
     backdrop-filter: blur(4px);
     z-index: 2;
 }
+
+/* ==========================================================================
+   KONDISI STOK HABIS (OUT OF STOCK STATE)
+   ========================================================================== */
 .stock-badge.habis {
-    background: #fee2e2;
-    color: #b91c1c;
-    border-color: #fecaca;
+    background: var(--prod-out-stock-bg);
+    color: var(--prod-out-stock-text);
+    border-color: var(--prod-out-stock-border);
 }
 
-/* Out of Stock State */
 .product-card.out-of-stock {
     cursor: not-allowed;
     opacity: 0.8;
-    filter: grayscale(0.5);
+    filter: grayscale(0.5); /* Meredupkan warna gambar menjadi abu-abu */
 }
+
 .product-card.out-of-stock:hover {
     transform: none;
     box-shadow: var(--shadow-card);
-    border-color: #fca5a5;
+    border-color: var(--prod-out-stock-border);
 }
+
 .product-card.out-of-stock .product-overlay {
-    background: linear-gradient(160deg, rgba(185, 28, 28, 0.7) 0%, rgba(220, 38, 38, 0.6) 100%);
+    background: var(--prod-out-stock-overlay-grad); /* Overlay merah */
 }
+
 .product-card.out-of-stock .product-overlay span {
-    border-color: rgba(255, 255, 255, 0.3);
-    background: rgba(0, 0, 0, 0.2);
+    border-color: var(--prod-out-stock-overlay-btn-border);
+    background: var(--prod-out-stock-overlay-btn-bg);
 }
+
 .product-card.out-of-stock .product-overlay span::after {
-    content: " (Habis)";
+    content: " (Habis)"; /* Otomatis menambahkan teks Habis */
 }
+
 .product-card.out-of-stock .add-icon {
-    background: #fca5a5;
+    background: var(--prod-out-stock-add-btn-bg);
     box-shadow: none;
 }
+
 .product-card.out-of-stock .product-price {
-    background: #991b1b;
+    background: var(--prod-out-stock-price-text);
     -webkit-background-clip: text;
     background-clip: text;
 }
 
-/* Empty state */
+/* ==========================================================================
+   KONDISI MENU KOSONG (EMPTY STATE)
+   ========================================================================== */
 .empty-state {
     grid-column: 1 / -1;
     display: flex;
@@ -262,6 +288,16 @@
     text-align: center;
     gap: 12px;
 }
-.empty-state i { font-size: 3.5rem; color: var(--green-200); }
-.empty-state h3 { font-size: 1rem; font-weight: 600; color: var(--text-muted); }
-.empty-state p { font-size: .82rem; color: var(--text-light); }
+.empty-state i { 
+    font-size: 3.5rem; 
+    color: var(--prod-empty-icon); 
+}
+.empty-state h3 { 
+    font-size: 1rem; 
+    font-weight: 600; 
+    color: var(--text-muted); 
+}
+.empty-state p { 
+    font-size: .82rem; 
+    color: var(--text-light); 
+}
