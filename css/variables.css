@@ -1,523 +1,503 @@
-/* ==========================================================================
-   FreshPOS – variables.css (Pusat Kontrol Tampilan & Variabel Warna)
-   ==========================================================================
-   PENTING UNTUK OPERATOR:
-   Semua warna, gradien, bayangan (shadow), ukuran garis (border), dan kelengkungan 
-   (radius) di seluruh aplikasi diatur di file ini. Anda dapat mengubah warna 
-   seluruh aplikasi CUKUP dari file ini saja tanpa perlu mencari di file lain!
-   ========================================================================== */
+/* FreshPOS – variables.css | Pusat kontrol warna & tampilan seluruh aplikasi
+   Ubah warna di sini untuk mengubah tampilan tanpa perlu cari file lain. */
 
 :root {
-    /* ======================================================================
-       KOLOM A: PALET WARNA DASAR (BASE COLOR PALETTES)
-       Warna-warna dasar yang digunakan sebagai referensi di seluruh sistem.
-       ====================================================================== */
 
-    /* --- Palet Hijau Utama (Fresh & Premium Green Theme) --- */
-    --green-950:     #022c22; /* Hijau terdalam (gelap sekali) */
-    --green-900:     #064e3b; /* Hijau tua */
-    --green-800:     #065f46; /* Hijau botol */
-    --green-700:     #047857; /* Hijau segar */
-    --green-600:     #059669; /* Hijau daun */
-    --green-500:     #6696a5; /* Hijau toska muda */
-    --green-400:     #34d399; /* Hijau mint cerah */
-    --green-300:     #6ee7b7; /* Hijau mint lembut */
-    --green-200:     #a7f3d0; /* Hijau pastel sangat muda */
-    --green-100:     #d1fae5; /* Hijau susu pastel */
-    --green-50:      #f0fdf4; /* Latar belakang hijau super lembut */
-    --green-5:       #fdecf9; /* Latar belakang pink pastel hiasan (jika ada) */
+    /* =====================================================================
+       A. PALET WARNA DASAR
+       ===================================================================== */
 
-    /* --- Palet Dasar Hitam & Putih --- */
-    --white:         #ffffff; /* Putih bersih */
-    --black:         #000000; /* Hitam pekat */
+    /* Hijau */
+    --green-950:     #022c22; /* hijau terdalam */
+    --green-900:     #064e3b;
+    --green-800:     #065f46;
+    --green-700:     #047857;
+    --green-600:     #059669;
+    --green-500:     #6696a5; /* toska muda */
+    --green-400:     #34d399; /* mint cerah */
+    --green-300:     #6ee7b7;
+    --green-200:     #a7f3d0;
+    --green-100:     #d1fae5;
+    --green-50:      #f0fdf4;
+    --green-5:       #fdecf9;  /* pink pastel aksen */
 
-    /* --- Palet Aksen Merah (Batal, Hapus, Stok Habis) --- */
-    --red-900:       #7f1d1d; /* Merah gelap */
-    --red-800:       #991b1b; /* Merah hati */
-    --red-700:       #b91c1c; /* Merah bendera */
-    --red-600:       #dc2626; /* Merah cerah */
-    --red-500:       #ef4444; /* Merah aksen */
-    --red-400:       #f87171; /* Merah pastel */
-    --red-200:       #fecaca; /* Merah muda */
-    --red-100:       #fee2e2; /* Merah super lembut */
-    --red-50:        #fff5f5; /* Latar belakang merah lembut */
+    /* Dasar */
+    --white:         #ffffff;
+    --black:         #000000;
 
-    /* --- Palet Aksen Biru (Informasi & Member Terverifikasi) --- */
-    --blue-800:      #075985; /* Biru laut tua */
-    --blue-700:      #0369a1; /* Biru laut segar */
-    --blue-600:      #0284c7; /* Biru langit cerah */
-    --blue-500:      #0ea5e9; /* Biru langit aksen */
-    --blue-400:      #38bdf8; /* Biru pastel */
-    --blue-200:      #bae6fd; /* Biru muda */
-    --blue-100:      #e0f2fe; /* Biru super lembut */
-    --blue-50:       #f0f9ff; /* Latar belakang biru lembut */
+    /* Merah – hapus, batal, stok habis */
+    --red-900:       #7f1d1d;
+    --red-800:       #991b1b;
+    --red-700:       #b91c1c;
+    --red-600:       #dc2626;
+    --red-500:       #ef4444;
+    --red-400:       #f87171;
+    --red-200:       #fecaca;
+    --red-100:       #fee2e2;
+    --red-50:        #fff5f5;
 
-    /* --- Palet Aksen Ungu (VIP, Diskon Spesial) --- */
-    --purple-800:    #6b21a8; /* Ungu tua */
-    --purple-600:    #9333ea; /* Ungu aksen */
-    --purple-400:    #c084fc; /* Ungu pastel */
-    --purple-200:    #e9d5ff; /* Ungu muda */
-    --purple-100:    #f3e8ff; /* Ungu super lembut */
+    /* Biru – info & member terverifikasi */
+    --blue-800:      #075985;
+    --blue-700:      #0369a1;
+    --blue-600:      #0284c7;
+    --blue-500:      #0ea5e9;
+    --blue-400:      #38bdf8;
+    --blue-200:      #bae6fd;
+    --blue-100:      #e0f2fe;
+    --blue-50:       #f0f9ff;
 
-    /* --- Palet Aksen Kuning/Orange (Reservasi Berlangsung) --- */
-    --yellow-800:    #9a3412; /* Kuning-merah tua */
-    --yellow-600:    #ea580c; /* Orange aksen */
-    --yellow-400:    #fb923c; /* Orange pastel */
-    --yellow-200:    #fed7aa; /* Orange muda */
-    --yellow-100:    #ffedd5; /* Orange super lembut */
+    /* Ungu – VIP & diskon spesial */
+    --purple-800:    #6b21a8;
+    --purple-600:    #9333ea;
+    --purple-400:    #c084fc;
+    --purple-200:    #e9d5ff;
+    --purple-100:    #f3e8ff;
 
-    /* --- Palet Netral Gray (Teks & Elemen Non-Warna) --- */
-    --gray-950:      #0f172a; /* Slate gelap sekali (background form glass) */
-    --gray-900:      #1e293b; /* Slate gelap */
-    --gray-800:      #334155; /* Slate abu-abu gelap */
-    --gray-700:      #374151; /* Abu-abu teks tubuh */
-    --gray-600:      #4b5563; /* Abu-abu sedang */
-    --gray-500:      #6b7280; /* Abu-abu redup (muted) */
-    --gray-400:      #9ca3af; /* Abu-abu terang */
-    --gray-300:      #cbd5e1; /* Abu-abu pembatas */
-    --gray-200:      #e5e7eb; /* Abu-abu garis tepi super lembut */
-    --gray-100:      #f3f4f6; /* Abu-abu latar belakang umum */
-    --gray-50:       #f8fafc; /* Latar belakang super lembut */
+    /* Orange – reservasi berlangsung */
+    --yellow-800:    #9a3412;
+    --yellow-600:    #ea580c;
+    --yellow-400:    #fb923c;
+    --yellow-200:    #fed7aa;
+    --yellow-100:    #ffedd5;
 
-
-    /* ======================================================================
-       KOLOM B: WARNA SEMANTIK PER BAGIAN (SEMANTIC INTERFACE MODULES)
-       Ganti warna di bawah ini untuk mengubah bagian tertentu dari aplikasi!
-       ====================================================================== */
-
-    /* --- 1. TATA LETAK UTAMA (APP SHELL & LAYOUT) --- */
-    --bg-page:                   #f8fffb; /* Warna dasar halaman */
-    --text-primary:              var(--green-950); /* Warna teks paling utama */
-    --text-secondary:            var(--green-800); /* Warna teks kedua */
-    --text-body:                 var(--gray-700); /* Warna teks isi artikel/deskripsi */
-    --text-muted:                var(--gray-500); /* Warna teks redup/keterangan */
-    --text-light:                var(--gray-400); /* Warna teks sangat redup/placeholder */
-    --text-on-dark:              var(--white); /* Warna teks di atas latar belakang gelap */
-    --text-dark:                 var(--gray-900); /* Warna teks hitam/gelap */
-    
-    /* --- 2. SIDEBAR NAVIGASI (KIRI) --- */
-    --sidebar-bg:                var(--grad-sidebar); /* Gradasi background sidebar */
-    --sidebar-light-effect:      radial-gradient(ellipse at 50% -10%, rgba(52,211,153,.3) 0%, rgba(16,185,129,.12) 50%, transparent 75%); /* Efek cahaya di atas sidebar */
-    --sidebar-border:            linear-gradient(180deg, transparent 0%, rgba(52,211,153,.3) 20%, rgba(16,185,129,.2) 60%, transparent 100%); /* Garis pemisah tepi kanan */
-    --sidebar-logo-icon:         var(--green-400); /* Warna ikon logo daun melayang */
-    --sidebar-logo-text:         var(--white); /* Warna teks judul logo */
-    --sidebar-divider:           linear-gradient(90deg, transparent 0%, rgba(52,211,153,.35) 50%, transparent 100%); /* Garis pemisah antar menu */
-    --sidebar-nav-label:         rgba(255, 255, 255, 0.28); /* Warna judul bagian menu kategori */
-    --sidebar-item-text:         rgba(255, 255, 255, 0.58); /* Warna teks menu kategori biasa */
-    --sidebar-item-hover-bg:     linear-gradient(135deg, rgba(52,211,153,.08) 0%, rgba(16,185,129,.04) 100%); /* Warna background menu saat disorot */
-    --sidebar-item-hover-text:   rgba(255, 255, 255, 0.92); /* Warna teks menu saat disorot */
-    --sidebar-item-active-bg:    linear-gradient(135deg, rgba(18, 197, 131, 0.18) 0%, rgba(16,185,129,.1) 60%, rgba(6,95,70,.08) 100%); /* Warna background menu aktif */
-    --sidebar-item-active-text:  var(--white); /* Warna teks menu aktif */
-    --sidebar-item-active-border: rgba(52, 211, 153, 0.22); /* Warna garis tepi menu aktif */
-    --sidebar-footer-border:     rgba(255, 255, 255, 0.06); /* Garis tepi pembatas footer sidebar */
-    --sidebar-footer-text:       rgba(255, 255, 255, 0.2); /* Warna teks hak cipta/footer */
-
-    /* --- 3. HEADER ATAS (TOP HEADER) --- */
-    --header-bg:                 rgba(255, 255, 255, 0.88); /* Background header (glass transparan) */
-    --header-border:             var(--border); /* Garis tepi bawah header */
-    --header-shadow:             0 2px 12px rgba(6, 78, 59, 0.06); /* Bayangan halus header */
-    --search-bg:                 var(--bg-input); /* Background input pencarian */
-    --search-border:             var(--border-mid); /* Garis tepi pencarian normal */
-    --search-focus-bg:           var(--white); /* Background pencarian saat diketik */
-    --search-focus-border:       var(--green-500); /* Garis tepi pencarian saat aktif */
-    --search-focus-shadow:       0 0 0 3px rgba(52, 211, 153, 0.18); /* Bayangan menyala saat mengetik */
-    --search-icon:               var(--green-500); /* Warna ikon kaca pembesar */
-    --profile-name:              var(--text-primary); /* Warna nama profil kasir */
-    --profile-role:              var(--text-muted); /* Warna peran/role (Admin/Operator) */
-    --profile-edit-btn:          var(--green-600); /* Tombol edit admin */
-    --profile-edit-btn-hover:    var(--green-500); /* Tombol edit admin saat disorot */
-    --profile-avatar-border:     var(--green-400); /* Garis lingkar avatar foto */
-
-    /* --- 4. KARTU PRODUK (PRODUCT CARDS) --- */
-    --prod-grid-bg:              transparent; /* Latar belakang area grid produk */
-    --prod-card-bg:              var(--white); /* !!! WARNA BACKGROUND KARTU PRODUK (PENTING!) !!! */
-    --prod-card-border:          var(--border); /* Garis tepi kartu produk */
-    --prod-card-hover-border:    var(--green-400); /* Garis tepi kartu saat disorot */
-    --prod-card-hover-shadow-glow: 0 0 0 3px rgba(8, 224, 145, 0.12); /* Bayangan menyala hijau saat disorot */
-    --prod-img-wrap-bg:          var(--grad-card-img); /* Gradasi background gambar jika gagal load */
-    --prod-overlay-grad:         linear-gradient(160deg, rgba(4,120,87,.78) 0%, rgba(16,185,129,.65) 60%, rgba(52,211,153,.5) 100%); /* Gradasi gelap hijau saat melayang di kartu */
-    --prod-overlay-btn-bg:       rgba(255, 255, 255, 0.18); /* Tombol melayang overlay */
-    --prod-overlay-btn-border:   rgba(255, 255, 255, 0.45); /* Garis tepi tombol melayang overlay */
-    --prod-overlay-btn-text:     var(--white); /* Teks tombol overlay */
-    --prod-overlay-btn-shadow:   0 4px 16px rgba(0, 0, 0, 0.15); /* Bayangan tombol overlay */
-    --prod-cat-chip-bg:          rgba(255, 255, 255, 0.9); /* Latar belakang kategori chip (kiri atas) */
-    --prod-cat-chip-border:      rgba(52, 211, 153, 0.3); /* Garis tepi chip kategori */
-    --prod-cat-chip-text:        var(--green-800); /* Warna teks chip kategori */
-    --prod-details-bg:           transparent; /* Background info kartu bawah */
-    --prod-name-text:            var(--text-body); /* Warna teks nama produk */
-    --prod-price-text-grad:      var(--grad-price); /* Gradasi warna harga */
-    --prod-add-btn-grad:         var(--grad-btn); /* Gradasi tombol tambah bulat (+) */
-    --prod-add-btn-shadow:       var(--shadow-green); /* Bayangan tombol tambah */
-    --prod-add-btn-hover-shadow: 0 6px 20px rgba(16, 185, 129, 0.5); /* Bayangan menyala tombol tambah disorot */
-    --prod-count-badge-bg:       var(--green-100); /* Background badge jumlah produk terpilih */
-    --prod-count-badge-border:   var(--green-200); /* Garis tepi badge terpilih */
-    --prod-count-badge-text:     var(--green-800); /* Warna teks badge terpilih */
-    --prod-stock-badge-bg:       rgba(255, 255, 255, 0.9); /* Background badge jumlah stok tersedia */
-    --prod-stock-badge-border:   var(--green-200); /* Garis tepi badge stok tersedia */
-    --prod-stock-badge-text:     var(--green-700); /* Warna teks badge stok tersedia */
-    
-    /* --- PRODUK STOK HABIS (OUT OF STOCK) --- */
-    --prod-out-stock-bg:         var(--red-100); /* Background badge stok habis */
-    --prod-out-stock-border:     var(--red-200); /* Garis tepi kartu stok habis saat disorot */
-    --prod-out-stock-text:       var(--red-700); /* Warna teks keterangan habis */
-    --prod-out-stock-overlay-grad: linear-gradient(160deg, rgba(185, 28, 28, 0.7) 0%, rgba(220, 38, 38, 0.6) 100%); /* Overlay merah melayang */
-    --prod-out-stock-overlay-btn-bg: rgba(0, 0, 0, 0.2); /* Tombol overlay saat habis */
-    --prod-out-stock-overlay-btn-border: rgba(255, 255, 255, 0.3); /* Garis tepi tombol overlay saat habis */
-    --prod-out-stock-add-btn-bg: var(--red-200); /* Tombol tambah non-aktif merah */
-    --prod-out-stock-price-text: var(--red-800); /* Warna teks harga saat habis */
-    --prod-empty-icon:           var(--green-200); /* Ikon keranjang kosong katalog */
-
-    /* --- 5. KERANJANG BELANJA (CART SIDEBAR) --- */
-    --cart-bg:                   var(--bg-cart); /* Latar belakang sidebar keranjang */
-    --cart-border:               var(--border); /* Garis tepi pemisah sebelah kiri */
-    --cart-shadow:               -4px 0 20px rgba(6, 78, 59, 0.07); /* Bayangan masuk ke kiri */
-    --cart-header-bg-grad:       var(--grad-header); /* Gradasi header keranjang atas */
-    --cart-header-text:          var(--white); /* Teks judul keranjang belanja */
-    --cart-header-icon:          var(--green-300); /* Warna ikon keranjang belanja */
-    --cart-header-order-bg:      rgba(255, 255, 255, 0.14); /* Latar ID Transaksi */
-    --cart-header-order-border:  rgba(52, 211, 153, 0.35); /* Garis tepi ID Transaksi */
-    --cart-header-order-text:    var(--green-300); /* Teks ID Transaksi */
-    --cart-items-bg:             #fafffe; /* Latar belakang area gulung item */
-    --cart-item-bg:              var(--white); /* Background kartu item keranjang */
-    --cart-item-border:          var(--border); /* Garis tepi kartu item */
-    --cart-item-shadow:          var(--shadow-xs); /* Bayangan halus kartu item */
-    --cart-item-img-border:      var(--border-mid); /* Garis lingkaran/tepi gambar item */
-    --cart-item-name:            var(--text-body); /* Nama item terpilih */
-    --cart-item-price:           var(--green-700); /* Warna harga item kasir */
-    --cart-qty-btn-bg:           var(--green-50); /* Background tombol kuantitas qty (+) atau (-) */
-    --cart-qty-btn-border:       var(--border-mid); /* Garis tepi tombol kuantitas qty */
-    --cart-qty-btn-text:         var(--green-700); /* Warna teks tombol kuantitas qty */
-    --cart-qty-btn-hover-bg:     var(--green-600); /* Tombol qty saat disorot */
-    --cart-qty-btn-hover-text:   var(--white); /* Teks tombol qty saat disorot */
-    --cart-del-btn-bg:           var(--red-50); /* Tombol hapus item (ikon keranjang sampah) */
-    --cart-del-btn-border:       var(--red-200); /* Garis tepi tombol hapus */
-    --cart-del-btn-text:         var(--red-500); /* Warna ikon hapus */
-    --cart-del-btn-hover-bg:     var(--red-500); /* Tombol hapus saat disorot */
-    --cart-del-btn-hover-text:   var(--white); /* Ikon hapus saat disorot */
-    --cart-empty-icon:           var(--green-200); /* Ikon tas belanja kosong */
-    --cart-footer-bg:            var(--white); /* Latar belakang ringkasan pembayaran bawah */
-    --cart-footer-border:        var(--border); /* Garis tepi pembatas ringkasan */
-    --cart-row-text:             var(--text-muted); /* Teks keterangan (Subtotal, Pajak, Diskon) */
-    --cart-row-val:              var(--text-body); /* Nilai angka ringkasan biasa */
-    --cart-total-dash-border:    var(--green-200); /* Garis putus-putus pembatas total harga */
-    --cart-total-text:           var(--text-primary); /* Teks "Total Bayar" */
-    --cart-total-val-grad:       var(--grad-price); /* Gradasi warna nominal total bayar */
-    --cart-pay-label:            var(--text-muted); /* Teks judul "Metode Pembayaran" */
-    --cart-pay-btn-bg:           var(--green-50); /* Tombol metode pembayaran (Cash, QRIS, dll) */
-    --cart-pay-btn-border:       var(--border-mid); /* Garis tepi metode pembayaran biasa */
-    --cart-pay-btn-text:         var(--green-700); /* Warna teks metode pembayaran biasa */
-    --cart-pay-btn-active-grad:  var(--grad-btn); /* Metode aktif terpilih */
-    --cart-pay-btn-active-text:  var(--white); /* Teks metode aktif */
-    --cart-checkout-btn-grad:    var(--grad-btn); /* Tombol bayar "Checkout" utama */
-    --cart-checkout-btn-text:    var(--white); /* Teks tombol bayar */
-    --cart-checkout-disabled-bg: var(--gray-200); /* Tombol bayar jika keranjang kosong */
-    --cart-checkout-disabled-text: var(--gray-400); /* Teks tombol bayar jika kosong */
-    --cart-discount-text:        var(--green-700); /* Warna baris diskon aktif hijau */
-    
-    /* --- DETAIL MEMBER PANEL (KERANJANG) --- */
-    --cart-member-panel-bg:      rgba(16, 185, 129, 0.04); /* Background kotak panel member */
-    --cart-member-panel-border:  rgba(16, 185, 129, 0.15); /* Garis tepi panel member */
-    --cart-member-header:        var(--green-700); /* Teks judul panel member */
-    --cart-member-header-icon:   var(--green-500); /* Ikon kartu member */
-    --cart-member-select-bg:     var(--white); /* Latar dropdown pilih member */
-    --cart-member-select-border: rgba(16, 185, 129, 0.2); /* Garis tepi dropdown */
-    --cart-member-select-focus-border: var(--green-400); /* Dropdown member saat diklik aktif */
-    --cart-member-select-focus-shadow: rgba(16, 185, 129, 0.08); /* Bayangan dropdown saat aktif */
-    --cart-member-row-bg:        rgba(16, 185, 129, 0.06); /* Baris centang "Gunakan Diskon Member" */
-    --cart-member-row-border:    rgba(16, 185, 129, 0.12); /* Garis tepi baris centang */
-    --cart-member-checkbox-accent: var(--green-500); /* Warna centang checkbox */
-
-    /* --- 6. MODAL & STRUK DIGITAL (RECEIPT & QRIS) --- */
-    --modal-overlay-bg:          rgba(2, 44, 34, 0.55); /* Warna layar gelap blur di belakang modal */
-    --modal-content-bg:          var(--white); /* Background kotak putih modal */
-    --modal-content-shadow:      var(--shadow-lg); /* Bayangan luar kotak modal */
-    --modal-receipt-header-bar-grad: var(--grad-btn); /* Gradasi bar hijau paling atas struk */
-    --receipt-header-text-grad:  var(--grad-header); /* Gradasi teks FreshPOS kepala struk */
-    --receipt-subheader-text:    var(--text-muted); /* Sub-teks alamat / telepon di struk */
-    --receipt-divider-dash:      var(--green-200); /* Garis putus-putus putaran struk */
-    --receipt-th-text:           var(--text-muted); /* Teks kolom header tabel struk */
-    --receipt-th-border:         var(--border); /* Garis tepi header tabel struk */
-    --receipt-detail-text:       var(--text-muted); /* Detail transaksi biasa di struk */
-    --receipt-total-text:        var(--text-primary); /* Teks nominal total di struk */
-    --receipt-total-val-grad:    var(--grad-price); /* Gradasi nominal total di struk */
-    --receipt-icon:              var(--green-500); /* Warna ikon centang sukses */
-    --receipt-footer-text:       var(--text-muted); /* Teks terima kasih struk */
-    --receipt-print-btn-grad:    var(--grad-btn); /* Tombol cetak struk */
-    --receipt-print-btn-text:    var(--white); /* Teks tombol cetak struk */
-    --receipt-print-btn-shadow:  var(--shadow-green); /* Bayangan cetak struk */
-    --qris-container-bg:         var(--green-50); /* Background kotak kode QRIS */
-    --qris-container-border:     var(--green-200); /* Garis tepi QRIS */
-    --qris-img-border:           var(--green-200); /* Bingkai foto QRIS */
-
-    /* --- 7. MODAL RIWAYAT & MANAJEMEN MEMBER (GLASSMORPHIC) --- */
-    --hist-top-btn-bg:           rgba(52, 211, 153, 0.1); /* Tombol "Riwayat & Member" atas */
-    --hist-top-btn-border:       rgba(52, 211, 153, 0.2); /* Garis tepi tombol atas */
-    --hist-top-btn-text:         var(--green-300); /* Teks tombol atas */
-    --hist-top-btn-hover-bg:     var(--green-500); /* Tombol atas saat dihover */
-    --hist-top-btn-hover-text:   var(--white); /* Teks tombol atas saat dihover */
-    --hist-top-btn-hover-shadow: 0 4px 12px rgba(52, 211, 153, 0.25); /* Bayangan menyala tombol atas */
-    
-    /* --- ELEMEN KACA GELAP GLASSMORPHIC (DARK MODE THEME) --- */
-    --glass-modal-bg:            rgba(30, 41, 59, 0.75); /* Latar belakang kaca semi-transparan modal */
-    --glass-modal-border:        rgba(255, 255, 255, 0.1); /* Garis tepi modal kaca */
-    --glass-modal-shadow:        0 20px 40px rgba(0, 0, 0, 0.5); /* Bayangan hitam tebal di belakang */
-    --glass-modal-text:          var(--white); /* Warna teks putih bersih di atas warna gelap */
-    --glass-close-btn-text:      rgba(255, 255, 255, 0.6); /* Tombol X close modal */
-    --glass-close-btn-hover-text: var(--red-400); /* Tombol X close modal disorot */
-    --glass-input-border:        rgba(255, 255, 255, 0.15); /* Garis input normal di dark mode */
-    --glass-input-focus-border:  rgba(52, 211, 153, 0.8); /* Garis input aktif disorot */
-    --glass-input-focus-bg:      rgba(0, 0, 0, 0.35); /* Latar input aktif disorot */
-    --glass-input-focus-shadow:  0 0 10px rgba(52, 211, 153, 0.2); /* Bayangan menyala input aktif */
-    --glass-scrollbar-track:     rgba(255, 255, 255, 0.02); /* Track scrollbar */
-    --glass-scrollbar-thumb:     rgba(255, 255, 255, 0.15); /* Tombol scrollbar */
-    --glass-scrollbar-thumb-hover: rgba(52, 211, 153, 0.4); /* Tombol scrollbar dihover */
-    --glass-card-bg:             rgba(255, 255, 255, 0.04); /* Background kartu daftar member */
-    --glass-card-border:         rgba(255, 255, 255, 0.08); /* Garis tepi kartu member */
-    --glass-card-hover-bg:       rgba(255, 255, 255, 0.07); /* Kartu member saat dihover */
-    --glass-card-hover-border:   rgba(52, 211, 153, 0.3); /* Garis tepi kartu member dihover */
-    --glass-card-hover-shadow:   0 8px 20px rgba(0, 0, 0, 0.15); /* Bayangan kartu member dihover */
-    --glass-card-title:          var(--white); /* Teks nama member */
-    --glass-card-date:           rgba(255, 255, 255, 0.45); /* Tanggal pendaftaran */
-    
-    /* --- STATUS BADGES MEMBER --- */
-    --glass-badge-verified-bg:   rgba(14, 165, 233, 0.12); /* Badge member terverifikasi */
-    --glass-badge-verified-text: #38bdf8; /* Teks verified */
-    --glass-badge-verified-border: rgba(14, 165, 233, 0.25); /* Garis verified */
-    --glass-badge-unverified-bg: rgba(255, 255, 255, 0.06); /* Badge unverified */
-    --glass-badge-unverified-text: rgba(255, 255, 255, 0.5); /* Teks unverified */
-    --glass-badge-unverified-border: rgba(255, 255, 255, 0.1); /* Garis unverified */
-    --glass-badge-discount-bg:   rgba(168, 85, 247, 0.12); /* Badge diskon aktif member */
-    --glass-badge-discount-text: #c084fc; /* Teks diskon */
-    --glass-badge-discount-border: rgba(168, 85, 247, 0.25); /* Garis diskon */
-    --glass-badge-discount-zero-bg: rgba(255, 255, 255, 0.04); /* Badge diskon 0% */
-    --glass-badge-discount-zero-text: rgba(255, 255, 255, 0.35); /* Teks diskon 0% */
-    --glass-badge-discount-zero-border: rgba(255, 255, 255, 0.1); /* Garis diskon 0% */
-    --glass-badge-active-bg:     rgba(16, 185, 129, 0.12); /* Status aktif member */
-    --glass-badge-active-text:   var(--green-400); /* Teks status aktif */
-    --glass-badge-active-border: rgba(16, 185, 129, 0.25); /* Garis status aktif */
-    --glass-badge-expired-bg:    rgba(239, 68, 68, 0.12); /* Status kadaluarsa member */
-    --glass-badge-expired-text:  var(--red-400); /* Teks kadaluarsa */
-    --glass-badge-expired-border: rgba(239, 68, 68, 0.25); /* Garis kadaluarsa */
-    
-    /* --- NOTES & FORM INPUT CRUD MEMBER --- */
-    --glass-notes-bg:            rgba(0, 0, 0, 0.15); /* Catatan khusus member */
-    --glass-notes-border:        rgba(52, 211, 153, 0.5); /* Garis tepi kiri catatan */
-    --glass-notes-text:          rgba(255, 255, 255, 0.75); /* Teks catatan */
-    --glass-btn-action-bg:       transparent; /* Tombol sunting/hapus member */
-    --glass-btn-action-border:   rgba(255, 255, 255, 0.1); /* Garis tepi tombol aksi */
-    --glass-btn-action-text:     rgba(255, 255, 255, 0.7); /* Teks tombol aksi */
-    --glass-btn-action-edit-hover-bg: rgba(52, 211, 153, 0.12); /* Tombol edit saat dihover */
-    --glass-btn-action-edit-hover-text: var(--green-400); /* Teks edit dihover */
-    --glass-btn-action-edit-hover-border: rgba(52, 211, 153, 0.3); /* Garis edit dihover */
-    --glass-btn-action-del-hover-bg: rgba(239, 68, 68, 0.12); /* Tombol hapus saat dihover */
-    --glass-btn-action-del-hover-text: var(--red-400); /* Teks hapus dihover */
-    --glass-btn-action-del-hover-border: rgba(239, 68, 68, 0.3); /* Garis hapus dihover */
-    --glass-empty-text:          rgba(255, 255, 255, 0.5); /* Keterangan riwayat kosong */
-    --glass-empty-icon:          rgba(255, 255, 255, 0.15); /* Ikon riwayat kosong */
-    
-    --glass-form-container-bg:   rgba(15, 23, 42, 0.5); /* Kotak form input member */
-    --glass-form-container-border: rgba(255, 255, 255, 0.08); /* Garis form input */
-    --glass-form-container-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.05); /* Efek pencahayaan form */
-    --glass-form-group-bg:       rgba(0, 0, 0, 0.25); /* Blok kelompok field form */
-    --glass-form-group-border:   rgba(255, 255, 255, 0.08); /* Garis field form */
-    --glass-form-group-focus-bg: rgba(0, 0, 0, 0.35); /* Blok field saat aktif diklik */
-    --glass-form-group-focus-border: rgba(52, 211, 153, 0.45); /* Garis field saat aktif */
-    --glass-form-group-focus-shadow: 0 0 10px rgba(52, 211, 153, 0.15); /* Bayangan field saat aktif */
-    --glass-form-label:          rgba(255, 255, 255, 0.45); /* Label field (NAMA, TELEPON) */
-    --glass-form-input-text:     var(--white); /* Nilai teks input form */
-    --glass-form-placeholder:    rgba(255, 255, 255, 0.35); /* Placeholder saat input kosong */
-    --glass-form-select-option-bg: #1e293b; /* Background pilihan dropdown select */
-    --glass-form-select-option-text: var(--white); /* Teks dropdown select */
-    
-    --glass-form-primary-btn-bg: rgba(16, 185, 129, 0.2); /* Tombol Simpan hijau kaca */
-    --glass-form-primary-btn-text: var(--green-400); /* Teks tombol Simpan */
-    --glass-form-primary-btn-border: rgba(16, 185, 129, 0.4); /* Garis tepi tombol Simpan */
-    --glass-form-primary-btn-hover-bg: rgba(16, 185, 129, 0.32); /* Tombol Simpan saat dihover */
-    --glass-form-primary-btn-hover-border: rgba(16, 185, 129, 0.55); /* Garis tombol Simpan dihover */
-    --glass-form-primary-btn-hover-shadow: 0 4px 12px rgba(16, 185, 129, 0.15); /* Bayangan tombol Simpan dihover */
-    
-    --glass-form-cancel-btn-bg:  rgba(255, 255, 255, 0.05); /* Tombol Batal abu kaca */
-    --glass-form-cancel-btn-border: rgba(255, 255, 255, 0.15); /* Garis tombol Batal */
-    --glass-form-cancel-btn-text: rgba(255, 255, 255, 0.7); /* Teks tombol Batal */
-    --glass-form-cancel-btn-hover-bg: rgba(255, 255, 255, 0.1); /* Tombol Batal dihover */
-    --glass-form-cancel-btn-hover-text: var(--white); /* Teks Batal dihover */
-
-    /* --- 8. FITUR EKSTRA & RESERVASI (RESERVATION THEME) --- */
-    --res-extra-btn-bg:          var(--white); /* Tombol fitur ekstra biasa (Reservasi Meja) */
-    --res-extra-btn-border:      var(--border); /* Garis tepi tombol fitur ekstra */
-    --res-extra-btn-text:        var(--text-primary); /* Teks tombol fitur ekstra */
-    --res-extra-btn-hover-bg:    var(--green-50); /* Tombol ekstra disorot */
-    --res-extra-btn-hover-border: var(--green-300); /* Garis tombol ekstra disorot */
-    --res-extra-btn-hover-text:  var(--green-800); /* Teks tombol ekstra disorot */
-    --res-extra-btn-hover-shadow: var(--shadow-sm); /* Bayangan tombol ekstra disorot */
-    
-    --res-extra-recap-btn-bg:    var(--blue-50); /* Tombol ekstra "Rekap Transaksi" biru */
-    --res-extra-recap-btn-border: var(--blue-200); /* Garis tombol rekap */
-    --res-extra-recap-btn-text:  #03a1a1; /* Teks tombol rekap */
-    --res-extra-recap-btn-hover-bg: var(--blue-100); /* Tombol rekap dihover */
-    --res-extra-recap-btn-hover-border: #7dd3fc; /* Garis tombol rekap dihover */
-    
-    --res-food-select-bg:        var(--white); /* Kotak list pilihan makanan modal reservasi */
-    --res-food-select-border:    var(--border); /* Garis tepi list */
-    --res-food-select-shadow:    inset 0 2px 4px rgba(0, 0, 0, 0.02); /* Bayangan cekung list makanan */
-    --res-food-item-bg:          var(--gray-50); /* Item makanan di dalam reservasi */
-    --res-food-item-border:      #f1f5f9; /* Garis tepi item makanan */
-    --res-food-item-hover-bg:    var(--green-50); /* Makanan saat disorot */
-    --res-food-item-hover-border: var(--green-200); /* Garis makanan saat disorot */
-    --res-food-item-disabled-bg: #f1f5f9; /* Makanan tidak aktif / habis */
-    
-    --res-modal-bg:              var(--white); /* Kotak modal reservasi */
-    --res-modal-shadow:          0 25px 50px -12px rgba(0, 0, 0, 0.15); /* Bayangan modal reservasi */
-    --res-modal-body-bg:         #fdfdfd; /* Latar badan modal reservasi */
-    --res-form-group-bg:         var(--white); /* Field form reservasi */
-    --res-form-group-border:     var(--border); /* Garis field form */
-    --res-form-group-focus-bg:   var(--green-50); /* Field form saat diklik */
-    --res-form-group-focus-border: var(--green-400); /* Garis field form saat aktif */
-    --res-form-group-focus-shadow: 0 4px 12px rgba(16, 185, 129, 0.08); /* Bayangan field saat aktif */
-    --res-form-label:            var(--green-700); /* Label field (NAMA PELANGGAN) */
-    --res-form-input-text:       var(--text-primary); /* Isi teks input reservasi */
-    --res-form-placeholder:      var(--text-light); /* Keterangan kosong */
-    
-    --res-header-grad:           linear-gradient(135deg, var(--green-600) 0%, var(--green-700) 100%); /* Kepala modal reservasi hijau */
-    --res-header-text:           var(--white); /* Teks kepala modal */
-    --res-close-btn-bg:          rgba(255, 255, 255, 0.2); /* Tombol silang modal reservasi */
-    --res-close-btn-text:        var(--white); /* Teks tombol silang */
-    --res-close-btn-hover-bg:    rgba(255, 255, 255, 0.3); /* Tombol silang dihover */
-    
-    --res-food-name:             var(--text-primary); /* Nama makanan dalam reservasi */
-    --res-food-price:            var(--green-600); /* Harga makanan */
-    --res-food-stock:            var(--text-muted); /* Keterangan stok sisa */
-    --res-food-qty-bg:           var(--white); /* Kotak angka kuantitas makanan */
-    --res-food-qty-border:       var(--border); /* Garis kotak kuantitas */
-    --res-qty-btn-bg:            var(--green-100); /* Tombol tambah/kurang qty reservasi */
-    --res-qty-btn-text:          var(--green-700); /* Teks tombol qty */
-    --res-qty-btn-hover-bg:      var(--green-600); /* Tombol qty dihover */
-    --res-qty-btn-hover-text:    var(--white); /* Teks qty dihover */
-    --res-qty-val:               var(--gray-900); /* Nilai qty angka terpilih */
-    --res-total-bg:              var(--green-50); /* Kotak total biaya reservasi bawah */
-    --res-total-border:          var(--green-100); /* Garis total biaya */
-    --res-total-text:            var(--green-700); /* Teks total biaya */
-    
-    --res-history-item-bg:       var(--white); /* Kartu daftar riwayat reservasi meja */
-    --res-history-item-border:   var(--border); /* Garis kartu riwayat */
-    --res-history-item-shadow:   0 4px 6px -1px rgba(0, 0, 0, 0.05); /* Bayangan kartu riwayat */
-    --res-history-item-hover-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); /* Bayangan kartu disorot */
-    --res-item-header-grad:      linear-gradient(to right, #f8fafc, #f1f5f9); /* Kepala kartu reservasi */
-    --res-item-header-border:    var(--border); /* Garis kepala kartu */
-    --res-item-id-text:          var(--text-primary); /* ID Reservasi (Meja 01, dll) */
-    
-    --res-status-badge-done-bg:  #dcfce7; /* Status reservasi Selesai */
-    --res-status-badge-done-text: #166534; /* Teks Selesai */
-    --res-action-btn-done-bg:    var(--green-600); /* Tombol aksi centang sukses */
-    --res-action-btn-done-text:  var(--white); /* Teks tombol aksi */
-    --res-action-btn-done-shadow: 0 2px 6px rgba(16, 185, 129, 0.3); /* Bayangan tombol aksi */
-    --res-action-btn-done-hover-bg: var(--green-700); /* Tombol aksi dihover */
-    
-    /* RESERVASI SELESAI (DONE OVERRIDES) */
-    --res-history-item-done-bg:  var(--green-50); /* Kartu reservasi jika sudah Selesai */
-    --res-history-item-done-border: #bbf7d0; /* Garis kartu reservasi selesai */
-    --res-item-header-done-bg:   #ecfdf5; /* Kepala kartu reservasi selesai */
-    --res-info-main-done-text:   #065f46; /* Teks info utama reservasi selesai */
-    --res-item-foods-border:     #e2e8f0; /* Kotak pesanan makanan kartu reservasi */
-    --res-item-foods-title:      var(--text-primary); /* Teks judul makanan */
-    --res-item-foods-item:       var(--text-primary); /* Teks list item makanan */
-    --res-item-total-text:       var(--green-700); /* Teks total harga reservasi */
-
-    /* --- 9. TAB REKAP & LAPORAN STATISTIK (RECAP THEME) --- */
-    --recap-tab-container-bg:    #f8fafc; /* Latar belakang baris tab rekap */
-    --recap-tab-bg:              var(--white); /* Tab rekap tidak aktif */
-    --recap-tab-border:          var(--border); /* Garis tab rekap */
-    --recap-tab-text:            var(--text-muted); /* Teks tab tidak aktif */
-    --recap-tab-hover-bg:        var(--green-50); /* Tab rekap dihover */
-    --recap-tab-hover-text:      var(--green-600); /* Teks tab dihover */
-    --recap-tab-active-bg:       var(--green-600); /* Tab rekap aktif terpilih */
-    --recap-tab-active-text:     var(--white); /* Teks tab aktif */
-    --recap-tab-active-border:   var(--green-600); /* Garis tab aktif */
-    --recap-tab-active-shadow:   0 4px 12px rgba(16, 185, 129, 0.2); /* Bayangan tab aktif */
-    
-    --recap-body-bg:             var(--white); /* Latar badan rekap */
-    --recap-card-bg:             var(--white); /* Kartu metrik rekap (Pemasukan, Transaksi) */
-    --recap-card-border:         var(--border); /* Garis tepi kartu metrik */
-    --recap-card-shadow:         var(--shadow-sm); /* Bayangan kartu metrik */
-    --recap-card-icon-bg:        var(--green-100); /* Latar belakang bulat ikon metrik */
-    --recap-card-icon-text:      var(--green-600); /* Warna ikon metrik */
-    --recap-card-label:          var(--text-muted); /* Label metrik (Total Pendapatan) */
-    --recap-card-value:          var(--text-dark); /* Nilai angka metrik */
-    --recap-title-border:        var(--green-500); /* Garis penanda vertikal kiri judul sub-rekap */
-    --recap-table-container-bg:  var(--white); /* Kotak pembungkus tabel rekap */
-    --recap-table-container-border: var(--border); /* Garis tepi tabel rekap */
-    
-    --recap-th-bg:               #f8fafc; /* Latar header kolom tabel rekap */
-    --recap-th-text:             var(--text-muted); /* Teks header kolom tabel */
-    --recap-td-text:             var(--text-body); /* Teks isi baris tabel */
-    --recap-td-border:           var(--border); /* Garis pembatas baris tabel */
-    --recap-row-hover-bg:        #f9fafb; /* Latar baris tabel saat dihover */
-    
-    /* TOMBOL HAPUS KECIL (DANGER ACTION BUTTON) */
-    --btn-danger-small-bg:       var(--red-100); /* Tombol hapus rekap */
-    --btn-danger-small-text:     var(--red-700); /* Teks hapus rekap */
-    --btn-danger-small-border:   var(--red-200); /* Garis hapus rekap */
-    --btn-danger-small-hover-bg: var(--red-600); /* Hapus rekap saat disorot */
-    --btn-danger-small-hover-text: var(--white); /* Teks hapus disorot */
-    --btn-danger-small-hover-border: var(--red-600); /* Garis hapus disorot */
-    --btn-danger-small-hover-shadow: 0 4px 12px rgba(220, 38, 38, 0.2); /* Bayangan menyala hapus disorot */
-    
-    /* TOMBOL DETAIL KECIL (INFO ACTION BUTTON) */
-    --btn-info-small-bg:         var(--blue-100); /* Tombol detail biru rekap */
-    --btn-info-small-text:       var(--blue-700); /* Teks detail rekap */
-    --btn-info-small-border:     var(--blue-200); /* Garis detail rekap */
-    --btn-info-small-hover-bg:   var(--blue-700); /* Detail saat disorot */
-    --btn-info-small-hover-text: var(--white); /* Teks detail disorot */
-    --btn-info-small-hover-border: var(--blue-700); /* Garis detail disorot */
-    --btn-info-small-hover-shadow: 0 4px 12px rgba(3, 105, 161, 0.2); /* Bayangan menyala detail disorot */
-
-    /* --- 10. KELOLA STOK BARANG (STOCK ADMIN THEME) --- */
-    --stock-search-bg:           #f8fafc; /* Kotak input pencarian barang */
-    --stock-search-border:       var(--border); /* Garis kotak pencarian */
-    --stock-search-icon:         var(--text-muted); /* Warna ikon pencarian */
-    --stock-search-text:         var(--text-body); /* Warna teks pencarian */
-    --stock-admin-item-border:   #f1f5f9; /* Garis pemisah antar item barang */
-    --stock-admin-item-hover-bg: #f8fafc; /* Baris barang saat dihover */
-    --stock-item-name:           var(--text-dark); /* Nama barang kelola stok */
-    --stock-item-cat:            var(--text-muted); /* Kategori barang */
-    --stock-control-btn-bg:      var(--white); /* Tombol kelola stok plus/minus (+/-) */
-    --stock-control-btn-border:  var(--border); /* Garis tombol kelola stok */
-    --stock-control-btn-text:    var(--text-dark); /* Teks tombol kelola stok */
-    --stock-control-btn-hover-bg: var(--green-50); /* Tombol kelola stok dihover */
-    --stock-control-btn-hover-border: var(--green-200); /* Garis kelola stok dihover */
-    --stock-control-btn-hover-text: var(--green-600); /* Teks kelola stok dihover */
-    --stock-input-border:        var(--border); /* Kotak input angka stok barang */
-    --stock-input-text:          var(--text-dark); /* Angka isi stok */
-    --stock-input-focus-border:  var(--green-500); /* Kotak input angka stok saat aktif */
-    
-    --stock-extra-btn-bg:        var(--green-50); /* Tombol ekstra "Stok Kasir" hijau */
-    --stock-extra-btn-border:    #bbf7d0; /* Garis tombol kelola stok kasir */
-    --stock-extra-btn-text:      #15803d; /* Teks tombol kelola stok kasir */
-    --stock-extra-btn-hover-bg:  #dcfce7; /* Tombol kelola stok kasir dihover */
-    --stock-extra-btn-hover-border: #86efac; /* Garis tombol kelola stok kasir dihover */
+    /* Abu-abu – teks & elemen netral */
+    --gray-950:      #0f172a;
+    --gray-900:      #1e293b;
+    --gray-800:      #334155;
+    --gray-700:      #374151;
+    --gray-600:      #4b5563;
+    --gray-500:      #6b7280;
+    --gray-400:      #9ca3af;
+    --gray-300:      #cbd5e1;
+    --gray-200:      #e5e7eb;
+    --gray-100:      #f3f4f6;
+    --gray-50:       #f8fafc;
 
 
-    /* ======================================================================
-       KOLOM C: TATA LETAK & FRAMEWORK DIMENSI (LAYOUT DIMENSIONS)
-       ====================================================================== */
-    --sidebar-w:     240px; /* Lebar menu sidebar kiri */
-    --cart-w:        330px; /* Lebar panel keranjang belanja kanan */
+    /* =====================================================================
+       B. WARNA SEMANTIK PER KOMPONEN
+       Ubah di sini untuk mengganti warna bagian tertentu aplikasi.
+       ===================================================================== */
+
+    /* --- 1. Layout Utama (SELURUH HALAMAN) --- */
+    --bg-page:                   #f8fffb;
+    --text-primary:              var(--green-950);
+    --text-secondary:            var(--green-800);
+    --text-body:                 var(--gray-700);
+    --text-muted:                var(--gray-500);     /* teks redup/keterangan */
+    --text-light:                var(--gray-400);     /* placeholder */
+    --text-on-dark:              var(--white);        /* teks di atas bg gelap */
+    --text-dark:                 var(--gray-900);
+
+    /* --- 2. BAGIAN MENU (Sidebar Navigasi Kiri) --- */
+    --sidebar-bg:                var(--grad-sidebar);
+    --sidebar-light-effect:      radial-gradient(ellipse at 50% -10%, rgba(52,211,153,.3) 0%, rgba(16,185,129,.12) 50%, transparent 75%);
+    --sidebar-border:            linear-gradient(180deg, transparent 0%, rgba(52,211,153,.3) 20%, rgba(16,185,129,.2) 60%, transparent 100%);
+    --sidebar-logo-icon:         var(--green-400);
+    --sidebar-logo-text:         var(--white);
+    --sidebar-divider:           linear-gradient(90deg, transparent 0%, rgba(52,211,153,.35) 50%, transparent 100%);
+    --sidebar-nav-label:         rgba(255,255,255,0.28);  /* judul kategori menu */
+    --sidebar-item-text:         rgba(255,255,255,0.58);  /* teks menu biasa */
+    --sidebar-item-hover-bg:     linear-gradient(135deg, rgba(52,211,153,.08) 0%, rgba(16,185,129,.04) 100%);
+    --sidebar-item-hover-text:   rgba(255,255,255,0.92);
+    --sidebar-item-active-bg:    linear-gradient(135deg, rgba(18,197,131,.18) 0%, rgba(16,185,129,.1) 60%, rgba(6,95,70,.08) 100%);
+    --sidebar-item-active-text:  var(--white);
+    --sidebar-item-active-border: rgba(52,211,153,0.22);
+    --sidebar-footer-border:     rgba(255,255,255,0.06);
+    --sidebar-footer-text:       rgba(255,255,255,0.2);
+
+    /* --- 3. BAGIAN HEADER (Bar Atas – Pencarian & Profil) --- */
+    --header-bg:                 rgba(255,255,255,0.88); /* glass transparan */
+    --header-border:             var(--border);
+    --header-shadow:             0 2px 12px rgba(6,78,59,0.06);
+    --search-bg:                 var(--bg-input);
+    --search-border:             var(--border-mid);
+    --search-focus-bg:           var(--white);
+    --search-focus-border:       var(--green-500);
+    --search-focus-shadow:       0 0 0 3px rgba(52,211,153,0.18);
+    --search-icon:               var(--green-500);
+    --profile-name:              var(--text-primary);
+    --profile-role:              var(--text-muted);
+    --profile-edit-btn:          var(--green-600);
+    --profile-edit-btn-hover:    var(--green-500);
+    --profile-avatar-border:     var(--green-400);
+
+    /* --- 4. BAGIAN KATALOG PRODUK (Daftar Menu / Kartu Produk) --- */
+    --prod-grid-bg:              transparent;
+    --prod-card-bg:              var(--white);        /* ← background kartu produk */
+    --prod-card-border:          var(--border);
+    --prod-card-hover-border:    var(--green-400);
+    --prod-card-hover-shadow-glow: 0 0 0 3px rgba(8,224,145,0.12);
+    --prod-img-wrap-bg:          var(--grad-card-img);
+    --prod-overlay-grad:         linear-gradient(160deg, rgba(4,120,87,.78) 0%, rgba(16,185,129,.65) 60%, rgba(52,211,153,.5) 100%);
+    --prod-overlay-btn-bg:       rgba(255,255,255,0.18);
+    --prod-overlay-btn-border:   rgba(255,255,255,0.45);
+    --prod-overlay-btn-text:     var(--white);
+    --prod-overlay-btn-shadow:   0 4px 16px rgba(0,0,0,0.15);
+    --prod-cat-chip-bg:          rgba(255,255,255,0.9);  /* chip kategori kiri atas */
+    --prod-cat-chip-border:      rgba(52,211,153,0.3);
+    --prod-cat-chip-text:        var(--green-800);
+    --prod-details-bg:           transparent;
+    --prod-name-text:            var(--text-body);
+    --prod-price-text-grad:      var(--grad-price);
+    --prod-add-btn-grad:         var(--grad-btn);       /* tombol + bulat */
+    --prod-add-btn-shadow:       var(--shadow-green);
+    --prod-add-btn-hover-shadow: 0 6px 20px rgba(16,185,129,0.5);
+    --prod-count-badge-bg:       var(--green-100);      /* badge qty terpilih */
+    --prod-count-badge-border:   var(--green-200);
+    --prod-count-badge-text:     var(--green-800);
+    --prod-stock-badge-bg:       rgba(255,255,255,0.9); /* badge stok tersedia */
+    --prod-stock-badge-border:   var(--green-200);
+    --prod-stock-badge-text:     var(--green-700);
+
+    /* Stok Habis */
+    --prod-out-stock-bg:         var(--red-100);
+    --prod-out-stock-border:     var(--red-200);
+    --prod-out-stock-text:       var(--red-700);
+    --prod-out-stock-overlay-grad: linear-gradient(160deg, rgba(185,28,28,.7) 0%, rgba(220,38,38,.6) 100%);
+    --prod-out-stock-overlay-btn-bg: rgba(0,0,0,0.2);
+    --prod-out-stock-overlay-btn-border: rgba(255,255,255,0.3);
+    --prod-out-stock-add-btn-bg: var(--red-200);
+    --prod-out-stock-price-text: var(--red-800);
+    --prod-empty-icon:           var(--green-200);
+
+    /* --- 5. BAGIAN KASIR (Keranjang Belanja & Pembayaran) --- */
+    --cart-bg:                   var(--bg-cart);
+    --cart-border:               var(--border);
+    --cart-shadow:               -4px 0 20px rgba(6,78,59,0.07);
+    --cart-header-bg-grad:       var(--grad-header);
+    --cart-header-text:          var(--white);
+    --cart-header-icon:          var(--green-300);
+    --cart-header-order-bg:      rgba(255,255,255,0.14); /* latar ID transaksi */
+    --cart-header-order-border:  rgba(52,211,153,0.35);
+    --cart-header-order-text:    var(--green-300);
+    --cart-items-bg:             #fafffe;
+    --cart-item-bg:              var(--white);
+    --cart-item-border:          var(--border);
+    --cart-item-shadow:          var(--shadow-xs);
+    --cart-item-img-border:      var(--border-mid);
+    --cart-item-name:            var(--text-body);
+    --cart-item-price:           var(--green-700);
+    --cart-qty-btn-bg:           var(--green-50);       /* tombol +/- qty */
+    --cart-qty-btn-border:       var(--border-mid);
+    --cart-qty-btn-text:         var(--green-700);
+    --cart-qty-btn-hover-bg:     var(--green-600);
+    --cart-qty-btn-hover-text:   var(--white);
+    --cart-del-btn-bg:           var(--red-50);         /* tombol hapus item */
+    --cart-del-btn-border:       var(--red-200);
+    --cart-del-btn-text:         var(--red-500);
+    --cart-del-btn-hover-bg:     var(--red-500);
+    --cart-del-btn-hover-text:   var(--white);
+    --cart-empty-icon:           var(--green-200);
+    --cart-footer-bg:            var(--white);
+    --cart-footer-border:        var(--border);
+    --cart-row-text:             var(--text-muted);     /* Subtotal, Pajak, Diskon */
+    --cart-row-val:              var(--text-body);
+    --cart-total-dash-border:    var(--green-200);
+    --cart-total-text:           var(--text-primary);
+    --cart-total-val-grad:       var(--grad-price);
+    --cart-pay-label:            var(--text-muted);
+    --cart-pay-btn-bg:           var(--green-50);       /* tombol metode pembayaran */
+    --cart-pay-btn-border:       var(--border-mid);
+    --cart-pay-btn-text:         var(--green-700);
+    --cart-pay-btn-active-grad:  var(--grad-btn);
+    --cart-pay-btn-active-text:  var(--white);
+    --cart-checkout-btn-grad:    var(--grad-btn);       /* tombol Checkout */
+    --cart-checkout-btn-text:    var(--white);
+    --cart-checkout-disabled-bg: var(--gray-200);       /* keranjang kosong */
+    --cart-checkout-disabled-text: var(--gray-400);
+    --cart-discount-text:        var(--green-700);
+
+    /* Panel Member (dalam bagian kasir) */
+    --cart-member-panel-bg:      rgba(16,185,129,0.04);
+    --cart-member-panel-border:  rgba(16,185,129,0.15);
+    --cart-member-header:        var(--green-700);
+    --cart-member-header-icon:   var(--green-500);
+    --cart-member-select-bg:     var(--white);
+    --cart-member-select-border: rgba(16,185,129,0.2);
+    --cart-member-select-focus-border: var(--green-400);
+    --cart-member-select-focus-shadow: rgba(16,185,129,0.08);
+    --cart-member-row-bg:        rgba(16,185,129,0.06);
+    --cart-member-row-border:    rgba(16,185,129,0.12);
+    --cart-member-checkbox-accent: var(--green-500);
+
+    /* --- 6. BAGIAN STRUK & QRIS (Popup Pembayaran & Nota Digital) --- */
+    --modal-overlay-bg:          rgba(2,44,34,0.55);    /* layar gelap blur */
+    --modal-content-bg:          var(--white);
+    --modal-content-shadow:      var(--shadow-lg);
+    --modal-receipt-header-bar-grad: var(--grad-btn);
+    --receipt-header-text-grad:  var(--grad-header);
+    --receipt-subheader-text:    var(--text-muted);
+    --receipt-divider-dash:      var(--green-200);
+    --receipt-th-text:           var(--text-muted);
+    --receipt-th-border:         var(--border);
+    --receipt-detail-text:       var(--text-muted);
+    --receipt-total-text:        var(--text-primary);
+    --receipt-total-val-grad:    var(--grad-price);
+    --receipt-icon:              var(--green-500);      /* ikon centang sukses */
+    --receipt-footer-text:       var(--text-muted);
+    --receipt-print-btn-grad:    var(--grad-btn);
+    --receipt-print-btn-text:    var(--white);
+    --receipt-print-btn-shadow:  var(--shadow-green);
+    --qris-container-bg:         var(--green-50);
+    --qris-container-border:     var(--green-200);
+    --qris-img-border:           var(--green-200);
+
+    /* --- 7. BAGIAN RIWAYAT & MEMBER (Popup Gelap Glassmorphic) --- */
+    --hist-top-btn-bg:           rgba(52,211,153,0.1);
+    --hist-top-btn-border:       rgba(52,211,153,0.2);
+    --hist-top-btn-text:         var(--green-300);
+    --hist-top-btn-hover-bg:     var(--green-500);
+    --hist-top-btn-hover-text:   var(--white);
+    --hist-top-btn-hover-shadow: 0 4px 12px rgba(52,211,153,0.25);
+
+    /* Elemen Glass */
+    --glass-modal-bg:            rgba(30,41,59,0.75);
+    --glass-modal-border:        rgba(255,255,255,0.1);
+    --glass-modal-shadow:        0 20px 40px rgba(0,0,0,0.5);
+    --glass-modal-text:          var(--white);
+    --glass-close-btn-text:      rgba(255,255,255,0.6);
+    --glass-close-btn-hover-text: var(--red-400);
+    --glass-input-border:        rgba(255,255,255,0.15);
+    --glass-input-focus-border:  rgba(52,211,153,0.8);
+    --glass-input-focus-bg:      rgba(0,0,0,0.35);
+    --glass-input-focus-shadow:  0 0 10px rgba(52,211,153,0.2);
+    --glass-scrollbar-track:     rgba(255,255,255,0.02);
+    --glass-scrollbar-thumb:     rgba(255,255,255,0.15);
+    --glass-scrollbar-thumb-hover: rgba(52,211,153,0.4);
+    --glass-card-bg:             rgba(255,255,255,0.04); /* kartu member */
+    --glass-card-border:         rgba(255,255,255,0.08);
+    --glass-card-hover-bg:       rgba(255,255,255,0.07);
+    --glass-card-hover-border:   rgba(52,211,153,0.3);
+    --glass-card-hover-shadow:   0 8px 20px rgba(0,0,0,0.15);
+    --glass-card-title:          var(--white);
+    --glass-card-date:           rgba(255,255,255,0.45);
+
+    /* Badge Status */
+    --glass-badge-verified-bg:   rgba(14,165,233,0.12);
+    --glass-badge-verified-text: #38bdf8;
+    --glass-badge-verified-border: rgba(14,165,233,0.25);
+    --glass-badge-unverified-bg: rgba(255,255,255,0.06);
+    --glass-badge-unverified-text: rgba(255,255,255,0.5);
+    --glass-badge-unverified-border: rgba(255,255,255,0.1);
+    --glass-badge-discount-bg:   rgba(168,85,247,0.12);
+    --glass-badge-discount-text: #c084fc;
+    --glass-badge-discount-border: rgba(168,85,247,0.25);
+    --glass-badge-discount-zero-bg: rgba(255,255,255,0.04);
+    --glass-badge-discount-zero-text: rgba(255,255,255,0.35);
+    --glass-badge-discount-zero-border: rgba(255,255,255,0.1);
+    --glass-badge-active-bg:     rgba(16,185,129,0.12);
+    --glass-badge-active-text:   var(--green-400);
+    --glass-badge-active-border: rgba(16,185,129,0.25);
+    --glass-badge-expired-bg:    rgba(239,68,68,0.12);
+    --glass-badge-expired-text:  var(--red-400);
+    --glass-badge-expired-border: rgba(239,68,68,0.25);
+
+    /* Form Member */
+    --glass-notes-bg:            rgba(0,0,0,0.15);
+    --glass-notes-border:        rgba(52,211,153,0.5);
+    --glass-notes-text:          rgba(255,255,255,0.75);
+    --glass-btn-action-bg:       transparent;
+    --glass-btn-action-border:   rgba(255,255,255,0.1);
+    --glass-btn-action-text:     rgba(255,255,255,0.7);
+    --glass-btn-action-edit-hover-bg: rgba(52,211,153,0.12);
+    --glass-btn-action-edit-hover-text: var(--green-400);
+    --glass-btn-action-edit-hover-border: rgba(52,211,153,0.3);
+    --glass-btn-action-del-hover-bg: rgba(239,68,68,0.12);
+    --glass-btn-action-del-hover-text: var(--red-400);
+    --glass-btn-action-del-hover-border: rgba(239,68,68,0.3);
+    --glass-empty-text:          rgba(255,255,255,0.5);
+    --glass-empty-icon:          rgba(255,255,255,0.15);
+    --glass-form-container-bg:   rgba(15,23,42,0.5);
+    --glass-form-container-border: rgba(255,255,255,0.08);
+    --glass-form-container-shadow: inset 0 1px 2px rgba(255,255,255,0.05);
+    --glass-form-group-bg:       rgba(0,0,0,0.25);
+    --glass-form-group-border:   rgba(255,255,255,0.08);
+    --glass-form-group-focus-bg: rgba(0,0,0,0.35);
+    --glass-form-group-focus-border: rgba(52,211,153,0.45);
+    --glass-form-group-focus-shadow: 0 0 10px rgba(52,211,153,0.15);
+    --glass-form-label:          rgba(255,255,255,0.45);
+    --glass-form-input-text:     var(--white);
+    --glass-form-placeholder:    rgba(255,255,255,0.35);
+    --glass-form-select-option-bg: #1e293b;
+    --glass-form-select-option-text: var(--white);
+    --glass-form-primary-btn-bg: rgba(16,185,129,0.2);  /* tombol Simpan */
+    --glass-form-primary-btn-text: var(--green-400);
+    --glass-form-primary-btn-border: rgba(16,185,129,0.4);
+    --glass-form-primary-btn-hover-bg: rgba(16,185,129,0.32);
+    --glass-form-primary-btn-hover-border: rgba(16,185,129,0.55);
+    --glass-form-primary-btn-hover-shadow: 0 4px 12px rgba(16,185,129,0.15);
+    --glass-form-cancel-btn-bg:  rgba(255,255,255,0.05); /* tombol Batal */
+    --glass-form-cancel-btn-border: rgba(255,255,255,0.15);
+    --glass-form-cancel-btn-text: rgba(255,255,255,0.7);
+    --glass-form-cancel-btn-hover-bg: rgba(255,255,255,0.1);
+    --glass-form-cancel-btn-hover-text: var(--white);
+
+    /* --- 8. BAGIAN RESERVASI MEJA (Pemesanan & Riwayat Meja) --- */
+    --res-extra-btn-bg:          var(--white);
+    --res-extra-btn-border:      var(--border);
+    --res-extra-btn-text:        var(--text-primary);
+    --res-extra-btn-hover-bg:    var(--green-50);
+    --res-extra-btn-hover-border: var(--green-300);
+    --res-extra-btn-hover-text:  var(--green-800);
+    --res-extra-btn-hover-shadow: var(--shadow-sm);
+    --res-extra-recap-btn-bg:    var(--blue-50);        /* tombol Rekap biru */
+    --res-extra-recap-btn-border: var(--blue-200);
+    --res-extra-recap-btn-text:  #03a1a1;
+    --res-extra-recap-btn-hover-bg: var(--blue-100);
+    --res-extra-recap-btn-hover-border: #7dd3fc;
+    --res-food-select-bg:        var(--white);
+    --res-food-select-border:    var(--border);
+    --res-food-select-shadow:    inset 0 2px 4px rgba(0,0,0,0.02);
+    --res-food-item-bg:          var(--gray-50);
+    --res-food-item-border:      #f1f5f9;
+    --res-food-item-hover-bg:    var(--green-50);
+    --res-food-item-hover-border: var(--green-200);
+    --res-food-item-disabled-bg: #f1f5f9;              /* item habis */
+    --res-modal-bg:              var(--white);
+    --res-modal-shadow:          0 25px 50px -12px rgba(0,0,0,0.15);
+    --res-modal-body-bg:         #fdfdfd;
+    --res-form-group-bg:         var(--white);
+    --res-form-group-border:     var(--border);
+    --res-form-group-focus-bg:   var(--green-50);
+    --res-form-group-focus-border: var(--green-400);
+    --res-form-group-focus-shadow: 0 4px 12px rgba(16,185,129,0.08);
+    --res-form-label:            var(--green-700);
+    --res-form-input-text:       var(--text-primary);
+    --res-form-placeholder:      var(--text-light);
+    --res-header-grad:           linear-gradient(135deg, var(--green-600) 0%, var(--green-700) 100%);
+    --res-header-text:           var(--white);
+    --res-close-btn-bg:          rgba(255,255,255,0.2);
+    --res-close-btn-text:        var(--white);
+    --res-close-btn-hover-bg:    rgba(255,255,255,0.3);
+    --res-food-name:             var(--text-primary);
+    --res-food-price:            var(--green-600);
+    --res-food-stock:            var(--text-muted);
+    --res-food-qty-bg:           var(--white);
+    --res-food-qty-border:       var(--border);
+    --res-qty-btn-bg:            var(--green-100);
+    --res-qty-btn-text:          var(--green-700);
+    --res-qty-btn-hover-bg:      var(--green-600);
+    --res-qty-btn-hover-text:    var(--white);
+    --res-qty-val:               var(--gray-900);
+    --res-total-bg:              var(--green-50);
+    --res-total-border:          var(--green-100);
+    --res-total-text:            var(--green-700);
+    --res-history-item-bg:       var(--white);
+    --res-history-item-border:   var(--border);
+    --res-history-item-shadow:   0 4px 6px -1px rgba(0,0,0,0.05);
+    --res-history-item-hover-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+    --res-item-header-grad:      linear-gradient(to right, #f8fafc, #f1f5f9);
+    --res-item-header-border:    var(--border);
+    --res-item-id-text:          var(--text-primary);
+    --res-status-badge-done-bg:  #dcfce7;
+    --res-status-badge-done-text: #166534;
+    --res-action-btn-done-bg:    var(--green-600);
+    --res-action-btn-done-text:  var(--white);
+    --res-action-btn-done-shadow: 0 2px 6px rgba(16,185,129,0.3);
+    --res-action-btn-done-hover-bg: var(--green-700);
+
+    /* Reservasi Selesai */
+    --res-history-item-done-bg:  var(--green-50);
+    --res-history-item-done-border: #bbf7d0;
+    --res-item-header-done-bg:   #ecfdf5;
+    --res-info-main-done-text:   #065f46;
+    --res-item-foods-border:     #e2e8f0;
+    --res-item-foods-title:      var(--text-primary);
+    --res-item-foods-item:       var(--text-primary);
+    --res-item-total-text:       var(--green-700);
+
+    /* --- 9. BAGIAN REKAP & LAPORAN (Tab Statistik Transaksi) --- */
+    --recap-tab-container-bg:    #f8fafc;
+    --recap-tab-bg:              var(--white);
+    --recap-tab-border:          var(--border);
+    --recap-tab-text:            var(--text-muted);
+    --recap-tab-hover-bg:        var(--green-50);
+    --recap-tab-hover-text:      var(--green-600);
+    --recap-tab-active-bg:       var(--green-600);      /* tab aktif */
+    --recap-tab-active-text:     var(--white);
+    --recap-tab-active-border:   var(--green-600);
+    --recap-tab-active-shadow:   0 4px 12px rgba(16,185,129,0.2);
+    --recap-body-bg:             var(--white);
+    --recap-card-bg:             var(--white);
+    --recap-card-border:         var(--border);
+    --recap-card-shadow:         var(--shadow-sm);
+    --recap-card-icon-bg:        var(--green-100);
+    --recap-card-icon-text:      var(--green-600);
+    --recap-card-label:          var(--text-muted);     /* label metrik */
+    --recap-card-value:          var(--text-dark);
+    --recap-title-border:        var(--green-500);      /* garis vertikal judul */
+    --recap-table-container-bg:  var(--white);
+    --recap-table-container-border: var(--border);
+    --recap-th-bg:               #f8fafc;
+    --recap-th-text:             var(--text-muted);
+    --recap-td-text:             var(--text-body);
+    --recap-td-border:           var(--border);
+    --recap-row-hover-bg:        #f9fafb;
+
+    /* Tombol Hapus */
+    --btn-danger-small-bg:       var(--red-100);
+    --btn-danger-small-text:     var(--red-700);
+    --btn-danger-small-border:   var(--red-200);
+    --btn-danger-small-hover-bg: var(--red-600);
+    --btn-danger-small-hover-text: var(--white);
+    --btn-danger-small-hover-border: var(--red-600);
+    --btn-danger-small-hover-shadow: 0 4px 12px rgba(220,38,38,0.2);
+
+    /* Tombol Detail */
+    --btn-info-small-bg:         var(--blue-100);
+    --btn-info-small-text:       var(--blue-700);
+    --btn-info-small-border:     var(--blue-200);
+    --btn-info-small-hover-bg:   var(--blue-700);
+    --btn-info-small-hover-text: var(--white);
+    --btn-info-small-hover-border: var(--blue-700);
+    --btn-info-small-hover-shadow: 0 4px 12px rgba(3,105,161,0.2);
+
+    /* --- 10. BAGIAN KELOLA STOK (Admin Stok Barang) --- */
+    --stock-search-bg:           #f8fafc;
+    --stock-search-border:       var(--border);
+    --stock-search-icon:         var(--text-muted);
+    --stock-search-text:         var(--text-body);
+    --stock-admin-item-border:   #f1f5f9;
+    --stock-admin-item-hover-bg: #f8fafc;
+    --stock-item-name:           var(--text-dark);
+    --stock-item-cat:            var(--text-muted);
+    --stock-control-btn-bg:      var(--white);          /* tombol +/- stok */
+    --stock-control-btn-border:  var(--border);
+    --stock-control-btn-text:    var(--text-dark);
+    --stock-control-btn-hover-bg: var(--green-50);
+    --stock-control-btn-hover-border: var(--green-200);
+    --stock-control-btn-hover-text: var(--green-600);
+    --stock-input-border:        var(--border);
+    --stock-input-text:          var(--text-dark);
+    --stock-input-focus-border:  var(--green-500);
+    --stock-extra-btn-bg:        var(--green-50);
+    --stock-extra-btn-border:    #bbf7d0;
+    --stock-extra-btn-text:      #15803d;
+    --stock-extra-btn-hover-bg:  #dcfce7;
+    --stock-extra-btn-hover-border: #86efac;
 
 
-    /* ======================================================================
-       KOLOM D: SUDUT KELENGKUNGAN ELEMEN (BORDER RADIUS)
-       Semakin besar angkanya, elemen akan semakin bulat melingkar.
-       ====================================================================== */
-    --r-xs:          6px;   /* Radius sudut super kecil (gambar item) */
-    --r-sm:          10px;  /* Radius sudut kecil (tombol, dropdown) */
-    --r-md:          16px;  /* Radius sudut sedang (kartu produk, form) */
-    --r-lg:          22px;  /* Radius sudut besar (bingkai struk digital) */
-    --r-xl:          30px;  /* Radius sudut sangat besar (kotak modal) */
+    /* =====================================================================
+       C. DIMENSI LAYOUT
+       ===================================================================== */
+    --sidebar-w:     240px;   /* lebar sidebar */
+    --cart-w:        330px;   /* lebar panel keranjang */
 
 
-    /* ======================================================================
-       KOLOM E: EFEK BAYANGAN PREMIUM (PREMIUM SHADOWS)
-       ====================================================================== */
+    /* =====================================================================
+       D. BORDER RADIUS
+       ===================================================================== */
+    --r-xs:          6px;
+    --r-sm:          10px;
+    --r-md:          16px;
+    --r-lg:          22px;
+    --r-xl:          30px;
+
+
+    /* =====================================================================
+       E. SHADOW
+       ===================================================================== */
     --shadow-xs:     0 1px 2px rgba(6,78,59,.06);
     --shadow-sm:     0 2px 8px rgba(6,78,59,.08);
     --shadow-md:     0 6px 24px rgba(16,185,129,.16);
@@ -527,21 +507,21 @@
     --shadow-glow:   0 0 0 3px rgba(52,211,153,.2);
 
 
-    /* ======================================================================
-       KOLOM F: FONT TYPOGRAPHY & EFEK TRANSISI MOTION
-       ====================================================================== */
-    --font:          'Inter', system-ui, sans-serif; /* Font premium Google Fonts */
-    --ease:          cubic-bezier(.4,0,.2,1); /* Transisi kurva animasi halus */
-    --fast:          .15s; /* Kecepatan transisi kilat */
-    --base:          .25s; /* Kecepatan transisi normal */
-    --slow:          .4s;  /* Kecepatan transisi lambat/animasi masuk */
+    /* =====================================================================
+       F. TIPOGRAFI & TRANSISI
+       ===================================================================== */
+    --font:          'Inter', system-ui, sans-serif;
+    --ease:          cubic-bezier(.4,0,.2,1);
+    --fast:          .15s;
+    --base:          .25s;
+    --slow:          .4s;
 
-    /* --- Garis Tepi Default --- */
-    --border:        #e5f7ef; /* Garis tepi paling redup */
-    --border-mid:    #a7f3d0; /* Garis tepi sedang */
-    --border-strong: #6ee7b7; /* Garis tepi kuat hijau mint */
+    /* Border */
+    --border:        #e5f7ef;   /* redup */
+    --border-mid:    #a7f3d0;   /* sedang */
+    --border-strong: #6ee7b7;   /* kuat */
 
-    /* --- Gradien Terstruktur --- */
+    /* Gradien */
     --grad-sidebar:  linear-gradient(180deg, #022c22 0%, #064e3b 40%, #065f46 100%);
     --grad-btn:      linear-gradient(135deg, #047857 0%, #10b981 60%, #34d399 100%);
     --grad-header:   linear-gradient(135deg, #064e3b 0%, #059669 100%);
@@ -553,18 +533,18 @@
     --bg-cart:       #ffffff;
 }
 
-/* ==========================================================================
-   GAYA RESET DAN ATURAN DASAR APLIKASI (RESET & BASE STYLES)
-   ========================================================================== */
-*, *::before, *::after { 
-    box-sizing: border-box; 
-    margin: 0; 
-    padding: 0; 
+/* =========================================================================
+   RESET
+   ========================================================================= */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-html { 
-    font-size: 14px; 
-    -webkit-font-smoothing: antialiased; 
+html {
+    font-size: 14px;
+    -webkit-font-smoothing: antialiased;
 }
 
 body {
@@ -576,32 +556,32 @@ body {
     line-height: 1.5;
 }
 
-img { 
-    display: block; 
-    max-width: 100%; 
+img {
+    display: block;
+    max-width: 100%;
 }
 
-button { 
-    font-family: var(--font); 
-    cursor: pointer; 
-    border: none; 
-    outline: none; 
+button {
+    font-family: var(--font);
+    cursor: pointer;
+    border: none;
+    outline: none;
 }
 
-input { 
-    font-family: var(--font); 
+input {
+    font-family: var(--font);
 }
 
-/* ==========================================================================
-   DESAIN BATANG GULUNG PREMIUM (SCROLLBAR — HIJAU LEMBUT)
-   ========================================================================== */
-::-webkit-scrollbar { 
-    width: 5px; 
-    height: 5px; 
+/* =========================================================================
+   SCROLLBAR
+   ========================================================================= */
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
 }
 
-::-webkit-scrollbar-track { 
-    background: transparent; 
+::-webkit-scrollbar-track {
+    background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -609,6 +589,6 @@ input {
     border-radius: 10px;
 }
 
-::-webkit-scrollbar-thumb:hover { 
-    background: var(--green-500); 
+::-webkit-scrollbar-thumb:hover {
+    background: var(--green-500);
 }
