@@ -1,5 +1,4 @@
-/* FreshPOS – variables.css | Pusat kontrol warna & tampilan seluruh aplikasi
-   Ubah warna di sini untuk mengubah tampilan tanpa perlu cari file lain. */
+/* FreshPOS – variables.css | Pusat kontrol warna & tampilan seluruh aplikasi */
 
 :root {
 
@@ -79,7 +78,7 @@
        Ubah di sini untuk mengganti warna bagian tertentu aplikasi.
        ===================================================================== */
 
-    /* --- 1. Layout Utama (SELURUH HALAMAN) --- */
+    /* --- 1. Bagian Dasar (Layout) --- */
     --bg-page:                   #f8fffb;
     --text-primary:              var(--green-950);
     --text-secondary:            var(--green-800);
@@ -89,7 +88,7 @@
     --text-on-dark:              var(--white);        /* teks di atas bg gelap */
     --text-dark:                 var(--gray-900);
 
-    /* --- 2. BAGIAN MENU (Sidebar Navigasi Kiri) --- */
+    /* --- 2. Bagian Menu (Sidebar) --- */
     --sidebar-bg:                var(--grad-sidebar);
     --sidebar-light-effect:      radial-gradient(ellipse at 50% -10%, rgba(52,211,153,.3) 0%, rgba(16,185,129,.12) 50%, transparent 75%);
     --sidebar-border:            linear-gradient(180deg, transparent 0%, rgba(52,211,153,.3) 20%, rgba(16,185,129,.2) 60%, transparent 100%);
@@ -106,7 +105,7 @@
     --sidebar-footer-border:     rgba(255,255,255,0.06);
     --sidebar-footer-text:       rgba(255,255,255,0.2);
 
-    /* --- 3. BAGIAN HEADER (Bar Atas – Pencarian & Profil) --- */
+    /* --- 3. Bagian Header --- */
     --header-bg:                 rgba(255,255,255,0.88); /* glass transparan */
     --header-border:             var(--border);
     --header-shadow:             0 2px 12px rgba(6,78,59,0.06);
@@ -122,7 +121,7 @@
     --profile-edit-btn-hover:    var(--green-500);
     --profile-avatar-border:     var(--green-400);
 
-    /* --- 4. BAGIAN KATALOG PRODUK (Daftar Menu / Kartu Produk) --- */
+    /* --- 4. Bagian Produk / Katalog --- */
     --prod-grid-bg:              transparent;
     --prod-card-bg:              var(--white);        /* ← background kartu produk */
     --prod-card-border:          var(--border);
@@ -161,7 +160,7 @@
     --prod-out-stock-price-text: var(--red-800);
     --prod-empty-icon:           var(--green-200);
 
-    /* --- 5. BAGIAN KASIR (Keranjang Belanja & Pembayaran) --- */
+    /* --- 5. Bagian Kasir (Keranjang) --- */
     --cart-bg:                   var(--bg-cart);
     --cart-border:               var(--border);
     --cart-shadow:               -4px 0 20px rgba(6,78,59,0.07);
@@ -208,7 +207,7 @@
     --cart-checkout-disabled-text: var(--gray-400);
     --cart-discount-text:        var(--green-700);
 
-    /* Panel Member (dalam bagian kasir) */
+    /* Panel Member */
     --cart-member-panel-bg:      rgba(16,185,129,0.04);
     --cart-member-panel-border:  rgba(16,185,129,0.15);
     --cart-member-header:        var(--green-700);
@@ -221,7 +220,7 @@
     --cart-member-row-border:    rgba(16,185,129,0.12);
     --cart-member-checkbox-accent: var(--green-500);
 
-    /* --- 6. BAGIAN STRUK & QRIS (Popup Pembayaran & Nota Digital) --- */
+    /* --- 6. Bagian Struk & Pembayaran --- */
     --modal-overlay-bg:          rgba(2,44,34,0.55);    /* layar gelap blur */
     --modal-content-bg:          var(--white);
     --modal-content-shadow:      var(--shadow-lg);
@@ -243,7 +242,7 @@
     --qris-container-border:     var(--green-200);
     --qris-img-border:           var(--green-200);
 
-    /* --- 7. BAGIAN RIWAYAT & MEMBER (Popup Gelap Glassmorphic) --- */
+    /* --- 7. Bagian Member & Riwayat --- */
     --hist-top-btn-bg:           rgba(52,211,153,0.1);
     --hist-top-btn-border:       rgba(52,211,153,0.2);
     --hist-top-btn-text:         var(--green-300);
@@ -333,7 +332,7 @@
     --glass-form-cancel-btn-hover-bg: rgba(255,255,255,0.1);
     --glass-form-cancel-btn-hover-text: var(--white);
 
-    /* --- 8. BAGIAN RESERVASI MEJA (Pemesanan & Riwayat Meja) --- */
+    /* --- 8. Bagian Reservasi --- */
     --res-extra-btn-bg:          var(--white);
     --res-extra-btn-border:      var(--border);
     --res-extra-btn-text:        var(--text-primary);
@@ -407,7 +406,7 @@
     --res-item-foods-item:       var(--text-primary);
     --res-item-total-text:       var(--green-700);
 
-    /* --- 9. BAGIAN REKAP & LAPORAN (Tab Statistik Transaksi) --- */
+    /* --- 9. Bagian Laporan (Rekap) --- */
     --recap-tab-container-bg:    #f8fafc;
     --recap-tab-bg:              var(--white);
     --recap-tab-border:          var(--border);
@@ -453,7 +452,7 @@
     --btn-info-small-hover-border: var(--blue-700);
     --btn-info-small-hover-shadow: 0 4px 12px rgba(3,105,161,0.2);
 
-    /* --- 10. BAGIAN KELOLA STOK (Admin Stok Barang) --- */
+    /* --- 10. Bagian Stok Barang --- */
     --stock-search-bg:           #f8fafc;
     --stock-search-border:       var(--border);
     --stock-search-icon:         var(--text-muted);
