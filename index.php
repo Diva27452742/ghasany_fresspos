@@ -118,8 +118,8 @@ if ($dbActive) {
     <!-- Urutan penting: variabel/token dulu, lalu komponen           -->
     <!-- ============================================================ -->
     <!-- CSS Global Tokens & Animasi -->
-    <link rel="stylesheet" href="./css/variables.css">
-    <link rel="stylesheet" href="./css/animations.css">
+    <link rel="stylesheet" href="./css/variables.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="./css/animations.css?v=<?= time() ?>">
 
     <!-- CSS Layout & Komponen -->
     <link rel="stylesheet" href="./css/layout.css">
@@ -132,6 +132,22 @@ if ($dbActive) {
     <link rel="stylesheet" href="./css/reservation.css">
     <link rel="stylesheet" href="./css/recap.css?v=<?= time() ?>">
     <link rel="stylesheet" href="./css/stock_admin.css">
+
+    <!-- ============================================================ -->
+    <!-- BAGIAN: TEMA DINAMIS DARI PHP                                -->
+    <!-- Jika operator mengedit php/theme_config.php, warna di sini   -->
+    <!-- akan menimpa warna default yang ada di variables.css.        -->
+    <!-- ============================================================ -->
+    <?php
+    if (file_exists(__DIR__ . '/php/theme_config.php')) {
+        require_once __DIR__ . '/php/theme_config.php';
+        echo "<style>\n:root {\n";
+        foreach ($themeColors as $key => $color) {
+            echo "    --{$key}: {$color};\n";
+        }
+        echo "}\n</style>\n";
+    }
+    ?>
 </head>
 <body>
     <!-- ============================================================ -->

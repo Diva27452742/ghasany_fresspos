@@ -3,24 +3,27 @@
 :root {
 
     /* =====================================================================
-       A. PALET WARNA DASAR
+       [Warna Utama Aplikasi - Ganti Warna Disini]
+       Ubah kode hex di bawah ini untuk mengganti warna seluruh aplikasi.
+       Semua gradasi, tombol, dan sidebar akan otomatis menyesuaikan!
        ===================================================================== */
+    --green-950:     #022c22; /* Hijau terdalam (Sidebar atas) */
+    --green-900:     #064e3b; /* Hijau tua (Sidebar tengah) */
+    --green-800:     #065f46; /* Hijau gelap (Teks sekunder) */
+    --green-700:     #047857; /* Hijau standar (Teks harga, tombol gelap) */
+    --green-600:     #059669; /* Hijau terang (Warna tombol utama) */
+    --green-500:     #6696a5; /* Toska muda (Ikon, fokus) */
+    --green-400:     #34d399; /* Mint cerah (Aksen, tombol terang) */
+    --green-300:     #6ee7b7; /* Mint pudar */
+    --green-200:     #a7f3d0; /* Hijau sangat muda (Border, aksen) */
+    --green-100:     #d1fae5; /* Latar kartu produk (Hover) */
+    --green-50:      #f0fdf4; /* Latar muda (Area abu/putih) */
+    --green-5:       #fdecf9; /* Pink pastel aksen */
 
-    /* Hijau */
-    --green-950:     #022c22; /* hijau terdalam */
-    --green-900:     #064e3b;
-    --green-800:     #065f46;
-    --green-700:     #047857;
-    --green-600:     #059669;
-    --green-500:     #6696a5; /* toska muda */
-    --green-400:     #34d399; /* mint cerah */
-    --green-300:     #6ee7b7;
-    --green-200:     #a7f3d0;
-    --green-100:     #d1fae5;
-    --green-50:      #f0fdf4;
-    --green-5:       #fdecf9;  /* pink pastel aksen */
 
-    /* Dasar */
+    /* =====================================================================
+       A. PALET WARNA DASAR (Warna Tetap)
+       ===================================================================== */
     --white:         #ffffff;
     --black:         #000000;
 
@@ -74,6 +77,33 @@
 
 
     /* =====================================================================
+       F. TIPOGRAFI & TRANSISI (Di atas agar gradien bisa pakai var())
+       ===================================================================== */
+    --font:          'Inter', system-ui, sans-serif;
+    --ease:          cubic-bezier(.4,0,.2,1);
+    --fast:          .15s;
+    --base:          .25s;
+    --slow:          .4s;
+
+    /* Border */
+    --border:        var(--green-50);   /* redup */
+    --border-mid:    var(--green-200);  /* sedang */
+    --border-strong: var(--green-300);  /* kuat */
+
+    /* Gradien Dinamis (Akan otomatis berubah saat warna utama diganti!) */
+    --grad-sidebar:  linear-gradient(180deg, var(--green-950) 0%, var(--green-900) 40%, var(--green-800) 100%);
+    --grad-btn:      linear-gradient(135deg, var(--green-700) 0%, var(--green-600) 60%, var(--green-400) 100%);
+    --grad-header:   linear-gradient(135deg, var(--green-900) 0%, var(--green-600) 100%);
+    --grad-card-img: linear-gradient(135deg, var(--green-400) 0%, var(--green-100) 100%);
+    --grad-page:     linear-gradient(160deg, #f8fffb 0%, var(--green-50) 40%, var(--white) 100%);
+    --grad-price:    linear-gradient(135deg, var(--green-700) 0%, var(--green-600) 100%);
+    
+    --bg-input:      var(--green-50);
+    --bg-card:       var(--white);
+    --bg-cart:       var(--white);
+
+
+    /* =====================================================================
        B. WARNA SEMANTIK PER KOMPONEN
        Ubah di sini untuk mengganti warna bagian tertentu aplikasi.
        ===================================================================== */
@@ -91,7 +121,7 @@
     /* --- 2. Bagian Menu (Sidebar) --- */
     --sidebar-bg:                var(--grad-sidebar);
     --sidebar-light-effect:      radial-gradient(ellipse at 50% -10%, rgba(52,211,153,.3) 0%, rgba(16,185,129,.12) 50%, transparent 75%);
-    --sidebar-border:            linear-gradient(180deg, transparent 0%, rgba(52,211,153,.3) 20%, rgba(16,185,129,.2) 60%, transparent 100%);
+    --sidebar-border:            linear-gradient(180deg, transparent 0%, rgba(52,211,153,.3) 20%, rgba(148, 185, 16, 0.2) 60%, transparent 100%);
     --sidebar-logo-icon:         var(--green-400);
     --sidebar-logo-text:         var(--white);
     --sidebar-divider:           linear-gradient(90deg, transparent 0%, rgba(52,211,153,.35) 50%, transparent 100%);
@@ -141,7 +171,7 @@
     --prod-price-text-grad:      var(--grad-price);
     --prod-add-btn-grad:         var(--grad-btn);       /* tombol + bulat */
     --prod-add-btn-shadow:       var(--shadow-green);
-    --prod-add-btn-hover-shadow: 0 6px 20px rgba(16,185,129,0.5);
+    --prod-add-btn-hover-shadow: 0 6px 20px rgba(32, 82, 65, 0.5);
     --prod-count-badge-bg:       var(--green-100);      /* badge qty terpilih */
     --prod-count-badge-border:   var(--green-200);
     --prod-count-badge-text:     var(--green-800);
@@ -504,32 +534,6 @@
     --shadow-card:   0 2px 10px rgba(6,78,59,.07), 0 1px 2px rgba(0,0,0,.04);
     --shadow-green:  0 8px 28px rgba(16,185,129,.35);
     --shadow-glow:   0 0 0 3px rgba(52,211,153,.2);
-
-
-    /* =====================================================================
-       F. TIPOGRAFI & TRANSISI
-       ===================================================================== */
-    --font:          'Inter', system-ui, sans-serif;
-    --ease:          cubic-bezier(.4,0,.2,1);
-    --fast:          .15s;
-    --base:          .25s;
-    --slow:          .4s;
-
-    /* Border */
-    --border:        #e5f7ef;   /* redup */
-    --border-mid:    #a7f3d0;   /* sedang */
-    --border-strong: #6ee7b7;   /* kuat */
-
-    /* Gradien */
-    --grad-sidebar:  linear-gradient(180deg, #022c22 0%, #064e3b 40%, #065f46 100%);
-    --grad-btn:      linear-gradient(135deg, #047857 0%, #10b981 60%, #34d399 100%);
-    --grad-header:   linear-gradient(135deg, #064e3b 0%, #059669 100%);
-    --grad-card-img: linear-gradient(135deg, #00e77b 0%, #d1fae5 100%);
-    --grad-page:     linear-gradient(160deg, #f8fffb 0%, #ecfdf5 40%, #f0fff8 70%, #ffffff 100%);
-    --grad-price:    linear-gradient(135deg, #047857 0%, #059669 100%);
-    --bg-input:      #f0fdf4;
-    --bg-card:       #ffffff;
-    --bg-cart:       #ffffff;
 }
 
 /* =========================================================================
