@@ -25,7 +25,38 @@ if (btnCloseStockAdmin) {
 }
 
 if (btnSaveStock) {
-    btnSaveStock.addEventListener('click', () => {
+    btnSaveStock.addEventListener('click', async () => {
+        if (typeof IS_DB_ACTIVE !== 'undefined' && IS_DB_ACTIVE) {
+            try {
+                const btnOriginalText = btnSaveStock.innerHTML;
+                btnSaveStock.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Menyimpan...';
+                btnSaveStock.disabled = true;
+
+                const stockData = products.map(p => ({
+                    id: p.id,
+                    stock: p.stock
+                }));
+
+                const response = await fetch('php/api/update_stock.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(stockData)
+                });
+
+                const result = await response.json();
+                if (!result.success) {
+                    alert('Gagal menyimpan stok ke database: ' + result.message);
+                }
+                
+                btnSaveStock.innerHTML = btnOriginalText;
+                btnSaveStock.disabled = false;
+            } catch (error) {
+                console.error('Error updating stock in DB:', error);
+                alert('Terjadi kesalahan saat menyimpan stok ke database.');
+                btnSaveStock.innerHTML = '<i class="fa-solid fa-check"></i> Selesai';
+                btnSaveStock.disabled = false;
+            }
+        }
         stockAdminModal.classList.remove('show');
     });
 }

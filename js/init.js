@@ -21,4 +21,46 @@ document.addEventListener('DOMContentLoaded', () => {
     if (typeof renderCart === 'function') {
         renderCart();
     }
+    
+    // Mulai sinkronisasi stok berkala dari database
+    startStockSync();
 });
+
+// Fungsi untuk mensinkronkan stok secara otomatis dari database
+async function startStockSync() {
+    if (typeof IS_DB_ACTIVE !== 'undefined' && IS_DB_ACTIVE) {
+        setInterval(async () => {
+            try {
+                const response = await fetch('php/api/get_products.php');
+                const result = await response.json();
+                
+                if (result.success && result.data) {
+                    let stockChanged = false;
+                    
+                    result.data.forEach(dbProd => {
+                        const localProd = products.find(p => p.id === dbProd.id);
+                        // Jika ada perubahan stok
+                        if (localProd && localProd.stock !== dbProd.stock) {
+                            localProd.stock = dbProd.stock;
+                            stockChanged = true;
+                            
+                            // Jika ada elemen input di kelola stok yang sedang terbuka, update nilainya
+                            const stockInput = document.getElementById(`stock-input-${dbProd.id}`);
+                            if (stockInput) {
+                                stockInput.value = dbProd.stock;
+                            }
+                        }
+                    });
+                    
+                    // Jika ada stok yang berubah, render ulang grid produk
+                    if (stockChanged && typeof filterAndRenderProducts === 'function') {
+                        filterAndRenderProducts();
+                    }
+                }
+            } catch (err) {
+                console.error("Gagal sinkronisasi stok berkala:", err);
+            }
+        }, 15000); // 15 detik
+    }
+}
+

@@ -85,6 +85,25 @@ $productsData = [
 ];
 
 // ============================================================
+// BAGIAN: DATA PRODUK DARI DATABASE
+// Jika database aktif, ambil produk beserta stoknya dari tabel.
+// ============================================================
+if ($dbActive) {
+    try {
+        $stmt = $db->query("SELECT id, name, price, category, image, stock FROM products ORDER BY category ASC, name ASC");
+        $dbProducts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if ($dbProducts && count($dbProducts) > 0) {
+            $productsData = [];
+            foreach ($dbProducts as $p) {
+                $p['price'] = (float)$p['price'];
+                $p['stock'] = (int)$p['stock'];
+                $productsData[] = $p;
+            }
+        }
+    } catch (Exception $e) {}
+}
+
+// ============================================================
 // BAGIAN: DATA MEMBER DARI DATABASE
 // Jika database aktif, ambil seluruh data member yang sudah
 // tersimpan agar bisa ditampilkan di dropdown kasir.
@@ -196,8 +215,8 @@ if ($dbActive) {
                 <button id="btnOpenRecap" class="extra-btn recap">
                     <i class="fa-solid fa-chart-line"></i> Rekap Data (Analitik)
                 </button>
-                <!-- Tombol buka modal Kelola Stok Menu -->
-                <button id="btnOpenStockAdmin" class="extra-btn stock">
+                <!-- Tombol buka modal Kelola Stok Menu disembunyikan sesuai permintaan -->
+                <button id="btnOpenStockAdmin" class="extra-btn stock" style="display: none;">
                     <i class="fa-solid fa-boxes-stacked"></i> Kelola Stok Menu
                 </button>
             </div>

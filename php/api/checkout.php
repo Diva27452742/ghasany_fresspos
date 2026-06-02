@@ -94,14 +94,31 @@ try {
         VALUES
             (:transaction_id, :product_id, :product_name, :price, :qty, :subtotal)
     ");
+    $stockStmt = $db->prepare("UPDATE products SET stock = stock - :qty1 WHERE id = :id AND stock >= :qty2");
+
     foreach ($data['items'] as $item) {
+        $qty = (int)($item['qty'] ?? 1);
+        $productId = $item['id'] ?? '';
+        
+        // 2a. Potong stok
+        $stockStmt->execute([
+            ':qty1' => $qty,
+            ':qty2' => $qty,
+            ':id'  => $productId
+        ]);
+
+        if ($stockStmt->rowCount() === 0) {
+            throw new Exception("Stok untuk produk " . ($item['name'] ?? $productId) . " tidak mencukupi.");
+        }
+
+        // 2b. Simpan item
         $itemStmt->execute([
             ':transaction_id' => $transactionId,
-            ':product_id'     => $item['id']    ?? '',
+            ':product_id'     => $productId,
             ':product_name'   => $item['name']  ?? '',
             ':price'          => (float)($item['price'] ?? 0),
-            ':qty'            => (int)  ($item['qty']   ?? 1),
-            ':subtotal'       => (float)($item['price'] ?? 0) * (int)($item['qty'] ?? 1),
+            ':qty'            => $qty,
+            ':subtotal'       => (float)($item['price'] ?? 0) * $qty,
         ]);
     }
 
