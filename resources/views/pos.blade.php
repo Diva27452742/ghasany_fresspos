@@ -557,7 +557,9 @@
                     </div>
                 </form>
             </div>
-             <!-- MODAL KELOLA PRODUK & BARANG (CRUD) -->
+        </div>
+
+        <!-- MODAL KELOLA PRODUK & BARANG (CRUD) -->
         <div class="modal-overlay" id="productAdminModal">
             <div class="modal-content history-modal-content" style="max-width: 750px; text-align: left;">
                 <div class="history-header" style="text-align: left;">
@@ -675,9 +677,10 @@
 
                 <div class="history-list" id="categoryAdminListContainer" style="max-height: 280px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; text-align: left;">
                     <!-- Categories list rendered dynamically by JS -->
+                </div>
             </div>
         </div>
-    </div>
+        </div>
 
     <!-- DATA JAVASCRIPT & LOAD FILE JS -->
     <script>
