@@ -292,23 +292,23 @@ function renderRecap() {
             </div>
 
             <!-- RINGKASAN TOTAL HARIAN DI BAGIAN BAWAH -->
-            <div class="daily-summary-footer" style="margin-top: 20px; background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(5, 150, 105, 0.25)); border: 1px solid rgba(52, 211, 153, 0.4); border-radius: 14px; padding: 16px 20px;">
+            <div class="daily-summary-footer" style="margin-top: 20px; background: linear-gradient(135deg, rgba(16, 185, 129, 0.55), rgba(5, 150, 105, 0.75)); border: 2px solid #34d399; border-radius: 14px; padding: 16px 20px; box-shadow: 0 4px 24px rgba(16, 185, 129, 0.45);">
                 <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
-                    <h4 style="margin: 0; font-size: 0.98rem; color: #34d399; font-weight: 700; display: flex; align-items: center; gap: 8px;">
-                        <i class="fa-solid fa-calendar-day"></i> Total Ringkasan Hari Ini (${todayStr})
+                    <h4 style="margin: 0; font-size: 1rem; color: #ffffff; font-weight: 900; display: flex; align-items: center; gap: 8px; text-shadow: 0 0 10px rgba(52,211,153,0.8), 0 1px 4px rgba(0,0,0,0.6);">
+                        <i class="fa-solid fa-calendar-day" style="color: #a7f3d0;"></i> Total Ringkasan Hari Ini (${todayStr})
                     </h4>
                     <div style="display: flex; gap: 20px; flex-wrap: wrap; align-items: center;">
                         <div style="text-align: right;">
-                            <span style="font-size: 0.75rem; color: rgba(255,255,255,0.7); display: block;">Item Terjual Hari Ini</span>
-                            <strong style="font-size: 1.05rem; color: #38bdf8;">${stats.dailyQtyCount} Porsi / Item</strong>
+                            <span style="font-size: 0.75rem; color: #ffffff; display: block; font-weight: 700; letter-spacing: 0.3px;">Item Terjual Hari Ini</span>
+                            <strong style="font-size: 1.1rem; color: #001aff; font-weight: 900; text-shadow: 0 0 8px rgba(0, 89, 255, 0.7);">${stats.dailyQtyCount} Porsi / Item</strong>
                         </div>
                         <div style="text-align: right;">
-                            <span style="font-size: 0.75rem; color: rgba(255,255,255,0.7); display: block;">Total Transaksi Hari Ini</span>
-                            <strong style="font-size: 1.05rem; color: #fbbf24;">${stats.dailyTrxCount} Transaksi</strong>
+                            <span style="font-size: 0.75rem; color: #ffffff; display: block; font-weight: 700; letter-spacing: 0.3px;">Total Transaksi Hari Ini</span>
+                            <strong style="font-size: 1.1rem; color: #ffd700; font-weight: 900; text-shadow: 0 0 8px rgba(255,215,0,0.7);">${stats.dailyTrxCount} Transaksi</strong>
                         </div>
-                        <div style="text-align: right; background: rgba(0,0,0,0.3); padding: 8px 16px; border-radius: 10px; border: 1px solid rgba(52,211,153,0.4);">
-                            <span style="font-size: 0.75rem; color: rgba(255,255,255,0.8); display: block;">Total Omset Harian</span>
-                            <strong style="font-size: 1.25rem; color: #34d399;">${formatRupiah(stats.dailyRevenue)}</strong>
+                        <div style="text-align: right; background: rgba(0,0,0,0.5); padding: 10px 18px; border-radius: 10px; border: 2px solid #34d399; box-shadow: 0 0 12px rgba(52,211,153,0.4);">
+                            <span style="font-size: 0.75rem; color: #ffffff; display: block; font-weight: 700; letter-spacing: 0.3px;">Total Omset Harian</span>
+                            <strong style="font-size: 1.3rem; color: #00ff99; font-weight: 900; text-shadow: 0 0 10px rgba(0,255,153,0.8);">${formatRupiah(stats.dailyRevenue)}</strong>
                         </div>
                     </div>
                 </div>
